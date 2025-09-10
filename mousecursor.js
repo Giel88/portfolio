@@ -13,16 +13,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Reset cursor naar default
   function resetCursor() {
-    gsap.to(cursor, { duration: 0.3, width: 12, height: 12, rotation: 0, opacity: 1 });
+    gsap.to(cursor, { 
+      duration: 0.3, 
+      width: 12, 
+      height: 12, 
+      rotation: 0, 
+      backgroundColor: 'var(--cursor)',
+      opacity: 1 
+    });
     icon.style.display = 'none';
   }
 
   // Hover effect voor links
   document.querySelectorAll('a').forEach(el => {
     el.addEventListener('mouseenter', () => {
-      gsap.to(cursor, { duration: 0.3, width: 80, height: 80, opacity: 0.5 });
+      gsap.to(cursor, { 
+        duration: 0.3, 
+        width: 80, 
+        height: 80, 
+        backgroundColor: 'var(--cursor-hover)',
+        opacity: 1 
+      });
       icon.style.display = 'block';
-      icon.style.transform = el.dataset.iconHover === 'flipped' ? 'rotate(-90deg)' : 'rotate(0deg)';
+      icon.style.transform = el.dataset.iconHover === 'flipped' 
+        ? 'rotate(-90deg)' 
+        : 'rotate(0deg)';
     });
     el.addEventListener('mouseleave', resetCursor);
   });
