@@ -18,10 +18,6 @@
   justify-content: center;
 }
 
-.custom-cursor.hover {
-  background-color: var(--cursor-hover);
-}
-
 .custom-cursor-icon {
   display: none;
   color: white;
