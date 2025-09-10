@@ -13,7 +13,7 @@ document.addEventListener("mousemove", e => {
 
 // Reset cursor naar standaard
 function resetCursor() {
-  gsap.to(cursor, { duration: 0.3, width: 20, height: 20 });
+  gsap.to(cursor, { duration: 0.3, width: 12, height: 12 });
   icon.style.display = "none";
   icon.style.transform = "rotate(0deg)";
 }
