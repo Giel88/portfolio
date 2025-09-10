@@ -22,7 +22,7 @@ function resetCursor() {
 document.querySelectorAll("a").forEach(el => {
   el.addEventListener("mouseenter", () => {
     // Stip groter maken
-    gsap.to(cursor, { duration: 0.3, width: 60, height: 60 });
+    gsap.to(cursor, { duration: 0.3, width: 120, height: 120 });
 
     // Toon icoon
     icon.style.display = "block";
