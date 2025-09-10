@@ -1,42 +1,50 @@
-const cursor = document.querySelector(".custom-cursor");
-const icon = cursor.querySelector(".custom-cursor-icon");
+document.addEventListener('DOMContentLoaded', () => {
+  const cursor = document.querySelector('.custom-cursor');
+  const icon = cursor.querySelector('.custom-cursor-icon');
 
-// GSAP quickSetter voor vloeiende tracking
-const setX = gsap.quickSetter(cursor, "x", "px");
-const setY = gsap.quickSetter(cursor, "y", "px");
+  let lastX = 0;
+  let lastY = 0;
 
-// Cursor volgt de muis
-document.addEventListener("mousemove", e => {
-  setX(e.clientX);
-  setY(e.clientY);
-});
+  // GSAP quickSetter voor vloeiende position updates
+  const setX = gsap.quickSetter(cursor, 'x', 'px');
+  const setY = gsap.quickSetter(cursor, 'y', 'px');
 
-// Reset cursor naar standaard
-function resetCursor() {
-  gsap.to(cursor, { duration: 0.3, width: 12, height: 12 });
-  icon.style.display = "none";
-  icon.style.transform = "rotate(0deg)";
-}
+  // Cursor volgen + stretch-effect
+  document.addEventListener('mousemove', (e) => {
+    const deltaX = e.clientX - lastX;
+    const deltaY = e.clientY - lastY;
+    const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-// Hover effect
-document.querySelectorAll("a").forEach(el => {
-  el.addEventListener("mouseenter", () => {
-    // Stip groter maken
-    gsap.to(cursor, { duration: 0.3, width: 120, height: 120 });
+    // Hoek van beweging
+    const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
 
-    // Toon icoon
-    icon.style.display = "block";
+    // Cursor volgen en stretchen
+    gsap.to(cursor, { 
+      duration: 0.15,
+      x: e.clientX,
+      y: e.clientY,
+      width: 12 + distance * 0.5,      // stretch in bewegingsrichting
+      height: 12 - Math.min(distance * 0.3, 8), // platter loodrecht
+      rotation: angle,
+      transformOrigin: 'center center',
+      ease: 'power2.out'
+    });
 
-    // Controleer data-attribute
-    if (el.dataset.iconHover === "flipped") {
-      icon.style.transform = "rotate(-90deg)"; // 90° tegen de klok in
-    } else {
-      icon.style.transform = "rotate(0deg)";
-    }
+    lastX = e.clientX;
+    lastY = e.clientY;
   });
 
-  el.addEventListener("mouseleave", resetCursor);
+  // Hover effect voor links
+  document.querySelectorAll('a').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      gsap.to(cursor, { duration: 0.3, width: 24, height: 24 }); // vergroot
+      icon.style.display = 'block';
+      icon.style.transform = el.dataset.iconHover === 'flipped' ? 'rotate(-90deg)' : 'rotate(0deg)';
+    });
+    el.addEventListener('mouseleave', () => {
+      // Terug naar standaard 12px
+      gsap.to(cursor, { duration: 0.3, width: 12, height: 12, rotation: 0 });
+      icon.style.display = 'none';
+    });
+  });
 });
-
-// Initialize
-resetCursor();
