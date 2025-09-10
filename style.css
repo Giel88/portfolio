@@ -1,3 +1,27 @@
 ::-webkit-scrollbar { 
   width:0px; height:0px; 
 }
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-cursor-icon {
+  display: none;
+  color: white;
+  font-size: 12px;
+  user-select: none;
+  transform: rotate(0deg);
+}
