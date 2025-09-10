@@ -9,13 +9,17 @@
   width: 12px;       /* default grootte */
   height: 12px;      /* default grootte */
   border-radius: 50%;
-  background-color: var(--primary);
+  background-color: var(--cursor);
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.custom-cursor.hover {
+  background-color: var(--cursor-hover);
 }
 
 .custom-cursor-icon {
