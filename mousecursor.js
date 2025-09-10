@@ -1,5 +1,5 @@
-const cursor = document.querySelector(".cursor");
-const icon = cursor.querySelector(".cursor-icon");
+const cursor = document.querySelector(".custom-cursor");
+const icon = cursor.querySelector(".custom-cursor-icon");
 
 // GSAP quickSetter voor vloeiende tracking
 const setX = gsap.quickSetter(cursor, "x", "px");
