@@ -6,8 +6,8 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 12px;
-  height: 12px;
+  width: 12px;       /* default grootte */
+  height: 12px;      /* default grootte */
   border-radius: 50%;
   background-color: var(--primary);
   pointer-events: none;
