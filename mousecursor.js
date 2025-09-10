@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function resetCursor() {
     gsap.to(cursor, { 
       duration: 0.15, 
-      ease: "back.in(1)",
+      ease: "power1.in",
       width: 12, 
       height: 12, 
       rotation: 0,
