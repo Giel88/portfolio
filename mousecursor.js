@@ -9,16 +9,20 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('mousemove', (e) => {
     setX(e.clientX);
     setY(e.clientY);
+
+    // Check of er een link hovered wordt, reset anders
+    const hoveredLink = document.querySelector('a:hover');
+    if (!hoveredLink) resetCursor();
   });
 
   // Reset cursor naar default
   function resetCursor() {
     gsap.to(cursor, { 
-      duration: 0.15, 
-      ease: "back.in(3)",      
+      duration: 0.3, 
       width: 12, 
       height: 12, 
       rotation: 0, 
+      backgroundColor: 'var(--cursor)',
       opacity: 1 
     });
     icon.style.display = 'none';
@@ -29,9 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
     el.addEventListener('mouseenter', () => {
       gsap.to(cursor, { 
         duration: 0.3, 
-        ease: "back.out(3)",        
         width: 80, 
         height: 80, 
+        backgroundColor: 'var(--cursor-hover)',
         opacity: 1 
       });
       icon.style.display = 'block';
