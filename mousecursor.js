@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
       width: 12, 
       height: 12, 
       rotation: 0, 
-      backgroundColor: 'var(--cursor)',
       opacity: 1 
     });
     icon.style.display = 'none';
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
         duration: 0.3, 
         width: 80, 
         height: 80, 
-        backgroundColor: 'var(--cursor-hover)',
         opacity: 1 
       });
       icon.style.display = 'block';
