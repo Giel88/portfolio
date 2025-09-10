@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Reset cursor naar default
   function resetCursor() {
     gsap.to(cursor, { 
-      duration: 0.3, 
+      duration: 0.15, 
       ease: "back.in(3)",      
       width: 12, 
       height: 12, 
