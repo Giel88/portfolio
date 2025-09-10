@@ -5,14 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const setX = gsap.quickSetter(cursor, 'x', 'px');
   const setY = gsap.quickSetter(cursor, 'y', 'px');
 
+  let mouseInside = true;
+
   // Cursor volgt de muis
   document.addEventListener('mousemove', (e) => {
     setX(e.clientX);
     setY(e.clientY);
 
-    // Check of er een link hovered wordt, reset anders
-    const hoveredLink = document.querySelector('a:hover');
-    if (!hoveredLink) resetCursor();
+    // Alleen resetten als muis in venster is
+    if (mouseInside) {
+      const hoveredLink = document.querySelector('a:hover');
+      if (!hoveredLink) resetCursor();
+    }
   });
 
   // Reset cursor naar default
@@ -48,9 +52,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Cursor tonen/verbergen bij in/uit venster
   document.addEventListener('mouseenter', () => {
+    mouseInside = true;
     gsap.to(cursor, { duration: 0.2, opacity: 1 });
   });
+
   document.addEventListener('mouseleave', () => {
+    mouseInside = false;
     gsap.to(cursor, { duration: 0.2, opacity: 0 });
   });
 
