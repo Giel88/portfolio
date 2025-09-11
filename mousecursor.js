@@ -8,28 +8,43 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
-    
+
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
     cursor.appendChild(icon);
     document.body.appendChild(cursor);
 
     // — Startwaarden forceren —
-    gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
-    gsap.set(icon, { opacity: 0, scale: 0.6 });
+    gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1, x: 0, y: 0 });
+    gsap.set(icon, { opacity: 0, scale: 0.6, x: 0, y: 0 });
 
-    // — Track the real mouse —
-    const setX = gsap.quickSetter(cursor, "x", "px");
-    const setY = gsap.quickSetter(cursor, "y", "px");
+    // — Muiskoordinaat opslag voor smooth cursor —
+    let mouse = { x: 0, y: 0 };
+
     document.addEventListener("mousemove", (e) => {
-      setX(e.clientX);
-      setY(e.clientY);
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      // Icon volgt direct
+      gsap.set(icon, { x: e.clientX, y: e.clientY });
+    });
+
+    // Smooth follow voor de cursorvorm
+    gsap.ticker.add(() => {
+      gsap.to(cursor, {
+        x: mouse.x,
+        y: mouse.y,
+        duration: 0.15, // grotere waarde = trager
+        ease: "power2.out",
+        overwrite: "auto",
+      });
     });
 
     // — Reset back to dot —
     function resetToDot() {
       gsap.killTweensOf([cursor, icon]);
 
+      // Icon fade out
       gsap.to(icon, {
         duration: 0.2,
         opacity: 0,
@@ -37,6 +52,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         ease: "power1.in",
       });
 
+      // Cursor terug naar default
       gsap.to(cursor, {
         duration: 0.15,
         ease: "power1.in",
@@ -44,7 +60,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         height: defaultSize,
         scale: 1,
         borderRadius: "50%",
-        //backgroundColor: defaultColor,
+        backgroundColor: defaultColor,
         opacity: 1,
         transformOrigin: "center center",
       });
@@ -65,7 +81,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           width: 80,
           height: 80,
           borderRadius: "50%",
-          //backgroundColor: color,
+          backgroundColor: color,
           opacity: 1,
         });
         gsap.to(icon, {
@@ -82,7 +98,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           width: 40,
           height: 40,
           borderRadius: "50%",
-          //backgroundColor: color,
+          backgroundColor: color,
           opacity: 1,
         });
       }
