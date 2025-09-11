@@ -24,17 +24,24 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     document.addEventListener("mousemove", (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
-
-      // Icon volgt direct
-      gsap.set(icon, { x: e.clientX, y: e.clientY });
     });
 
-    // Smooth follow voor de cursorvorm
+    // — Smooth follow ticker —
     gsap.ticker.add(() => {
+      // Cursor volgt met lichte vertraging
       gsap.to(cursor, {
         x: mouse.x,
         y: mouse.y,
-        duration: 0.15, // grotere waarde = trager
+        duration: 0.15,
+        ease: "power2.out",
+        overwrite: "auto",
+      });
+
+      // Icon volgt iets sneller voor gelaagd effect
+      gsap.to(icon, {
+        x: mouse.x,
+        y: mouse.y,
+        duration: 0.05,
         ease: "power2.out",
         overwrite: "auto",
       });
