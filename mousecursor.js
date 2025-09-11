@@ -10,7 +10,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     cursor.className = "custom-cursor";
     
     const icon = document.createElement("span");
-    icon.className = "custom-cursor-icon";
+    icon.className = "icon";
     icon.textContent = ""; // Unicode voor arrow-up
     
     cursor.appendChild(icon);
