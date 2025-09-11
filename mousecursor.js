@@ -1,35 +1,42 @@
+// Only run the custom-cursor code if viewport ≥ 992px
 if (window.matchMedia("(min-width: 992px)").matches) {
   (function () {
     const defaultSize = 12;
     const defaultColor = "var(--cursor)";
     const hoverColor = "var(--cursor-hover)";
 
+    // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
-
+    
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
     cursor.appendChild(icon);
     document.body.appendChild(cursor);
 
+    // — Startwaarden forceren —
     gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
     gsap.set(icon, { opacity: 0, scale: 0.6 });
 
-    // Muiskoordinaten
-    let mouse = { x: 0, y: 0 };
+    // — Track the real mouse —
+    const setX = gsap.quickSetter(cursor, "x", "px");
+    const setY = gsap.quickSetter(cursor, "y", "px");
     document.addEventListener("mousemove", (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-
-      // Cursor volgt direct
-      gsap.set(cursor, { x: mouse.x, y: mouse.y });
+      setX(e.clientX);
+      setY(e.clientY);
     });
 
-    // — Reset naar kleine dot —
+    // — Reset back to dot —
     function resetToDot() {
-      gsap.killTweensOf([icon]);
+      gsap.killTweensOf([cursor, icon]);
 
-      gsap.to(icon, { duration: 0.2, opacity: 0, scale: 0.6, ease: "power1.in" });
+      gsap.to(icon, {
+        duration: 0.2,
+        opacity: 0,
+        scale: 0.6,
+        ease: "power1.in",
+      });
+
       gsap.to(cursor, {
         duration: 0.15,
         ease: "power1.in",
@@ -37,17 +44,18 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         height: defaultSize,
         scale: 1,
         borderRadius: "50%",
-        backgroundColor: defaultColor,
+        //backgroundColor: defaultColor,
         opacity: 1,
+        transformOrigin: "center center",
       });
     }
 
-    // — Hover logic —
+    // — Hover enter logic —
     function handleEnter(el) {
-      gsap.killTweensOf([icon]);
+      gsap.killTweensOf([cursor, icon]);
 
       const color = el.dataset.cursorColor || hoverColor;
-      const iconHex = el.dataset.hoverIcon;
+      const iconHex = el.dataset.hoverIcon; // bv. "f061"
 
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
@@ -57,15 +65,14 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           width: 80,
           height: 80,
           borderRadius: "50%",
-          backgroundColor: color,
+          //backgroundColor: color,
           opacity: 1,
         });
-        // Icoon vertraagd voor gelaagd effect
         gsap.to(icon, {
-          duration: 0.15,
+          duration: 0.3,
+          ease: "back.out(2)",
           opacity: 1,
           scale: 1,
-          ease: "power2.out",
         });
       } else {
         icon.textContent = "";
@@ -75,7 +82,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           width: 40,
           height: 40,
           borderRadius: "50%",
-          backgroundColor: color,
+          //backgroundColor: color,
           opacity: 1,
         });
       }
@@ -94,6 +101,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       resetToDot();
     });
 
+    // — Initialize —
     resetToDot();
   })();
 }
