@@ -30,16 +30,14 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     function resetToDot() {
       gsap.killTweensOf([cursor, icon]);
 
-      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-
-      tl.to(icon, {
+      gsap.to(icon, {
         duration: 0.2,
         opacity: 0,
         scale: 0.6,
         ease: "power1.in",
       });
 
-      tl.to(cursor, {
+      gsap.to(cursor, {
         duration: 0.15,
         ease: "power1.in",
         width: defaultSize,
@@ -49,7 +47,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         backgroundColor: defaultColor,
         opacity: 1,
         transformOrigin: "center center",
-      }, 0);
+      });
     }
 
     // — Hover enter logic —
@@ -59,13 +57,9 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       const color = el.dataset.cursorColor || hoverColor;
       const iconHex = el.dataset.icon; // bv. "f061"
 
-      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
-
       if (iconHex) {
-        // Icon aanwezig → toon groot cursor + icon
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
-
-        tl.to(cursor, {
+        gsap.to(cursor, {
           duration: 0.3,
           ease: "back.out(3)",
           width: 80,
@@ -74,16 +68,15 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           backgroundColor: color,
           opacity: 1,
         });
-
-        tl.fromTo(icon,
-          { opacity: 0, scale: 0.6 },
-          { duration: 0.3, opacity: 1, scale: 1, ease: "back.out(2)" },
-          "-=0.15"
-        );
+        gsap.to(icon, {
+          duration: 0.3,
+          ease: "back.out(2)",
+          opacity: 1,
+          scale: 1,
+        });
       } else {
-        // Geen icon → iets groter dot
         icon.textContent = "";
-        tl.to(cursor, {
+        gsap.to(cursor, {
           duration: 0.3,
           ease: "back.out(3)",
           width: 40,
