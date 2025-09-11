@@ -19,4 +19,5 @@
 .custom-cursor-icon {
   color: black;
   user-select: none;
+  margin-right: 0;
 }
