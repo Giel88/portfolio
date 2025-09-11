@@ -55,7 +55,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       gsap.killTweensOf([cursor, icon]);
 
       const color = el.dataset.cursorColor || hoverColor;
-      const iconHex = el.dataset.iconHover; // bv. "f061"
+      const iconHex = el.dataset.hoverIcon; // bv. "f061"
 
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
