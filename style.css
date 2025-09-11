@@ -18,7 +18,6 @@
 /* Cursor icon */
 .custom-cursor-icon {
   color: black;
-  position: absolute;         /* centreren in cursor */  
   user-select: none;
   margin-right: 0;
 }
