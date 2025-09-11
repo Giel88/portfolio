@@ -1,11 +1,9 @@
-// Only run the custom-cursor code if viewport ≥ 992px
 if (window.matchMedia("(min-width: 992px)").matches) {
   (function () {
     const defaultSize = 12;
     const defaultColor = "var(--cursor)";
     const hoverColor = "var(--cursor-hover)";
 
-    // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
 
@@ -14,49 +12,24 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     cursor.appendChild(icon);
     document.body.appendChild(cursor);
 
-    // — Startwaarden forceren —
-    gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1, x: 0, y: 0 });
-    gsap.set(icon, { opacity: 0, scale: 0.6, x: 0, y: 0 });
+    gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
+    gsap.set(icon, { opacity: 0, scale: 0.6 });
 
-    // — Muiskoordinaat opslag voor smooth cursor —
+    // Muiskoordinaten
     let mouse = { x: 0, y: 0 };
     document.addEventListener("mousemove", (e) => {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
+
+      // Cursor volgt direct
+      gsap.set(cursor, { x: mouse.x, y: mouse.y });
     });
 
-    // — Smooth follow ticker —
-    gsap.ticker.add(() => {
-      // Cursor volgt met lichte vertraging
-      gsap.to(cursor, {
-        x: mouse.x,
-        y: mouse.y,
-        duration: 0.15,
-        ease: "power2.out",
-        overwrite: "auto",
-      });
-
-      // Icon volgt iets sneller voor gelaagd effect
-      gsap.to(icon, {
-        x: mouse.x,
-        y: mouse.y,
-        duration: 0.05,
-        ease: "power2.out",
-        overwrite: "auto",
-      });
-    });
-
-    // — Reset back to dot —
+    // — Reset naar kleine dot —
     function resetToDot() {
-      gsap.killTweensOf([cursor, icon]);
+      gsap.killTweensOf([icon]);
 
-      gsap.to(icon, {
-        duration: 0.2,
-        opacity: 0,
-        scale: 0.6,
-        ease: "power1.in",
-      });
-
+      gsap.to(icon, { duration: 0.2, opacity: 0, scale: 0.6, ease: "power1.in" });
       gsap.to(cursor, {
         duration: 0.15,
         ease: "power1.in",
@@ -66,16 +39,15 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         borderRadius: "50%",
         backgroundColor: defaultColor,
         opacity: 1,
-        transformOrigin: "center center",
       });
     }
 
-    // — Hover enter logic —
+    // — Hover logic —
     function handleEnter(el) {
-      gsap.killTweensOf([cursor, icon]);
+      gsap.killTweensOf([icon]);
 
       const color = el.dataset.cursorColor || hoverColor;
-      const iconHex = el.dataset.hoverIcon; // bv. "f061"
+      const iconHex = el.dataset.hoverIcon;
 
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
@@ -88,11 +60,12 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           backgroundColor: color,
           opacity: 1,
         });
+        // Icoon vertraagd voor gelaagd effect
         gsap.to(icon, {
-          duration: 0.3,
-          ease: "back.out(2)",
+          duration: 0.15,
           opacity: 1,
           scale: 1,
+          ease: "power2.out",
         });
       } else {
         icon.textContent = "";
@@ -121,7 +94,6 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       resetToDot();
     });
 
-    // — Initialize —
     resetToDot();
   })();
 }
