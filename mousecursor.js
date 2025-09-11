@@ -11,7 +11,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
-    icon.textContent = "\f061"; // Unicode voor arrow-up
+    icon.textContent = String.fromCharCode(0xf061);
     
     cursor.appendChild(icon);
     document.body.appendChild(cursor);
