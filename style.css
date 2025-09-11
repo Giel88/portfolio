@@ -20,4 +20,5 @@
   color: black;
   user-select: none;
   margin-right: 0;
+  position: absolute;  
 }
