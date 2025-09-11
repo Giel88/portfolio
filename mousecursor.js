@@ -9,8 +9,9 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
     
-    const icon = document.createElement("i");
-    icon.className = "fa-solid fa-arrow-up custom-cursor-icon";
+    const icon = document.createElement("span");
+    icon.className = "custom-cursor-icon";
+    icon.textContent = "\uf062"; // Unicode voor arrow-up
     
     cursor.appendChild(icon);
     document.body.appendChild(cursor);
