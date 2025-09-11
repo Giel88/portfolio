@@ -44,7 +44,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         height: defaultSize,
         scale: 1,
         borderRadius: "50%",
-        backgroundColor: defaultColor,
+        //backgroundColor: defaultColor,
         opacity: 1,
         transformOrigin: "center center",
       });
@@ -65,7 +65,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           width: 80,
           height: 80,
           borderRadius: "50%",
-          backgroundColor: color,
+          //backgroundColor: color,
           opacity: 1,
         });
         gsap.to(icon, {
@@ -82,7 +82,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           width: 40,
           height: 40,
           borderRadius: "50%",
-          backgroundColor: color,
+          //backgroundColor: color,
           opacity: 1,
         });
       }
