@@ -18,6 +18,7 @@
 /* Cursor icon */
 .custom-cursor-icon {
   color: black;
+  font-family: "Fa Sharp 100";  
   font-size: 12px;
   user-select: none;
 }
