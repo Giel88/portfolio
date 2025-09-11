@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setX(e.clientX);
     setY(e.clientY);
 
-    // Alleen resetten als muis in venster is
     if (mouseInside) {
       const hoveredLink = document.querySelector('a:hover');
       if (!hoveredLink) resetCursor();
@@ -22,14 +21,24 @@ document.addEventListener('DOMContentLoaded', () => {
   // Reset cursor naar default
   function resetCursor() {
     gsap.to(cursor, { 
-      duration: 0.05, 
-      ease: "power1.in",
+      duration: 0.15, 
+      ease: "back.in(1)",
       width: 12, 
       height: 12, 
       rotation: 0,
       opacity: 1 
     });
-    icon.style.display = 'none';
+
+    // Icon animeren uit
+    gsap.to(icon, { 
+      duration: 0.2,
+      opacity: 0,
+      scale: 0.6,
+      ease: "back.in(2)",
+      onComplete: () => {
+        icon.style.pointerEvents = "none"; // optioneel
+      }
+    });
   }
 
   // Hover effect voor links
@@ -42,7 +51,13 @@ document.addEventListener('DOMContentLoaded', () => {
         height: 80, 
         opacity: 1 
       });
-      icon.style.display = 'block';
+
+      // Icon animeren in
+      gsap.fromTo(icon, 
+        { opacity: 0, scale: 0.6 }, 
+        { duration: 0.3, opacity: 1, scale: 1, ease: "back.out(2)" }
+      );
+
       icon.style.transform = el.dataset.iconHover === 'flipped' 
         ? 'rotate(-90deg)' 
         : 'rotate(0deg)';
@@ -62,5 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Initialize
+  gsap.set(icon, { opacity: 0, scale: 0.6 }); // start verborgen
   resetCursor();
 });
