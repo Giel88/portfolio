@@ -35,12 +35,12 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         duration: 0.2,
         opacity: 0,
         scale: 0.6,
-        ease: "back.in(2)",
+        ease: "power1.in",
       });
 
       tl.to(cursor, {
         duration: 0.15,
-        ease: "back.in(1)",
+        ease: "power1.in",
         width: defaultSize,
         height: defaultSize,
         scale: 1,
