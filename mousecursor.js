@@ -8,8 +8,10 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
-    const icon = document.createElement("div");
-    icon.className = "custom-cursor-icon";
+    
+    const icon = document.createElement("i");
+    icon.className = "fa-solid fa-arrow-up custom-cursor-icon";
+    
     cursor.appendChild(icon);
     document.body.appendChild(cursor);
 
