@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Reset cursor naar default
   function resetCursor() {
     gsap.to(cursor, { 
-      duration: 0.1, 
+      duration: 0.05, 
       ease: "power1.in",
       width: 12, 
       height: 12, 
