@@ -1,82 +1,100 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const cursor = document.querySelector('.custom-cursor');
-  const icon = cursor.querySelector('.custom-cursor-icon');
+// Only run the custom-cursor code if viewport ≥ 992px
+if (window.matchMedia("(min-width: 992px)").matches) {
+  (function () {
+    const defaultSize = 12;
+    const defaultColor = "var(--cursor)";
+    const hoverColor = "var(--cursor-hover)";
 
-  const setX = gsap.quickSetter(cursor, 'x', 'px');
-  const setY = gsap.quickSetter(cursor, 'y', 'px');
+    // — Build cursor DOM —
+    const cursor = document.createElement("div");
+    cursor.className = "custom-cursor";
+    const icon = document.createElement("div");
+    icon.className = "custom-cursor-icon";
+    cursor.appendChild(icon);
+    document.body.appendChild(cursor);
 
-  let mouseInside = true;
+    // — Startwaardes forceren —
+    gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
+    gsap.set(icon, { opacity: 0, scale: 0.6 });
 
-  // Cursor volgt de muis
-  document.addEventListener('mousemove', (e) => {
-    setX(e.clientX);
-    setY(e.clientY);
-
-    if (mouseInside) {
-      const hoveredLink = document.querySelector('a:hover');
-      if (!hoveredLink) resetCursor();
-    }
-  });
-
-  // Reset cursor naar default
-  function resetCursor() {
-    gsap.to(cursor, { 
-      duration: 0.15, 
-      ease: "back.in(1)",
-      width: 12, 
-      height: 12, 
-      rotation: 0,
-      opacity: 1 
+    // — Track the real mouse —
+    const setX = gsap.quickSetter(cursor, "x", "px");
+    const setY = gsap.quickSetter(cursor, "y", "px");
+    document.addEventListener("mousemove", (e) => {
+      setX(e.clientX);
+      setY(e.clientY);
     });
 
-    // Icon animeren uit
-    gsap.to(icon, { 
-      duration: 0.2,
-      opacity: 0,
-      scale: 0.6,
-      ease: "back.in(2)",
-      onComplete: () => {
-        icon.style.pointerEvents = "none"; // optioneel
-      }
-    });
-  }
+    // — Reset back to dot —
+    function resetToDot() {
+      gsap.killTweensOf([cursor, icon]);
 
-  // Hover effect voor links
-  document.querySelectorAll('a').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      gsap.to(cursor, { 
-        duration: 0.3, 
-        ease: "back.out(3)",        
-        width: 80, 
-        height: 80, 
-        opacity: 1 
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+      tl.to(icon, {
+        duration: 0.2,
+        opacity: 0,
+        scale: 0.6,
+        ease: "back.in(2)",
       });
 
-      // Icon animeren in
-      gsap.fromTo(icon, 
-        { opacity: 0, scale: 0.6 }, 
-        { duration: 0.3, opacity: 1, scale: 1, ease: "back.out(2)" }
+      tl.to(cursor, {
+        duration: 0.15,
+        ease: "back.in(1)",
+        width: defaultSize,
+        height: defaultSize,
+        scale: 1,
+        borderRadius: "50%",
+        backgroundColor: defaultColor,
+        opacity: 1,
+        transformOrigin: "center center",
+      }, 0);
+    }
+
+    // — Hover enter logic —
+    function handleEnter(el) {
+      gsap.killTweensOf([cursor, icon]);
+
+      const color = el.dataset.cursorColor || hoverColor;
+
+      const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
+
+      tl.to(cursor, {
+        duration: 0.3,
+        ease: "back.out(3)",
+        width: 80,
+        height: 80,
+        borderRadius: "50%",
+        backgroundColor: color,
+        opacity: 1,
+      });
+
+      tl.fromTo(icon,
+        { opacity: 0, scale: 0.6 },
+        { duration: 0.3, opacity: 1, scale: 1, ease: "back.out(2)" },
+        "-=0.15"
       );
 
-      icon.style.transform = el.dataset.iconHover === 'flipped' 
-        ? 'rotate(-90deg)' 
-        : 'rotate(0deg)';
+      icon.style.transform =
+        el.dataset.iconHover === "flipped" ? "rotate(-90deg)" : "rotate(0deg)";
+    }
+
+    // — Event delegation for enter/leave on links only —
+    document.addEventListener("mouseover", (e) => {
+      const el = e.target.closest("a");
+      if (el) handleEnter(el);
     });
-    el.addEventListener('mouseleave', resetCursor);
-  });
 
-  // Cursor tonen/verbergen bij in/uit venster
-  document.addEventListener('mouseenter', () => {
-    mouseInside = true;
-    gsap.to(cursor, { duration: 0.2, opacity: 1 });
-  });
+    document.addEventListener("mouseout", (e) => {
+      const el = e.target.closest("a");
+      if (!el) return;
 
-  document.addEventListener('mouseleave', () => {
-    mouseInside = false;
-    gsap.to(cursor, { duration: 0.2, opacity: 0 });
-  });
+      if (e.relatedTarget && e.relatedTarget.closest("a")) return;
 
-  // Initialize
-  gsap.set(icon, { opacity: 0, scale: 0.6 }); // start verborgen
-  resetCursor();
-});
+      resetToDot();
+    });
+
+    // — Initialize —
+    resetToDot();
+  })();
+}
