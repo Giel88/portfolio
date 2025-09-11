@@ -11,12 +11,10 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
-    icon.textContent = String.fromCharCode(0xf061);
-    
     cursor.appendChild(icon);
     document.body.appendChild(cursor);
 
-    // — Startwaardes forceren —
+    // — Startwaarden forceren —
     gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
     gsap.set(icon, { opacity: 0, scale: 0.6 });
 
@@ -48,7 +46,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         height: defaultSize,
         scale: 1,
         borderRadius: "50%",
-        // backgroundColor: defaultColor,
+        backgroundColor: defaultColor,
         opacity: 1,
         transformOrigin: "center center",
       }, 0);
@@ -59,30 +57,45 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       gsap.killTweensOf([cursor, icon]);
 
       const color = el.dataset.cursorColor || hoverColor;
+      const iconHex = el.dataset.icon; // bv. "f061"
 
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
-      tl.to(cursor, {
-        duration: 0.3,
-        ease: "back.out(3)",
-        width: 80,
-        height: 80,
-        borderRadius: "50%",
-        // backgroundColor: color,
-        opacity: 1,
-      });
+      if (iconHex) {
+        // Icon aanwezig → toon groot cursor + icon
+        icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
 
-      tl.fromTo(icon,
-        { opacity: 0, scale: 0.6 },
-        { duration: 0.3, opacity: 1, scale: 1, ease: "back.out(2)" },
-        "-=0.15"
-      );
+        tl.to(cursor, {
+          duration: 0.3,
+          ease: "back.out(3)",
+          width: 80,
+          height: 80,
+          borderRadius: "50%",
+          backgroundColor: color,
+          opacity: 1,
+        });
 
-      icon.style.transform =
-        el.dataset.iconHover === "flipped" ? "rotate(-90deg)" : "rotate(0deg)";
+        tl.fromTo(icon,
+          { opacity: 0, scale: 0.6 },
+          { duration: 0.3, opacity: 1, scale: 1, ease: "back.out(2)" },
+          "-=0.15"
+        );
+      } else {
+        // Geen icon → iets groter dot
+        icon.textContent = "";
+        tl.to(cursor, {
+          duration: 0.3,
+          ease: "back.out(3)",
+          width: 40,
+          height: 40,
+          borderRadius: "50%",
+          backgroundColor: color,
+          opacity: 1,
+        });
+      }
     }
 
-    // — Event delegation for enter/leave on links only —
+    // — Event delegation voor links —
     document.addEventListener("mouseover", (e) => {
       const el = e.target.closest("a");
       if (el) handleEnter(el);
@@ -91,9 +104,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     document.addEventListener("mouseout", (e) => {
       const el = e.target.closest("a");
       if (!el) return;
-
       if (e.relatedTarget && e.relatedTarget.closest("a")) return;
-
       resetToDot();
     });
 
