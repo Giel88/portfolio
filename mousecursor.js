@@ -45,7 +45,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Reset back to dot —
     function resetToDot() {
-      gsap.killTweensOf([cursor, icon, text]);
+      gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
       gsap.to([icon, text], {
         duration: 0.2,
@@ -54,7 +54,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         ease: "power1.in",
       });
 
-      gsap.to(cursor, {
+      gsap.to([cursor, cursorbg], {
         duration: 0.15,
         ease: "power1.in",
         width: defaultSize,
@@ -68,7 +68,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Hover enter logic —
     function handleEnter(el) {
-      gsap.killTweensOf([cursor, icon, text]);
+      gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
       const color = el.dataset.cursorColor || hoverColor;
       const iconHex = el.dataset.hoverIcon; // bv. "f061"
@@ -77,7 +77,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
         text.textContent = "";
-        gsap.to(cursor, { 
+        gsap.to([cursor, cursorbg], { 
           duration: 0.3, 
           ease: "back.out(3)", 
           width: 120, 
@@ -96,7 +96,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       } else if (hoverText) {
         icon.textContent = "";
         text.textContent = hoverText;
-        gsap.to(cursor, { 
+        gsap.to([cursor, cursorbg], { 
           duration: 0.3, 
           ease: "back.out(3)", 
           width: 120, 
@@ -115,7 +115,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       } else {
         icon.textContent = "";
         text.textContent = "";
-        gsap.to(cursor, { 
+        gsap.to([cursor, cursorbg], { 
           duration: 0.3, 
           ease: "back.out(3)", 
           width: 40, 
