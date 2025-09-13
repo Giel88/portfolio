@@ -59,11 +59,11 @@
 /* Voor de meeste browsers */
 ::selection {
   background-color: var(--primary);
-  color: var(--primary);          
+  color: var(--bg);          
 }
 
 /* Voor Firefox */
 ::-moz-selection {
   background-color: var(--primary);
-  color: var(--primary);  
+  color: var(--bg);  
 }
