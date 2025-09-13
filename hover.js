@@ -6,12 +6,12 @@ document.querySelectorAll('.case-link').forEach(link => {
 
   // hover in
   link.addEventListener('mouseenter', () => {
-    gsap.to(title, { x: 20, duration: 0.3, ease: "power2.out" });
+    gsap.to(title, { x: 20, duration: 0.3, ease: "back.out(2)" });
   });
 
   // hover out
   link.addEventListener('mouseleave', () => {
-    gsap.to(title, { x: 0, duration: 0.3, ease: "power2.out" });
+    gsap.to(title, { x: 0, duration: 0.3, ease: "power2.in" });
   });
 });
 
@@ -23,11 +23,11 @@ document.querySelectorAll('.button').forEach(btn => {
 
   // hover in
   btn.addEventListener('mouseenter', () => {
-    gsap.to(title, { x: 20, duration: 0.3, ease: "power2.out" });
+    gsap.to(title, { x: 20, duration: 0.3, ease: "back.out(2)" });
   });
 
   // hover out
   btn.addEventListener('mouseleave', () => {
-    gsap.to(title, { x: 0, duration: 0.3, ease: "power2.out" });
+    gsap.to(title, { x: 0, duration: 0.3, ease: "power2.in" });
   });
 });
