@@ -7,7 +7,9 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Build cursor DOM —
     const cursorbg = document.createElement("div");
-    cursor.className = "custom-cursor-bg";
+    cursorbg.className = "custom-cursor-bg";
+
+    document.body.appendChild(cursorbg);    
     
     // — Build cursor DOM —
     const cursor = document.createElement("div");
