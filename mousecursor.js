@@ -8,44 +8,32 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
-    document.body.appendChild(cursor);
-
-    // — Content container naast de cursor —
-    const content = document.createElement("div");
-    content.className = "custom-cursor-content";
-
+    
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
-    content.appendChild(icon);
+    cursor.appendChild(icon);
 
     const text = document.createElement("span");
     text.className = "custom-cursor-text";
-    content.appendChild(text);
+    cursor.appendChild(text);
 
-    document.body.appendChild(content);
+    document.body.appendChild(cursor);
 
     // — Startwaarden forceren —
     gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
     gsap.set([icon, text], { opacity: 0, scale: 0.6 });
-    gsap.set(content, { x: 0, y: 0 }); // init position
 
-    // — Track the real mouse (zonder vertraging) —
-    const setCursorX = gsap.quickSetter(cursor, "x", "px");
-    const setCursorY = gsap.quickSetter(cursor, "y", "px");
-
-    const setContentX = gsap.quickSetter(content, "x", "px");
-    const setContentY = gsap.quickSetter(content, "y", "px");
-
+    // — Track the real mouse —
+    const setX = gsap.quickSetter(cursor, "x", "px");
+    const setY = gsap.quickSetter(cursor, "y", "px");
     document.addEventListener("mousemove", (e) => {
-      setCursorX(e.clientX);
-      setCursorY(e.clientY);
-      setContentX(e.clientX);
-      setContentY(e.clientY);
+      setX(e.clientX);
+      setY(e.clientY);
     });
 
     // — Reset back to dot —
     function resetToDot() {
-      gsap.killTweensOf([icon, text]);
+      gsap.killTweensOf([cursor, icon, text]);
 
       gsap.to([icon, text], {
         duration: 0.2,
@@ -68,16 +56,15 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Hover enter logic —
     function handleEnter(el) {
-      gsap.killTweensOf([icon, text]);
+      gsap.killTweensOf([cursor, icon, text]);
 
       const color = el.dataset.cursorColor || hoverColor;
-      const iconHex = el.dataset.hoverIcon;
+      const iconHex = el.dataset.hoverIcon; // bv. "f061"
       const hoverText = el.dataset.hoverText;
 
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
         text.textContent = "";
-
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
@@ -97,7 +84,6 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       } else if (hoverText) {
         icon.textContent = "";
         text.textContent = hoverText;
-
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
@@ -117,7 +103,6 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       } else {
         icon.textContent = "";
         text.textContent = "";
-
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
