@@ -21,3 +21,9 @@
   user-select: none;
   margin-right: 0;
 }
+
+.custom-cursor-text {
+  color: var(--bg);
+  font-size: 12px;
+  user-select: none;
+}
