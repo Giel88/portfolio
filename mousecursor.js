@@ -76,7 +76,6 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     function handleEnter(el) {
       gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
-      const color = el.dataset.cursorColor || hoverColor;
       const iconHex = el.dataset.hoverIcon; // bv. "f061"
       const hoverText = el.dataset.hoverText;
 
