@@ -12,11 +12,16 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
     cursor.appendChild(icon);
+
+    const text = document.createElement("span");
+    text.className = "custom-cursor-text";
+    cursor.appendChild(text);
+
     document.body.appendChild(cursor);
 
     // — Startwaarden forceren —
     gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
-    gsap.set(icon, { opacity: 0, scale: 0.6 });
+    gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
     // — Track the real mouse —
     const setX = gsap.quickSetter(cursor, "x", "px");
@@ -28,9 +33,9 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Reset back to dot —
     function resetToDot() {
-      gsap.killTweensOf([cursor, icon]);
+      gsap.killTweensOf([cursor, icon, text]);
 
-      gsap.to(icon, {
+      gsap.to([icon, text], {
         duration: 0.2,
         opacity: 0,
         scale: 0.6,
@@ -44,7 +49,6 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         height: defaultSize,
         scale: 1,
         borderRadius: "50%",
-        //backgroundColor: defaultColor,
         opacity: 1,
         transformOrigin: "center center",
       });
@@ -52,39 +56,26 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Hover enter logic —
     function handleEnter(el) {
-      gsap.killTweensOf([cursor, icon]);
+      gsap.killTweensOf([cursor, icon, text]);
 
       const color = el.dataset.cursorColor || hoverColor;
-      const iconHex = el.dataset.hoverIcon; // bv. "f061"
+      const iconHex = el.dataset.hoverIcon;
+      const hoverText = el.dataset.hoverText;
 
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
-        gsap.to(cursor, {
-          duration: 0.3,
-          ease: "back.out(3)",
-          width: 80,
-          height: 80,
-          borderRadius: "50%",
-          //backgroundColor: color,
-          opacity: 1,
-        });
-        gsap.to(icon, {
-          duration: 0.3,
-          ease: "back.out(2)",
-          opacity: 1,
-          scale: 1,
-        });
+        text.textContent = "";
+        gsap.to(cursor, { duration: 0.3, ease: "back.out(3)", width: 80, height: 80, borderRadius: "50%", opacity: 1 });
+        gsap.to(icon, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1, color: color });
+      } else if (hoverText) {
+        icon.textContent = "";
+        text.textContent = hoverText;
+        gsap.to(cursor, { duration: 0.3, ease: "back.out(3)", width: 80, height: 80, borderRadius: "50%", opacity: 1 });
+        gsap.to(text, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1, color: color });
       } else {
         icon.textContent = "";
-        gsap.to(cursor, {
-          duration: 0.3,
-          ease: "back.out(3)",
-          width: 40,
-          height: 40,
-          borderRadius: "50%",
-          //backgroundColor: color,
-          opacity: 1,
-        });
+        text.textContent = "";
+        gsap.to(cursor, { duration: 0.3, ease: "back.out(3)", width: 40, height: 40, borderRadius: "50%", opacity: 1 });
       }
     }
 
