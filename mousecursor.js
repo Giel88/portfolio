@@ -30,7 +30,8 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       width: defaultSize, 
       height: defaultSize, 
       backgroundColor: defaultColor, 
-      opacity: 1 
+      opacity: 1,
+      borderRadius: "50%",      
     });
     gsap.set([icon, text], { 
       opacity: 0, 
