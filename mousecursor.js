@@ -79,7 +79,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           ease: "back.out(2)", 
           opacity: 1, 
           scale: 1, 
-          color: color 
+          //color: color 
         });
         
       } else if (hoverText) {
@@ -99,7 +99,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           ease: "back.out(2)", 
           opacity: 1, 
           scale: 1, 
-          color: color 
+          //color: color 
         });
         
       } else {
