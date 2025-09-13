@@ -6,7 +6,7 @@ document.querySelectorAll('.case-link').forEach(link => {
 
   // hover in
   link.addEventListener('mouseenter', () => {
-    gsap.to(title, { x: 20, duration: 0.5, ease: "back.out(1)" });
+    gsap.to(title, { x: 20, duration: 0.5, ease: "back.out(2)" });
   });
 
   // hover out
@@ -23,7 +23,7 @@ document.querySelectorAll('.button').forEach(btn => {
 
   // hover in
   btn.addEventListener('mouseenter', () => {
-    gsap.to(title, { x: 20, duration: 0.5, ease: "back.out(1)" });
+    gsap.to(title, { x: 20, duration: 0.5, ease: "back.out(2)" });
   });
 
   // hover out
