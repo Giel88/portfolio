@@ -18,7 +18,7 @@ document.querySelectorAll('.case-link').forEach(link => {
     gsap.to(title, { 
       x: 0,
       duration: 0.3,
-      ease: "power2.in",
+      ease: "bounce.out",
       overwrite: "auto"
     });
   });
@@ -44,7 +44,7 @@ document.querySelectorAll('.button').forEach(btn => {
     gsap.to(title, { 
       x: 0,
       duration: 0.3,
-      ease: "power2.in",
+      ease: "bounce.out",
       overwrite: "auto"
     });
   });
