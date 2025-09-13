@@ -36,11 +36,17 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     });
 
     // — Track the real mouse —
-    const setX = gsap.quickSetter(cursor, cursorbg, "x", "px");
-    const setY = gsap.quickSetter(cursor, cursorbg, "y", "px");
+    const setCursorX = gsap.quickSetter(cursor, "x", "px");
+    const setCursorY = gsap.quickSetter(cursor, "y", "px");
+    
+    const setCursorBgX = gsap.quickSetter(cursorbg, "x", "px");
+    const setCursorBgY = gsap.quickSetter(cursorbg, "y", "px");
+    
     document.addEventListener("mousemove", (e) => {
-      setX(e.clientX);
-      setY(e.clientY);
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+      setCursorBgX(e.clientX);
+      setCursorBgY(e.clientY);
     });
 
     // — Reset back to dot —
