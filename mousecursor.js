@@ -26,7 +26,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     document.body.appendChild(cursor);
 
     // — Startwaarden forceren —
-    gsap.set(cursor, { 
+    gsap.set([cursor, cursorbg], { 
       width: defaultSize, 
       height: defaultSize, 
       backgroundColor: defaultColor, 
