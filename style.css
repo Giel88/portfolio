@@ -54,3 +54,16 @@
   color: var(--bg);  
   user-select: none;
 }
+
+
+/* Voor de meeste browsers */
+::selection {
+  background-color: var(--primary);
+  color: var(--primary);          
+}
+
+/* Voor Firefox */
+::-moz-selection {
+  background-color: var(--primary);
+  color: var(--primary);  
+}
