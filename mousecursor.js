@@ -36,8 +36,8 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     });
 
     // — Track the real mouse —
-    const setX = gsap.quickSetter(cursor, "x", "px");
-    const setY = gsap.quickSetter(cursor, "y", "px");
+    const setX = gsap.quickSetter(cursor, cursorbg, "x", "px");
+    const setY = gsap.quickSetter(cursor, cursorbg, "y", "px");
     document.addEventListener("mousemove", (e) => {
       setX(e.clientX);
       setY(e.clientY);
