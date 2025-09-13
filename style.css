@@ -15,6 +15,19 @@
   justify-content: center;
 }
 
+/* Cursor container */
+.custom-cursor-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Cursor icon */
 .custom-cursor-icon {
   color: var(--bg);
