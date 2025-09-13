@@ -2,8 +2,6 @@
 if (window.matchMedia("(min-width: 992px)").matches) {
   (function () {
     const defaultSize = 12;
-    const defaultColor = "var(--cursor)";
-    const hoverColor = "var(--cursor-hover)";
 
     // — Build cursor DOM —
     const cursorbg = document.createElement("div");
@@ -29,7 +27,6 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     gsap.set([cursor, cursorbg], { 
       width: defaultSize, 
       height: defaultSize, 
-      backgroundColor: defaultColor, 
       opacity: 1,
       borderRadius: "50%",      
     });
