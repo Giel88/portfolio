@@ -20,8 +20,16 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     document.body.appendChild(cursor);
 
     // — Startwaarden forceren —
-    gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
-    gsap.set([icon, text], { opacity: 0, scale: 0.6 });
+    gsap.set(cursor, { 
+      width: defaultSize, 
+      height: defaultSize, 
+      backgroundColor: defaultColor, 
+      opacity: 1 
+    });
+    gsap.set([icon, text], { 
+      opacity: 0, 
+      scale: 0.6 
+    });
 
     // — Track the real mouse —
     const setX = gsap.quickSetter(cursor, "x", "px");
