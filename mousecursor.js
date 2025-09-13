@@ -49,7 +49,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         x: e.clientX,
         y: e.clientY,
         duration: 0.1,
-        ease: "power3.out"
+        ease: "power2.out"
       });
     });
 
