@@ -6,6 +6,10 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     const hoverColor = "var(--cursor-hover)";
 
     // — Build cursor DOM —
+    const cursorbg = document.createElement("div");
+    cursor.className = "custom-cursor-bg";
+    
+    // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
     
