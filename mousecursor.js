@@ -27,8 +27,9 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     // — Startwaarden forceren —
     gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
     gsap.set([icon, text], { opacity: 0, scale: 0.6 });
+    gsap.set(content, { x: 0, y: 0 }); // init position
 
-    // — Track the real mouse —
+    // — Track the real mouse (zonder vertraging) —
     const setCursorX = gsap.quickSetter(cursor, "x", "px");
     const setCursorY = gsap.quickSetter(cursor, "y", "px");
 
@@ -38,8 +39,8 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     document.addEventListener("mousemove", (e) => {
       setCursorX(e.clientX);
       setCursorY(e.clientY);
-      // content volgt met lichte vertraging
-      gsap.to(content, { x: e.clientX, y: e.clientY, duration: 0.15, ease: "power2.out" });
+      setContentX(e.clientX);
+      setContentY(e.clientY);
     });
 
     // — Reset back to dot —
