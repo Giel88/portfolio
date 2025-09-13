@@ -33,6 +33,7 @@
 .custom-cursor-content {
   position: fixed;
   top: 0;
+  color: var(--bg);  
   left: 0;
   pointer-events: none;
   transform: translate(-50%, -50%);
@@ -44,13 +45,11 @@
 
 /* Cursor icon */
 .custom-cursor-icon {
-  color: var(--bg);
   user-select: none;
   margin-right: 0;
 }
 
 .custom-cursor-text {
-  color: var(--bg);
   font-size: 1rem;
   user-select: none;
 }
