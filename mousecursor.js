@@ -68,8 +68,8 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
-          width: 80, 
-          height: 80, 
+          width: 120, 
+          height: 120, 
           borderRadius: "50%", 
           opacity: 1 
         });
@@ -88,8 +88,8 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
-          width: 80, 
-          height: 80, 
+          width: 120, 
+          height: 120, 
           borderRadius: "50%", 
           opacity: 1 
         });
