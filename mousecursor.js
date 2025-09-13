@@ -8,32 +8,43 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
-    
+    document.body.appendChild(cursor);
+
+    // — Content container naast de cursor —
+    const content = document.createElement("div");
+    content.className = "custom-cursor-content";
+
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
-    cursor.appendChild(icon);
+    content.appendChild(icon);
 
     const text = document.createElement("span");
     text.className = "custom-cursor-text";
-    cursor.appendChild(text);
+    content.appendChild(text);
 
-    document.body.appendChild(cursor);
+    document.body.appendChild(content);
 
     // — Startwaarden forceren —
     gsap.set(cursor, { width: defaultSize, height: defaultSize, backgroundColor: defaultColor, opacity: 1 });
     gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
     // — Track the real mouse —
-    const setX = gsap.quickSetter(cursor, "x", "px");
-    const setY = gsap.quickSetter(cursor, "y", "px");
+    const setCursorX = gsap.quickSetter(cursor, "x", "px");
+    const setCursorY = gsap.quickSetter(cursor, "y", "px");
+
+    const setContentX = gsap.quickSetter(content, "x", "px");
+    const setContentY = gsap.quickSetter(content, "y", "px");
+
     document.addEventListener("mousemove", (e) => {
-      setX(e.clientX);
-      setY(e.clientY);
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+      // content volgt met lichte vertraging
+      gsap.to(content, { x: e.clientX, y: e.clientY, duration: 0.15, ease: "power2.out" });
     });
 
     // — Reset back to dot —
     function resetToDot() {
-      gsap.killTweensOf([cursor, icon, text]);
+      gsap.killTweensOf([icon, text]);
 
       gsap.to([icon, text], {
         duration: 0.2,
@@ -56,7 +67,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Hover enter logic —
     function handleEnter(el) {
-      gsap.killTweensOf([cursor, icon, text]);
+      gsap.killTweensOf([icon, text]);
 
       const color = el.dataset.cursorColor || hoverColor;
       const iconHex = el.dataset.hoverIcon;
@@ -65,6 +76,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
         text.textContent = "";
+
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
@@ -78,13 +90,13 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           duration: 0.3, 
           ease: "back.out(2)", 
           opacity: 1, 
-          scale: 1, 
-          //color: color 
+          scale: 1,
         });
         
       } else if (hoverText) {
         icon.textContent = "";
         text.textContent = hoverText;
+
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
@@ -98,13 +110,13 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           duration: 0.3, 
           ease: "back.out(2)", 
           opacity: 1, 
-          scale: 1, 
-          //color: color 
+          scale: 1,
         });
         
       } else {
         icon.textContent = "";
         text.textContent = "";
+
         gsap.to(cursor, { 
           duration: 0.3, 
           ease: "back.out(3)", 
