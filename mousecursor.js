@@ -39,14 +39,18 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     const setCursorX = gsap.quickSetter(cursor, "x", "px");
     const setCursorY = gsap.quickSetter(cursor, "y", "px");
     
-    const setCursorBgX = gsap.quickSetter(cursorbg, "x", "px");
-    const setCursorBgY = gsap.quickSetter(cursorbg, "y", "px");
-    
     document.addEventListener("mousemove", (e) => {
+      // cursor volgt direct
       setCursorX(e.clientX);
       setCursorY(e.clientY);
-      setCursorBgX(e.clientX);
-      setCursorBgY(e.clientY);
+    
+      // cursor-bg volgt soepel
+      gsap.to(cursorbg, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.2,
+        ease: "power3.out"
+      });
     });
 
     // — Reset back to dot —
