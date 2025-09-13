@@ -9,7 +9,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     link.addEventListener('mouseenter', () => {
       gsap.to(title, { 
         x: 20,
-        letterSpacing: "0.1em",
+        //letterSpacing: "0.1em",
         duration: 0.5,
         ease: "back.out(2)",
         overwrite: "auto"
@@ -37,7 +37,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     btn.addEventListener('mouseenter', () => {
       gsap.to(title, { 
         x: 20,
-        letterSpacing: "0.1em",         
+        //letterSpacing: "0.1em",         
         duration: 0.5,
         ease: "back.out(2)",
         overwrite: "auto"
