@@ -65,17 +65,54 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
         text.textContent = "";
-        gsap.to(cursor, { duration: 0.3, ease: "back.out(3)", width: 80, height: 80, borderRadius: "50%", opacity: 1 });
-        gsap.to(icon, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1, color: color });
+        gsap.to(cursor, { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 80, 
+          height: 80, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
+        
+        gsap.to(icon, { 
+          duration: 0.3, 
+          ease: "back.out(2)", 
+          opacity: 1, 
+          scale: 1, 
+          color: color 
+        });
+        
       } else if (hoverText) {
         icon.textContent = "";
         text.textContent = hoverText;
-        gsap.to(cursor, { duration: 0.3, ease: "back.out(3)", width: 80, height: 80, borderRadius: "50%", opacity: 1 });
-        gsap.to(text, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1, color: color });
+        gsap.to(cursor, { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 80, 
+          height: 80, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
+        
+        gsap.to(text, { 
+          duration: 0.3, 
+          ease: "back.out(2)", 
+          opacity: 1, 
+          scale: 1, 
+          color: color 
+        });
+        
       } else {
         icon.textContent = "";
         text.textContent = "";
-        gsap.to(cursor, { duration: 0.3, ease: "back.out(3)", width: 40, height: 40, borderRadius: "50%", opacity: 1 });
+        gsap.to(cursor, { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 40, 
+          height: 40, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
       }
     }
 
