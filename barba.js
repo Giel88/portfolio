@@ -12,7 +12,7 @@ barba.init({
       // Enter hook: scroll reset
       enter({ next }) {
         const color = next.container.dataset.themeColor || "#FFFFFF";                
-        console.log('enter', next);
+        console.log('enter', next, color);
         window.scrollTo(0, 0); 
       },
 
