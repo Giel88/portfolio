@@ -1,39 +1,40 @@
-document.addEventListener("DOMContentLoaded", () => {
+barba.init({
+  transitions: [{
+    name: 'fade-color-transition',
 
-  barba.init({
-    transitions: [{
-      name: 'fade-color-transition',
+    // Eerste keer laden
+    once({ next }) {
+      const color = next.container.dataset.themeColor || "var(--bg)";
+      console.log("once → init page load");
 
-      // Eerste keer laden
-      once({ next }) {
-        const color = next.container.dataset.themeColor || "var(--bg)";
+      // Achtergrond instellen
+      gsap.set("body", { backgroundColor: color });
 
-        // Achtergrond instellen
-        gsap.set("body", { backgroundColor: color });
+      // Fade in container
+      return gsap.to(next.container, { opacity: 1, duration: 1 });
+    },
 
-        // Fade in container
-        return gsap.to(next.container, { opacity: 1, duration: 1 });
-      },
+    // Pagina verlaten
+    leave({ current, next }) {
+      const nextColor = next.container.dataset.themeColor || "var(--bg)";
+      console.log("leave → start fade-out");
 
-      // Pagina verlaten
-      leave({ current, next }) {
-        const nextColor = next.container.dataset.themeColor || "var(--bg)";
+      // Eerst fade-out + bg veranderen
+      return gsap.to(current.container, {
+        opacity: 0,
+        duration: 1,
+        onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
+      }).then(() => {
+        console.log("leave → finished fade-out, waiting extra 0.5s");
+        // Daarna nog 0.5s wachten voordat enter mag starten
+        return new Promise(resolve => setTimeout(resolve, 500));
+      });
+    },
 
-        // Fade-out huidige container + achtergrond veranderen
-        console.log("leave triggered");
-        return gsap.to(current.container, {
-          opacity: 0,
-          duration: 1,
-          onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
-        });
-      },
-
-      // Nieuwe pagina binnenkomen
-      enter({ next }) {
-        // Fade in nieuwe container
-        return gsap.to(next.container, { opacity: 1, duration: 1 });
-      }
-    }]
-  });
-
+    // Nieuwe pagina binnenkomen
+    enter({ next }) {
+      console.log("enter → start fade-in new content");
+      return gsap.to(next.container, { opacity: 1, duration: 1 });
+    }
+  }]
 });
