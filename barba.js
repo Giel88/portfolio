@@ -23,7 +23,7 @@ barba.init({
         await gsap.fromTo(
           next.container,
           { opacity: 0 },
-          { opacity: 1, duration: 1, delay: 2 }
+          { opacity: 1, duration: 1, delay: 5 }
         );
 
         // Webflow IX2 reset na fade-in
