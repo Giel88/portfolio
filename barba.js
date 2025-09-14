@@ -21,7 +21,7 @@ barba.init({
         async afterEnter(data) {
             console.log('afterEnter');
             console.log(data);      
-            await gsap.to(data.next.container, { opacity: 1, duration: 1 });                 
+            await gsap.to(data.next.container, { opacity: 0.5, duration: 1 });                 
             },                      
         }
     ]
