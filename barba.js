@@ -9,6 +9,7 @@ barba.init({
         enter(data) {
           console.log('enter');
           console.log(data);
+          window.scrollTo(0, 0);           
         },        
       }
       ]
