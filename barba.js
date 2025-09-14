@@ -1,28 +1,37 @@
 barba.init({
-    transitions: [{
-        name: 'default',
-        async leave(data) {
-            console.log('leave');
-            console.log(data);
-            await gsap.to(data.current.container, { opacity: 0, duration: 1 });
-            },
-            
-        async enter(data) {
-            console.log('enter');
-            console.log(data);
-            window.scrollTo(0, 0); 
-            gsap.set(data.next.container, { opacity: 0 });
-            if (window.Webflow && window.Webflow.require) {
-                const ix2 = window.Webflow.require('ix2');
-                ix2.init(data.next.container);
-                }            
-            },  
-            
-        async afterEnter(data) {
-            console.log('afterEnter');
-            console.log(data);      
-            await gsap.to(data.next.container, { opacity: 0.5, duration: 1 });                 
-            },                      
+  transitions: [
+    {
+      name: 'default',
+
+      // Oude container fade-out
+      async leave({ current }) {
+        console.log('leave', current);
+        await gsap.to(current.container, { opacity: 0, duration: 1 });
+      },
+
+      // Enter hook: scroll reset
+      enter({ next }) {
+        console.log('enter', next);
+        window.scrollTo(0, 0);
+      },
+
+      // AfterEnter: nieuwe container fade-in + Webflow IX2 init
+      async afterEnter({ next }) {
+        console.log('afterEnter', next);
+
+        // Fade-in van 0 → 1, altijd vloeiend
+        await gsap.fromTo(
+          next.container,
+          { opacity: 0 },
+          { opacity: 1, duration: 1, delay: 2 }
+        );
+
+        // Webflow IX2 reset na fade-in
+        if (window.Webflow && window.Webflow.require) {
+          const ix2 = window.Webflow.require('ix2');
+          ix2.init(next.container);
         }
-    ]
+      },
+    },
+  ],
 });
