@@ -14,6 +14,7 @@ barba.init({
         const color = next.container.dataset.themeColor || "#FFFFFF";                
         console.log('enter', next, color);
         window.scrollTo(0, 0); 
+        gsap.to("body", { backgroundColor: color, duration: 1 });
       },
 
       // AfterEnter: nieuwe container fade-in + Webflow IX2 init
