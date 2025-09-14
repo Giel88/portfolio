@@ -23,22 +23,13 @@ barba.init({
       });
     },
 
-    // Vóórdat nieuwe pagina binnenkomt
-    beforeEnter({ next }) {
-      console.log("beforeEnter triggered!");
-      // Forceer opacity 0 vóór fade-in tween
-      gsap.set(next.container, { opacity: 0 });
-    },
-
     // Nieuwe pagina binnenkomen
     enter({ next }) {
       console.log("enter triggered!");
-      // Fade-in tween
-      return gsap.to(next.container, {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out"
-      });
+      return gsap.fromTo(next.container, 
+        { opacity: 0 },   // startwaarde
+        { opacity: 1, duration: 1, ease: "power2.out" } // eindwaarde
+      );
     },
 
     // Na enter animatie
