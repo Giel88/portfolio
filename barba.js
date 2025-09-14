@@ -3,42 +3,38 @@ barba.init({
     {
       name: 'default',
 
-      // Oude container fade-out
-      async leave({ current, next }) {
+      // Eerste keer laden
+      once({ next }) {
+        const color = next.container.dataset.bg || "var(--bg)";
+        gsap.set("body", { backgroundColor: color });
+        return gsap.to(next.container, { autoAlpha: 1, duration: 0.5 });
+      },
+
+      // Oude container fade-out + achtergrondkleur animatie
+      leave({ current, next }) {
         const nextColor = next.container.dataset.bg || "var(--bg)";
-        console.log('leave', current);
-      
-        // Beide animaties tegelijk uitvoeren
-        await Promise.all([
-          gsap.to(current.container, { autoAlpha: 0, duration: 1 }),
-          gsap.to("body", { backgroundColor: nextColor, duration: 1, ease: "power2.out" })
-        ]);
+        return gsap.to(current.container, {
+          autoAlpha: 0,
+          duration: 1,
+          onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
+        });
       },
 
-      // Enter hook: scroll reset
+      // Scroll reset bij nieuwe pagina
       enter({ next }) {
-        console.log('enter', next);
         window.scrollTo(0, 0);
-      },
-
-      // AfterEnter: nieuwe container fade-in + Webflow IX2 init
-      afterEnter({ next }) {
-        console.log('afterEnter', next);
-
-        // Forceer container onzichtbaar
+        // Nieuwe container eerst onzichtbaar zetten
         gsap.set(next.container, { autoAlpha: 0 });
-
-        // Kleine timeout zodat browser DOM painted voordat animatie start
-        setTimeout(() => {
-          gsap.to(next.container, { autoAlpha: 1, duration: 1 });
-
-          // Webflow IX2 reset na fade
-          if (window.Webflow && window.Webflow.require) {
-            const ix2 = window.Webflow.require('ix2');
-            ix2.init(next.container);
-          }
-        }, 50); // 50ms is meestal voldoende
+        return gsap.to(next.container, { autoAlpha: 1, duration: 1 });
       },
-    },
-  ],
+
+      // Webflow IX2 init na fade-in
+      afterEnter({ next }) {
+        if (window.Webflow && window.Webflow.require) {
+          const ix2 = window.Webflow.require('ix2');
+          ix2.init(next.container);
+        }
+      }
+    }
+  ]
 });
