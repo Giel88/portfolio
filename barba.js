@@ -6,6 +6,7 @@ barba.init({
       // Oude container fade-out
       async leave({ current, next }) {
         console.log('leave', current);     
+        const color = next.container.dataset.bg || "var(--bg)";
         await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
       },
 
