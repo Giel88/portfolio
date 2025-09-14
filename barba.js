@@ -6,8 +6,7 @@ barba.init({
       console.log("leave triggered!");
       return gsap.to(current.container, {
         opacity: 0,
-        duration: 0.5,
-        ease: "power2.out"
+        duration: 0.5
       });
     },
     
