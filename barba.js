@@ -37,6 +37,21 @@ barba.init({
         duration: 1,
         ease: "power2.out"
       });
+    },
+
+
+    // Na enter animatie
+    afterEnter({ next }) {
+      console.log("afterEnter triggered");
+
+      // Scroll naar boven
+      window.scrollTo({ top: 0, behavior: "instant" });
+
+      // Herinitialiseer Webflow IX2 interacties
+      if (window.Webflow && window.Webflow.destroy && window.Webflow.ready) {
+        window.Webflow.destroy(); // verwijdert oude bindings
+        window.Webflow.ready();   // herbind de interacties
+      }
     }
   }]
 });
