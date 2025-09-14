@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         gsap.set("body", { backgroundColor: color });
 
         // Fade in container
-        return gsap.to(next.container, { opacity: 1, duration: 0.5 });
+        return gsap.to(next.container, { opacity: 1, duration: 1 });
       },
 
       // Pagina verlaten
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Nieuwe pagina binnenkomen
       enter({ next }) {
         // Fade in nieuwe container
-        return gsap.to(next.container, { opacity: 1, duration: 0.5 });
+        return gsap.to(next.container, { opacity: 1, duration: 1 });
       }
     }]
   });
