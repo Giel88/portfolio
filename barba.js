@@ -1,3 +1,5 @@
+console.log("Barba init geladen");
+
 barba.init({
   transitions: [
     {
