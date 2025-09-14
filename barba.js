@@ -4,9 +4,14 @@ barba.init({
       name: 'default',
 
       // Oude container fade-out
-      async leave({ current }) {
+      async leave({ current, next }) {
         console.log('leave', current);
+
+        const bgColor = next.container.dataset.bg || getComputedStyle(document.body).getPropertyValue('--bg');
+
         await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
+
+        gsap.to('body', { backgroundColor: bgColor, duration: 1 });
       },
 
       // Enter hook: scroll reset
