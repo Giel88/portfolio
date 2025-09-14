@@ -76,6 +76,8 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       });
     }
 
+    window.resetToDot = resetToDot;
+
     // — Hover enter logic —
     function handleEnter(el) {
       gsap.killTweensOf([cursor, cursorbg, icon, text]);
