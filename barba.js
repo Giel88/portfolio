@@ -11,11 +11,12 @@ barba.init({
           console.log('enter');
           console.log(data);
           window.scrollTo(0, 0); 
-          gsap.set(data.next.container, { opacity: 0.5 });              
+          gsap.set(data.next.container, { opacity: 0 });              
         },     
         async afterEnter(data) {
           console.log('afterEnter');
-          console.log(data);         
+          console.log(data);      
+          await gsap.to(data.next.container, { opacity: 1, duration: 1 });                 
         },                      
       }
       ]
