@@ -20,9 +20,6 @@ barba.init({
         opacity: 0,
         duration: 0.5,
         ease: "power2.out"
-      }).then(() => {
-        // Extra delay van 0.5s voordat 'enter' start
-        return new Promise(resolve => setTimeout(resolve, 500));
       });
     },
 
