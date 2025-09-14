@@ -16,7 +16,7 @@ barba.init({
           console.log('afterEnter');
           console.log(data);
           window.scrollTo(0, 0);
-          gsap.set(data.next.container, { opacity: 1 });               
+          gsap.set(data.next.container, { opacity: 0.5 });               
         },                      
       }
       ]
