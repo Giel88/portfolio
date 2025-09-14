@@ -5,18 +5,18 @@ barba.init({
 
       // Eerste keer laden
       once({ next }) {
-        const color = next.container.dataset.bg || "var(--bg)";
-        gsap.set("body", { backgroundColor: color });
+        //const color = next.container.dataset.bg || "var(--bg)";
+        //gsap.set("body", { backgroundColor: color });
         return gsap.to(next.container, { autoAlpha: 1, duration: 0.5 });
       },
 
       // Oude container fade-out + achtergrondkleur animatie
       leave({ current, next }) {
-        const nextColor = next.container.dataset.bg || "var(--bg)";
+        //const nextColor = next.container.dataset.bg || "var(--bg)";
         return gsap.to(current.container, {
           autoAlpha: 0,
           duration: 1,
-          onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
+          //onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
         });
       },
 
