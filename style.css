@@ -2,25 +2,6 @@
   width:0px; height:0px; 
 }
 
-.main-wrapper {
-  opacity: 0;
-}
-
-.background {
-  position: fixed;
-  display: block;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  will-change: background-color;
-  background-color: var(--bg);
-}
-
-#swup {
-  position: relative;
-  z-index: 0;
-}
-
 /* Cursor container */
 .custom-cursor-bg {
   position: fixed;
