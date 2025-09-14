@@ -1,17 +1,19 @@
-document.addEventListener("DOMContentLoaded", () => {
+  barba.init({
+    transitions: [{
+      name: 'test-leave',
+      
+      // Pagina verlaten
+      leave({ current, next }) {
+        console.log("leave triggered!");
+        // Return een dummy promise zodat Barba wacht
+        return new Promise(resolve => {
+          setTimeout(resolve, 500); // halve seconde wachten
+        });
+      },
 
- barba.init({
-  transitions: [{
-    name: 'opacity-transition',
-    leave(data) {
-      return gsap.to(data.current.container, {
-        opacity: 0
-      });
-    },
-    enter(data) {
-      return gsap.to(data.next.container, {
-        opacity: 100
-      });
-    }
-  }]
-});
+      // Nieuwe pagina binnenkomen
+      enter({ next }) {
+        console.log("enter triggered!");
+      }
+    }]
+  });
