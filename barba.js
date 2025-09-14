@@ -26,6 +26,9 @@ barba.init({
     // Nieuwe pagina binnenkomen
     enter({ next }) {
       console.log("enter triggered!");
+      gsap.set(next.container, { 
+        opacity: 0 
+      });
       return gsap.to(next.container, {
         opacity: 1,
         duration: 1,
