@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const nextColor = next.container.dataset.themeColor || "var(--bg)";
 
         // Fade-out huidige container + achtergrond veranderen
+        console.log("leave triggered");
         return gsap.to(current.container, {
           opacity: 0,
           duration: 1,
