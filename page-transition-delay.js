@@ -10,7 +10,7 @@ $('a').each(function() {
   $(this).click(function(e){
   e.preventDefault();
   var moduleURL = jQuery(this).attr("href");
-  setTimeout( function() { window.location = moduleURL }, 700 );
+  setTimeout( function() { window.location = moduleURL }, 500 );
   // Class that has page out interaction tied to click
   $('.page-transition').click();
 });
