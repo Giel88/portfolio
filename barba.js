@@ -6,7 +6,7 @@ barba.init({
       // Oude container fade-out
       async leave({ current }) {
         console.log('leave', current);
-        await gsap.to(current.container, { opacity: 0, duration: 1 });
+        await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
       },
 
       // Enter hook: scroll reset
@@ -16,21 +16,22 @@ barba.init({
       },
 
       // AfterEnter: nieuwe container fade-in + Webflow IX2 init
-      async afterEnter({ next }) {
+      afterEnter({ next }) {
         console.log('afterEnter', next);
 
-        // Fade-in van 0 → 1, altijd vloeiend
-        await gsap.fromTo(
-          next.container,
-          { opacity: 0 },
-          { opacity: 1, duration: 1, delay: 5 }
-        );
+        // Forceer container onzichtbaar
+        gsap.set(next.container, { autoAlpha: 0 });
 
-        // Webflow IX2 reset na fade-in
-        if (window.Webflow && window.Webflow.require) {
-          const ix2 = window.Webflow.require('ix2');
-          ix2.init(next.container);
-        }
+        // Kleine timeout zodat browser DOM painted voordat animatie start
+        setTimeout(() => {
+          gsap.to(next.container, { autoAlpha: 1, duration: 1 });
+
+          // Webflow IX2 reset na fade
+          if (window.Webflow && window.Webflow.require) {
+            const ix2 = window.Webflow.require('ix2');
+            ix2.init(next.container);
+          }
+        }, 50); // 50ms is meestal voldoende
       },
     },
   ],
