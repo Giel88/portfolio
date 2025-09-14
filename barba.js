@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Fade-out huidige container + achtergrond veranderen
         return gsap.to(current.container, {
           opacity: 0,
-          duration: 0.5,
+          duration: 1,
           onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
         });
       },
