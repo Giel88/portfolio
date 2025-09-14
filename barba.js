@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Eerste keer laden
       once({ next }) {
-        const color = next.dataset.themeColor || "#ffffff";
+        const color = next.dataset.themeColor || "var(--bg)";
 
         // Achtergrond instellen
         gsap.set("body", { backgroundColor: color });
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Pagina verlaten
       leave({ current, next }) {
-        const nextColor = next.dataset.themeColor || "#ffffff";
+        const nextColor = next.dataset.themeColor || "var(--bg)";
 
         // Fade-out huidige container + achtergrond veranderen
         return gsap.to(current, {
