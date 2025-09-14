@@ -2,6 +2,19 @@
   width:0px; height:0px; 
 }
 
+.background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  will-change: background-color;
+  background-color: var(--bg);
+}
+
+#swup {
+  z-index: 0;
+}
+
 /* Cursor container */
 .custom-cursor-bg {
   position: fixed;
