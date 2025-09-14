@@ -6,21 +6,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Eerste keer laden
       once({ next }) {
-        const color = next.dataset.themeColor || "var(--bg)";
+        const color = next.container.dataset.themeColor || "var(--bg)";
 
         // Achtergrond instellen
         gsap.set("body", { backgroundColor: color });
 
         // Fade in container
-        return gsap.to(next, { opacity: 1, duration: 0.5 });
+        return gsap.to(next.container, { opacity: 1, duration: 0.5 });
       },
 
       // Pagina verlaten
       leave({ current, next }) {
-        const nextColor = next.dataset.themeColor || "var(--bg)";
+        const nextColor = next.container.dataset.themeColor || "var(--bg)";
 
         // Fade-out huidige container + achtergrond veranderen
-        return gsap.to(current, {
+        return gsap.to(current.container, {
           opacity: 0,
           duration: 0.5,
           onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // Nieuwe pagina binnenkomen
       enter({ next }) {
-        return gsap.to(next, { opacity: 1, duration: 0.5 });
+        // Fade in nieuwe container
+        return gsap.to(next.container, { opacity: 1, duration: 0.5 });
       }
     }]
   });
