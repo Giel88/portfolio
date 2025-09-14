@@ -1,38 +1,72 @@
 barba.init({
-  transitions: [
-    {
-      name: 'default',
+  transitions: [{
+    name: 'fade-color-transition',
 
-      // Oude container fade-out
-      async leave({ current, next }) {
-        console.log('leave', current);     
-        await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
-      },
+    // Eerste keer laden
+    once({ next }) {
+      console.log("once triggered!");
+      const color = next.container.dataset.themeColor || "var(--bg)";
 
-      // Enter hook: scroll reset
-      enter({ next }) {
-        console.log('enter', next);
-        window.scrollTo(0, 0);
-      },
+      // Achtergrond instellen
+      gsap.set("body", { backgroundColor: color });
 
-      // AfterEnter: nieuwe container fade-in + Webflow IX2 init
-      afterEnter({ next }) {
-        console.log('afterEnter', next);
+      // Container op invisible zetten
+      gsap.set(next.container, { autoAlpha: 0 });
 
-        // Forceer container onzichtbaar
-        gsap.set(next.container, { autoAlpha: 0 });
-
-        // Kleine timeout zodat browser DOM painted voordat animatie start
-        setTimeout(() => {
-          gsap.to(next.container, { autoAlpha: 1, duration: 1 });
-
-          // Webflow IX2 reset na fade
-          if (window.Webflow && window.Webflow.require) {
-            const ix2 = window.Webflow.require('ix2');
-            ix2.init(next.container);
-          }
-        }, 50); // 50ms is meestal voldoende
-      },
+      // Fade-in container
+      return gsap.to(next.container, {
+        autoAlpha: 1,
+        duration: 1,
+        ease: "power2.out"
+      });
     },
-  ],
+
+    // Pagina verlaten
+    leave({ current, next }) {
+      console.log("leave triggered!");
+      const nextColor = next.container.dataset.themeColor || "var(--bg)";
+
+      // Fade-out huidige container + achtergrond veranderen
+      return gsap.to(current.container, {
+        autoAlpha: 0,
+        duration: 0.5,
+        ease: "power2.out",
+        onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
+      });
+    },
+
+    // Nieuwe pagina binnenkomen
+    enter({ next }) {
+      console.log("enter triggered!");
+
+      // Container eerst invisible zetten
+      gsap.set(next.container, { autoAlpha: 0 });
+
+      // Wacht kort zodat Webflow CMS content geladen is
+      return new Promise(resolve => {
+        setTimeout(() => {
+          gsap.to(next.container, {
+            autoAlpha: 1,
+            duration: 1,
+            ease: "power2.out",
+            onComplete: resolve
+          });
+        }, 100); // 100ms delay
+      });
+    },
+
+    // Na enter animatie
+    afterEnter({ next }) {
+      console.log("afterEnter triggered");
+
+      // Scroll naar boven fix
+      window.scrollTo({ top: 0, behavior: "instant" });
+
+      // Herinitialiseer Webflow IX2 interacties
+      if (window.Webflow && window.Webflow.destroy && window.Webflow.ready) {
+        window.Webflow.destroy(); // verwijdert oude bindings
+        window.Webflow.ready();   // herbind de interacties
+      }
+    }
+  }]
 });
