@@ -9,6 +9,7 @@
   pointer-events: none;
   will-change: background-color;
   background-color: var(--bg);
+  display: block;
 }
 
 #swup {
