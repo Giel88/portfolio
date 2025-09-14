@@ -1,19 +1,39 @@
+document.addEventListener("DOMContentLoaded", () => {
+
   barba.init({
     transitions: [{
-      name: 'test-leave',
-      
+      name: 'fade-color-transition',
+
+      // Eerste keer laden
+      once({ next }) {
+        const color = next.container.dataset.themeColor || "var(--bg)";
+
+        // Achtergrond instellen
+        gsap.set("body", { backgroundColor: color });
+
+        // Fade in container
+        return gsap.to(next.container, { opacity: 1, duration: 1 });
+      },
+
       // Pagina verlaten
       leave({ current, next }) {
-        console.log("leave triggered!");
-        // Return een dummy promise zodat Barba wacht
-        return new Promise(resolve => {
-          setTimeout(resolve, 500); // halve seconde wachten
+        const nextColor = next.container.dataset.themeColor || "var(--bg)";
+
+        // Fade-out huidige container + achtergrond veranderen
+        console.log("leave triggered");
+        return gsap.to(current.container, {
+          opacity: 0,
+          duration: 1,
+          onUpdate: () => gsap.set("body", { backgroundColor: nextColor })
         });
       },
 
       // Nieuwe pagina binnenkomen
       enter({ next }) {
-        console.log("enter triggered!");
+        // Fade in nieuwe container
+        return gsap.to(next.container, { opacity: 1, duration: 1 });
       }
     }]
   });
+
+});
