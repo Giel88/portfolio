@@ -11,9 +11,12 @@ barba.init({
 
       // Enter hook: scroll reset
       enter({ next }) {
-        const color = next.container.dataset.themeColor || "#FFFFFF";                
+        const fallbackColor = getComputedStyle(document.body)
+                              .getPropertyValue('--bg')
+                              .trim();          
+        const color = next.container.dataset.themeColor || fallbackColor;                
         console.log('enter', next, color);
-        window.scrollTo(0, 0); 
+        window.scrollTo(0, 0);       
         gsap.to("body", { backgroundColor: color, duration: 1 });
       },
 
