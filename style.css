@@ -2,6 +2,10 @@
   width:0px; height:0px; 
 }
 
+.main-wrapper {
+  opacity: 0;
+}
+
 /* Cursor container */
 .custom-cursor-bg {
   position: fixed;
