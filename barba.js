@@ -11,8 +11,9 @@ barba.init({
 
       // Enter hook: scroll reset
       enter({ next }) {
+        const color = next.container.dataset.themeColor || "#FFFFFF";                
         console.log('enter', next);
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 0); 
       },
 
       // AfterEnter: nieuwe container fade-in + Webflow IX2 init
