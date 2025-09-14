@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
     enter(data) {
-      return gsap.from(data.next.container, {
-        opacity: 0
+      return gsap.to(data.next.container, {
+        opacity: 100
       });
     }
   }]
