@@ -5,8 +5,14 @@ barba.init({
 
       // Oude container fade-out
       async leave({ current, next }) {
+        const nextColor = next.container.dataset.bg || "var(--bg)";
         console.log('leave', current);
-        await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
+      
+        // Beide animaties tegelijk uitvoeren
+        await Promise.all([
+          gsap.to(current.container, { autoAlpha: 0, duration: 1 }),
+          gsap.to("body", { backgroundColor: nextColor, duration: 1, ease: "power2.out" })
+        ]);
       },
 
       // Enter hook: scroll reset
