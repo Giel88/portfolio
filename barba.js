@@ -6,10 +6,24 @@ barba.init({
     once({ next }) {
       console.log("once triggered!");
       gsap.set(next.container, { opacity: 0 });
-      return gsap.to(next.container, {
-        opacity: 1,
-        duration: 1,
-        ease: "power2.out"
+      return new Promise(resolve => {
+        if (window.Webflow && Webflow.ready) {
+          Webflow.ready(() => {
+            gsap.to(next.container, {
+              opacity: 1,
+              duration: 1,
+              ease: "power2.out",
+              onComplete: resolve
+            });
+          });
+        } else {
+          gsap.to(next.container, {
+            opacity: 1,
+            duration: 1,
+            ease: "power2.out",
+            onComplete: resolve
+          });
+        }
       });
     },
 
@@ -26,10 +40,21 @@ barba.init({
     // Nieuwe pagina binnenkomen
     enter({ next }) {
       console.log("enter triggered!");
-      return gsap.fromTo(next.container, 
-        { opacity: 0 },   // startwaarde
-        { opacity: 1, duration: 1, ease: "power2.out" } // eindwaarde
-      );
+      return new Promise(resolve => {
+        if (window.Webflow && Webflow.ready) {
+          Webflow.ready(() => {
+            gsap.fromTo(next.container, 
+              { opacity: 0 },
+              { opacity: 1, duration: 1, ease: "power2.out", onComplete: resolve }
+            );
+          });
+        } else {
+          gsap.fromTo(next.container, 
+            { opacity: 0 },
+            { opacity: 1, duration: 1, ease: "power2.out", onComplete: resolve }
+          );
+        }
+      });
     },
 
     // Na enter animatie
@@ -41,8 +66,8 @@ barba.init({
 
       // Herinitialiseer Webflow IX2 interacties
       if (window.Webflow && window.Webflow.destroy && window.Webflow.ready) {
-        window.Webflow.destroy(); // verwijdert oude bindings
-        window.Webflow.ready();   // herbind de interacties
+        Webflow.destroy(); 
+        Webflow.ready();
       }
     }
   }]
