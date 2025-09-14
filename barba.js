@@ -3,7 +3,7 @@ barba.init({
     {
       name: 'debug',
       leave({ current, next }) {
-        const color = current.container.dataset.themeColor;        
+        const color = next.trigger.dataset.color;        
         console.log("Leave gestart", current, next);
         return gsap.to("body", { backgroundColor: color, duration: 1 });
       },
