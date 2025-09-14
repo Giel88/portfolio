@@ -4,9 +4,9 @@ barba.init({
       name: 'default',
 
       // Oude container fade-out
-      leave({ current }) {
+      async leave({ current }) {
         console.log('leave', current);
-        gsap.to(current.container, { autoAlpha: 0, duration: 1 });
+        await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
       },
 
       // Enter hook: scroll reset
