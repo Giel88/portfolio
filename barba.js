@@ -11,6 +11,7 @@ barba.init({
     },
     
     enter({ next }) {
+      console.log("enter triggered!");      
       return gsap.fromTo(next.container, 
         { opacity: 0 },
         { opacity: 1, duration: 1 }
