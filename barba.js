@@ -13,7 +13,7 @@ barba.init({
       enter({ next }) {
         console.log('enter', next);
         window.scrollTo(0, 0);
-      }
+      },
 
       // AfterEnter: nieuwe container fade-in + Webflow IX2 init
       afterEnter({ next }) {
