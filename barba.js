@@ -5,6 +5,10 @@ barba.init({
 
       // Oude container fade-out
       async leave({ current, next }) {
+        const fallbackColor = getComputedStyle(document.body)
+                              .getPropertyValue('--bg')
+                              .trim();               
+        const color = next.container.dataset.themeColor || fallbackColor;          
         console.log('leave', current);     
         await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
       },
