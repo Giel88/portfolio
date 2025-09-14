@@ -31,7 +31,7 @@ barba.init({
       console.log("enter triggered!");
       return gsap.to(next.container, {
         opacity: 1,
-        duration: 0.5,
+        duration: 1,
         ease: "power2.out"
       });
     }
