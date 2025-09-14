@@ -4,7 +4,7 @@ barba.init({
       name: 'color-fade',
       leave({ current, next }) {
         // fallback: gebruik kleur van current als next.trigger ontbreekt
-        const newColor = next.trigger?.dataset.color || "var(--bg)"
+        const newColor = next.trigger?.dataset.color || "#FFFFFF"
 
         return gsap.to("body", {
           backgroundColor: newColor,
