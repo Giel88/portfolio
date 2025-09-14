@@ -4,7 +4,7 @@ barba.init({
       name: 'default',
 
       // Oude container fade-out
-      async leave({ current }) {
+      async leave({ current, next }) {
         const color = next.container.dataset.bg || "var(--bg)";
         console.log('leave', current);
         console.log(color);        
