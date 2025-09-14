@@ -2,15 +2,16 @@ barba.init({
     transitions: [
       {
         name: 'default',
-        leave(data) {
+        async leave(data) {
           console.log('leave');
           console.log(data);
-          gsap.to(data.current.container, { opacity: 0 });
+          await gsap.to(data.current.container, { opacity: 0, duration: 1 });
         },
-        enter(data) {
+        async enter(data) {
           console.log('enter');
           console.log(data);
-          window.scrollTo(0, 0);           
+          window.scrollTo(0, 0);   
+          await gsap.to(data.next.container, { opacity: 1, duration: 1 });            
         },        
       }
       ]
