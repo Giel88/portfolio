@@ -10,13 +10,12 @@ barba.init({
         async enter(data) {
           console.log('enter');
           console.log(data);
-          window.scrollTo(0, 0);            
+          window.scrollTo(0, 0); 
+          gsap.set(data.next.container, { opacity: 0.5 });              
         },     
         async afterEnter(data) {
           console.log('afterEnter');
-          console.log(data);
-          window.scrollTo(0, 0);
-          gsap.set(data.next.container, { opacity: 0.5 });               
+          console.log(data);         
         },                      
       }
       ]
