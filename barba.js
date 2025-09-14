@@ -4,12 +4,10 @@ barba.init({
       name: 'color-fade',
       leave({ current, next }) {
         // fallback: gebruik kleur van current als next.trigger ontbreekt
-        const newColor = next.trigger?.dataset.color || "#FFFFFF"
-
+        const newColor = next.container.dataset.themeColor || "#FFFFFF"
         return gsap.to("body", {
           backgroundColor: newColor,
           duration: 0.6,
-          ease: "power2.inOut"
         });
       }
     }
