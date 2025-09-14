@@ -6,6 +6,7 @@ barba.init({
       // Oude container fade-out
       async leave({ current, next }) {     
         console.log('leave', current);     
+        if (window.resetToDot) window.resetToDot();        
         await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
       },
 
@@ -30,6 +31,8 @@ barba.init({
         // Kleine timeout zodat browser DOM painted voordat animatie start
         setTimeout(() => {
           gsap.to(next.container, { autoAlpha: 1, duration: 1 });
+
+          if (window.resetToDot) window.resetToDot();
 
           // Webflow IX2 reset na fade
           if (window.Webflow && window.Webflow.require) {
