@@ -10,9 +10,14 @@ barba.init({
         async enter(data) {
           console.log('enter');
           console.log(data);
+          window.scrollTo(0, 0);            
+        },   
+        async afterEnter(data) {
+          console.log('afterEnter');
+          console.log(data);
           window.scrollTo(0, 0);   
           await gsap.to(data.next.container, { opacity: 1, duration: 1 });            
-        },        
+        },           
       }
       ]
 });
