@@ -15,7 +15,8 @@ barba.init({
         async afterEnter(data) {
           console.log('afterEnter');
           console.log(data);
-          window.scrollTo(0, 0);  
+          window.scrollTo(0, 0);
+          gsap.set(data.next.container, { opacity: 1 });     
           await gsap.to(data.next.container, { opacity: 0, duration: 4 });            
         },                      
       }
