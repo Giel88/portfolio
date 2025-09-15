@@ -131,25 +131,41 @@ const tl = horizontalLoop(items, {
 // ================================
 // ScrollTrigger: richting + dynamische snelheid
 // ================================
+let lastScrollTime;
+let scrollTimeout;
+
 ScrollTrigger.create({
   trigger: ".scroll-container",
   start: "top bottom",
   end: "bottom top",
   onUpdate: (self) => {
-    let scrollDir = self.direction; 
+    let scrollDir = self.direction; // richting scroll
     let velocity = Math.abs(self.getVelocity());
     let speedFactor = 1 + velocity / 200;
 
-    // Als velocity bijna nul is, zet de snelheid terug naar basis 1 of -1
-    if (velocity < 0.1) speedFactor = 1;
-
-    let newTimeScale = scrollDir * speedFactor;
-
-    gsap.to(tl, { 
-      timeScale: newTimeScale, 
-      duration: 0.2, 
-      ease: "power1.out", 
-      overwrite: true 
+    // Pas timeScale direct aan op basis van richting en snelheid
+    gsap.to(tl, {
+      timeScale: scrollDir * speedFactor,
+      duration: 0.1,
+      ease: "power1.out",
+      overwrite: true
     });
+
+    // Sla de tijd van deze scroll-update op
+    lastScrollTime = performance.now();
+
+    // Wis vorige timeout
+    if (scrollTimeout) clearTimeout(scrollTimeout);
+
+    // Start een timeout van 100ms, als er geen scroll meer is, zet timeScale terug naar ±1
+    scrollTimeout = setTimeout(() => {
+      // Basis snelheid ±1 afhankelijk van richting
+      gsap.to(tl, {
+        timeScale: scrollDir, // ±1
+        duration: 0.5,
+        ease: "power1.out",
+        overwrite: true
+      });
+    }, 100);
   }
 });
