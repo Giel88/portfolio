@@ -1,61 +1,63 @@
+function resetWebflow(data) {
+  if (!data || !data.next || !data.next.html) return;
+
+  let parser = new DOMParser();
+  let dom = parser.parseFromString(data.next.html, "text/html");
+  let webflowPageId = $(dom).find("html").attr("data-wf-page");
+  $("html").attr("data-wf-page", webflowPageId);
+
+  if (window.Webflow) {
+    window.Webflow.destroy();
+    window.Webflow.ready();
+    window.Webflow.require("ix2").init();
+  }
+}
+
+let transitionData = null; // globale opslag van transition data
+
 barba.init({
   transitions: [
     {
       name: 'default',
+      async leave({ current, next }) {
+        // Sla de data op zodat we die in afterEnter kunnen gebruiken
+        transitionData = next;
 
-      // Oude container fade-out
-      async leave({ current }) {     
-        console.log('leave', current);     
-        if (window.resetToDot) window.resetToDot();        
+        // fade out current container
+        if (window.resetToDot) window.resetToDot();
         await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
       },
 
-      // Enter hook: scroll reset + achtergrondkleur fade
       enter({ next }) {
-        const fallbackColor = getComputedStyle(document.body)
-                              .getPropertyValue('--bg')
-                              .trim();          
-        const color = next.container.dataset.themeColor || fallbackColor;                
-        console.log('enter', next, color);
-        window.scrollTo(0, 0);       
-        gsap.to("body", { backgroundColor: color, duration: 1 });
+        // Alleen console log en scroll
+        console.log('enter', next);
+        window.scrollTo(0, 0);
       },
 
-      // AfterEnter: fade-in nieuwe container + Webflow IX2 init
       afterEnter({ next }) {
-        console.log('afterEnter', next);
-
-        // Forceer container onzichtbaar
+        // fade in next container
         gsap.set(next.container, { autoAlpha: 0 });
+        gsap.to(next.container, { 
+          autoAlpha: 1, 
+          duration: 1, 
+          onComplete: () => {
+            // Reset Webflow met opgeslagen data
+            resetWebflow(transitionData);
 
-        // Kleine timeout zodat browser DOM painted voordat animatie start
-        setTimeout(() => {
-          gsap.to(next.container, { autoAlpha: 1, duration: 1 });
+            // Reset custom dot if available
+            if (window.resetToDot) window.resetToDot();
 
-          if (window.resetToDot) window.resetToDot();
-          
-          if (window.Webflow) {
-            // Destroy oude bindings
-            window.Webflow.destroy();
-          
-            // Re-init IX2 alleen op nieuwe container
-            const ix2 = window.Webflow.require("ix2");
-            if (ix2) {
-              ix2.init(next.container);  // <- belangrijk, geef container mee
-            }
+            // Autoplay video's
+            const videos = next.container.querySelectorAll('video[autoplay]');
+            videos.forEach(video => {
+              video.pause();
+              video.currentTime = 0;
+              video.muted = true;
+              video.play().catch(e => console.log('Video autoplay blocked', e));
+            });
           }
-          
-          // Autoplay video’s
-          const videos = next.container.querySelectorAll('video[autoplay]');
-          videos.forEach(video => {
-            video.pause();
-            video.currentTime = 0;
-            video.muted = true;
-            video.play().catch(e => console.log('Video autoplay blocked', e));
-          });         
-          
-        }, 50); // 50ms is meestal voldoende
-      },
-    },
-  ],
+        });
+      }
+    }
+  ]
 });
