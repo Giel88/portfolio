@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       rotation: 5,
       opacity: 0,
       stagger: { 
-        total: 0.5, 
+        total: 2, 
         ease: "power1.in"
       },
       delay: 0.5,
