@@ -23,6 +23,10 @@ barba.init({
         await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
       },
 
+      beforeEnter(data) {
+        window.scrollTo(0, 0);
+      },
+
       enter(data) {
         // fade in next container  
         let transitionData = data;
