@@ -1,4 +1,4 @@
-/ Only run the custom-cursor code if viewport ≥ 992px
+// Only run the custom-cursor code if viewport ≥ 992px
 if (window.matchMedia("(min-width: 992px)").matches) {
   (function () {
     const defaultSize = 12;
