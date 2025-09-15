@@ -5,12 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Overlay staat standaard op 100% opacity in Webflow
   // Page load fade-out overlay
-  const delay = window.innerWidth < 768 ? 0.25 : 0.5;
-  gsap.fromTo(
-    overlay,
-    { opacity: 1 },
-    { opacity: 0, duration: 0.5, delay: delay }
-  );
+  window.addEventListener('load', () => {
+    const tl = gsap.timeline();
+    tl.set(overlay, { opacity: 1 });
+    
+    const delay = window.innerWidth < 768 ? 0 : 0;
+    tl.to(overlay, { opacity: 0, duration: 0.5, delay: delay, ease: 'power2.out' });
+  });
 
   // Flag om dubbele navigaties te voorkomen
   let isNavigating = false;
