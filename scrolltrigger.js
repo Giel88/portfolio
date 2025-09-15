@@ -33,6 +33,7 @@ function scrollReveal() {
         start: "top bottom",
         end: "top 70%",
         toggleActions: "none play none none"
+        once: true        
       }
     });
   });
@@ -47,9 +48,8 @@ function scrollReveal() {
       scrollTrigger: {
         trigger: list,
         start: "top bottom",
-        end: "bottom bottom",
-        toggleActions: "play none none none",
-        once: true
+        end: "top 70%",
+        toggleActions: "none play none none",
       }
     });
   });
