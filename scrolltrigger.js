@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
       y: "25%",
       rotation: 5,
       opacity: 0,
-      stagger: { total: 5 }, // GSAP berekent automatisch de juiste each
+      stagger: { total: 2 }, // GSAP berekent automatisch de juiste each
       delay: 0.3,              // iets kortere delay voor sneller gevoel
-      duration: 0.5,
+      duration: 1,
       ease: "back.out(1.7)"
     });
   });
