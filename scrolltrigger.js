@@ -9,8 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
       y: "25%",
       rotation: 5,
       opacity: 0,
-      stagger: { total: 2 }, // GSAP berekent automatisch de juiste each
-      delay: 0.3,              // iets kortere delay voor sneller gevoel
+      stagger: { 
+        total: 0.5 
+        ease: "power1.in"
+      }, // GSAP berekent automatisch de juiste each
+      delay: 0.5,              // iets kortere delay voor sneller gevoel
       duration: 1,
       ease: "back.out(1.7)"
     });
