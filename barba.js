@@ -12,9 +12,9 @@ barba.init({
   transitions: [
     {
       name: 'default',
-
       once(data) {
         const overlay = document.querySelector('.page-overlay');
+        initHoverAnimations(data.next.container);        
         gsap.to(overlay, { opacity: 0 });    
       },
       
@@ -55,7 +55,7 @@ barba.init({
 
       afterEnter(data) {
         initHoverAnimations(data.next.container);
-        initScrollText(data.next.container);  
+        //initScrollText(data.next.container);  
       }
     }
   ]
