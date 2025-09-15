@@ -32,7 +32,7 @@ function scrollReveal() {
         trigger: paragraph,
         start: "top bottom",
         end: "top 70%",
-        toggleActions: "none play none none"
+        toggleActions: "none play none none",
         once: true        
       }
     });
