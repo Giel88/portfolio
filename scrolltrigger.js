@@ -9,9 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
       y: "25%",
       rotation: 5,
       opacity: 0,
-      stagger: { each: 0.02, total: 0.25, ease: "power1.in" },
+      stagger: { each: 0.01, total: 0.10, ease: "power1.in" },
       delay: 0.5,
-      duration: 0.5,
+      duration: 0.25,
       ease: "back.out(1.7)"
     });
   });
