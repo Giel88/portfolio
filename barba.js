@@ -33,10 +33,11 @@ barba.init({
           gsap.to(next.container, { autoAlpha: 1, duration: 1 });
 
           if (window.resetToDot) window.resetToDot();
-
+          
           if (window.Webflow) {
-              window.Webflow.destroy();   // verwijder oude bindings
-              window.Webflow.ready();     // heractiveer IX2 op de nieuwe content
+            window.Webflow.destroy();   // verwijder oude bindings
+            window.Webflow.ready();     // heractiveer IX2 op de nieuwe content
+            window.Webflow.require("ix2")?.init();
           }
           
         }, 50); // 50ms is meestal voldoende
