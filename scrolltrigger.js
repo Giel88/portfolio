@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const headings = document.querySelectorAll('[data-reveal-content="header"]');
   headings.forEach(heading => {
     const split = new SplitText(heading, { type: "words" });
-    gsap.from(split.chars, {
+    gsap.from(split.words, {
       y: "25%",
       rotation: 5,
       opacity: 0,
