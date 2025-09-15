@@ -34,8 +34,11 @@ barba.init({
 
           if (window.resetToDot) window.resetToDot();
 
-          // Reinitialiseer Webflow interacties
-          reinitialiseWebflow(next.container);
+          if (window.Webflow) {
+              window.Webflow.destroy();   // verwijder oude bindings
+              window.Webflow.ready();     // heractiveer IX2 op de nieuwe content
+          }
+          
         }, 50); // 50ms is meestal voldoende
       },
     },
