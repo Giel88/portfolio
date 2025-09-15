@@ -33,7 +33,7 @@ window.addEventListener('load', () => {
       scrollTrigger: {
         trigger: paragraph,
         start: "top 70%",
-        end: "bottom bottom",
+        end: "top bottom",
         toggleActions: "play play none none",
         once: true,
         markers: true  // <-- dit toont de markers          
