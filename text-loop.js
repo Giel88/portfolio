@@ -113,9 +113,11 @@ function horizontalLoop(items, config) {
 // === JOUW SETUP ===
 const items = gsap.utils.toArray(".scroll-container .name-container");
 
+const speed = containerWidth / 500;
+
 const tl = horizontalLoop(items, {
   repeat: -1,
-  speed: 1 // pas snelheid aan hier
+  speed: speed
 });
 
 // Optioneel: omkeren bij scroll
