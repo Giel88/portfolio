@@ -4,8 +4,8 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 document.addEventListener("DOMContentLoaded", () => {
   const headings = document.querySelectorAll('[data-reveal-content="header"]');
   headings.forEach(heading => {
-    const split = new SplitText(heading, { type: "words" });
-    gsap.from(split.words, {
+    const split = new SplitText(heading, { type: "words, chars" });
+    gsap.from(split.chars, {
       y: "25%",
       rotation: 5,
       opacity: 0,
