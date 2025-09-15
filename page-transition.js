@@ -1,14 +1,15 @@
-document.addEventListener('DOMContentLoaded', function() {
-  const overlay = document.querySelector('.page-overlay'); // overlay in Webflow
+document.addEventListener('DOMContentLoaded', () => {
+  const overlay = document.querySelector('.page-overlay');
   const mainContainerSelector = '.main-container';
   const defaultColor = getComputedStyle(document.documentElement).getPropertyValue('--bg') || '#000000';
 
-  // Overlay staat standaard op 100% opacity in Webflow
-  // Page load fade-out overlay
-  window.addEventListener('load', () => {
+  // Zet overlay op 100% opacity en force GPU compositing voor smooth transitions
+  overlay.style.opacity = '1';
+  overlay.style.transform = 'translateZ(0)';
+
+  // Smooth page load fade
+  window.requestAnimationFrame(() => {
     const tl = gsap.timeline();
-    tl.set(overlay, { opacity: 1 });
-    
     const delay = window.innerWidth < 768 ? 0 : 0;
     tl.to(overlay, { opacity: 0, duration: 0.5, delay: delay, ease: 'power2.out' });
   });
@@ -22,25 +23,26 @@ document.addEventListener('DOMContentLoaded', function() {
   internalLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
-      if (isNavigating) return; // voorkom meerdere klikken
+      if (isNavigating) return;
       isNavigating = true;
-      
+
+      // Reset custom cursor als functie bestaat
       if (window.resetToDot) window.resetToDot();
 
-      // Kleur: data-case-color → overlay data-default-color → CSS variabele → fallback
+      // Kies overlay kleur: data-case-color → overlay data-default-color → CSS variabele → fallback
       const color = link.dataset.caseColor || overlay.dataset.defaultColor || defaultColor;
       const href = link.href;
-
       overlay.style.backgroundColor = color;
 
+      // Fade animatie van main container + overlay
       const tl = gsap.timeline({
         onComplete: () => {
           window.location.href = href;
         }
       });
 
-      tl.to(mainContainerSelector, { opacity: 0, duration: 0.5 }, 0)
-        .to(overlay, { opacity: 1, duration: 0.5 }, 0);
+      tl.to(mainContainerSelector, { opacity: 0, duration: 0.5, overwrite: 'auto' }, 0)
+        .to(overlay, { opacity: 1, duration: 0.5, overwrite: 'auto' }, 0);
     });
   });
 });
