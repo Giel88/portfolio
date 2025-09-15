@@ -4,13 +4,13 @@ barba.init({
       name: 'default',
 
       // Oude container fade-out
-      async leave({ current, next }) {     
+      async leave({ current }) {     
         console.log('leave', current);     
         if (window.resetToDot) window.resetToDot();        
         await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
       },
 
-      // Enter hook: scroll reset
+      // Enter hook: scroll reset + achtergrondkleur fade
       enter({ next }) {
         const fallbackColor = getComputedStyle(document.body)
                               .getPropertyValue('--bg')
@@ -21,7 +21,7 @@ barba.init({
         gsap.to("body", { backgroundColor: color, duration: 1 });
       },
 
-      // AfterEnter: nieuwe container fade-in + Webflow IX2 init
+      // AfterEnter: fade-in nieuwe container + Webflow IX2 init
       afterEnter({ next }) {
         console.log('afterEnter', next);
 
@@ -34,11 +34,8 @@ barba.init({
 
           if (window.resetToDot) window.resetToDot();
 
-          // Webflow IX2 reset na fade
-          if (window.Webflow && window.Webflow.require) {
-            const ix2 = window.Webflow.require('ix2');
-            ix2.init(next.container);
-          }
+          // Reinitialiseer Webflow interacties
+          reinitialiseWebflow(next.container);
         }, 50); // 50ms is meestal voldoende
       },
     },
