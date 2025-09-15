@@ -32,9 +32,9 @@ window.addEventListener('load', () => {
       ease: "power1.out",
       scrollTrigger: {
         trigger: paragraph,
-        start: "top bottom",
-        end: "top 70%",
-        toggleActions: "none play none none",
+        start: "top 70%",
+        end: "bottom bottom",
+        toggleActions: "play play none none",
         once: true
       }
     });
