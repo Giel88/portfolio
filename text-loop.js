@@ -1,6 +1,8 @@
 gsap.registerPlugin(ScrollTrigger);
 
-// Helper functie (moet je erbij zetten)
+// ================================
+// HELPER FUNCTIE: horizontalLoop
+// ================================
 function horizontalLoop(items, config) {
   items = gsap.utils.toArray(items);
   config = config || {};
@@ -110,22 +112,25 @@ function horizontalLoop(items, config) {
   return tl;
 }
 
-// === JOUW SETUP ===
+// ================================
+// JOUW SETUP
+// ================================
 const items = gsap.utils.toArray(".scroll-container .name-container");
 
 // Container breedte ophalen
 const container = document.querySelector(".scroll-container");
 const containerWidth = container.offsetWidth;
 
-// Snelheid berekenen op basis van breedte
+// Responsive basis-snelheid
 const speed = containerWidth / 6000;
 
+// Maak de infinite loop
 const tl = horizontalLoop(items, {
   repeat: -1,
   speed: speed
 });
 
-// Optioneel: omkeren bij scroll
+// Scroll-trigger: richting aanpassen + dynamische versnelling
 let direction = 1;
 let t;
 
@@ -134,6 +139,7 @@ ScrollTrigger.create({
   start: "top bottom",
   end: "bottom top",
   onUpdate: (self) => {
+    // Richting aanpassen bij scroll
     if (self.direction !== direction) {
       direction = self.direction;
       t && t.kill();
@@ -142,5 +148,12 @@ ScrollTrigger.create({
         timeScale: self.direction
       });
     }
+
+    // Versnellen afhankelijk van scroll-snelheid
+    let velocity = Math.abs(self.getVelocity());
+    let newTimeScale = gsap.utils.clamp(1, 5, 1 + velocity / 200); 
+    // 1 = normale snelheid, 5 = max snelheid, pas 200 aan om gevoeliger/langzamer te maken
+
+    gsap.to(tl, { timeScale: newTimeScale, duration: 0.2, ease: "power1.out", overwrite: true });
   }
 });
