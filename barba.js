@@ -27,19 +27,20 @@ barba.init({
       },
 
       enter(data) {
-        // fade in next container  
         let transitionData = data;
+        data.next.container.classList.add("fixed");        
         gsap.set(data.next.container, { autoAlpha: 0 });
         gsap.to(data.next.container, { 
           autoAlpha: 1, 
           duration: 1, 
           onComplete: () => {
             window.scrollTo(0, 0);
-            resetWebflow(transitionData);
-
+            data.next.container.classList.remove("fixed");            
+            resetWebflow(transitionData);            
+      
             // Reset custom dot if available
             if (window.resetToDot) window.resetToDot();
-
+      
             // Autoplay video's
             const videos = data.next.container.querySelectorAll('video[autoplay]');
             videos.forEach(video => {
