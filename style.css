@@ -2,10 +2,10 @@
   width:0px; height:0px; 
 }
 
-/* .main-wrapper {
-   opacity: 0;
-}*/
-
+.page-overlay {
+  display: block;
+  opacity: 100;
+}
 
 /* Cursor container */
 .custom-cursor-bg {
