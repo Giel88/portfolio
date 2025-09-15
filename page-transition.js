@@ -5,7 +5,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Overlay staat standaard op 100% opacity in Webflow
   // Page load fade-out overlay
-  gsap.to(overlay, { opacity: 0, duration: 0.8, ease: 'power2.out' });
+  gsap.fromTo(
+    overlay,
+    { opacity: 1 },
+    { opacity: 0, duration: 0.8, ease: 'power2.out', delay: 0.05 }
+  );
 
   // Flag om dubbele navigaties te voorkomen
   let isNavigating = false;
