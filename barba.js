@@ -1,49 +1,41 @@
 function resetWebflow(data) {
-  if (!data || !data.next || !data.next.html) return;
-
   let parser = new DOMParser();
   let dom = parser.parseFromString(data.next.html, "text/html");
   let webflowPageId = $(dom).find("html").attr("data-wf-page");
   $("html").attr("data-wf-page", webflowPageId);
-
-  if (window.Webflow) {
-    window.Webflow.destroy();
-    window.Webflow.ready();
-    window.Webflow.require("ix2").init();
-  }
+  window.Webflow && window.Webflow.destroy();
+  window.Webflow && window.Webflow.ready();
+  window.Webflow && window.Webflow.require("ix2").init();
 }
-
-let transitionData = null; // globale opslag van transition data
 
 barba.init({
   transitions: [
     {
       name: 'default',
 
-      once({ current }) {
+      once(data) {
         const overlay = document.querySelector('.page-overlay');
         gsap.to(overlay, { opacity: 0 });
       },
       
-      async leave({ current, next }) {
+      async leave(data) {
         // Sla de data op zodat we die in afterEnter kunnen gebruiken
-        transitionData = next;
+        transitionData = data;
 
         // fade out current container
         if (window.resetToDot) window.resetToDot();
-        await gsap.to(current.container, { autoAlpha: 0, duration: 1 });
+        await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
       },
 
-      enter({ next }) {
+      enter(data) {
         // Alleen console log en scroll
-        console.log('enter', next);
         window.scrollTo(0, 0);
       },
 
-      afterEnter({ next }) {
+      afterEnter(data) {
         // fade in next container
-        gsap.set(next.container, { autoAlpha: 0 });
-        gsap.to(next.container, { 
+        gsap.set(data.next.container, { autoAlpha: 0 });
+        gsap.to(data.next.container, { 
           autoAlpha: 1, 
           duration: 1, 
           onComplete: () => {
@@ -54,7 +46,7 @@ barba.init({
             if (window.resetToDot) window.resetToDot();
 
             // Autoplay video's
-            const videos = next.container.querySelectorAll('video[autoplay]');
+            const videos = data.next.container.querySelectorAll('video[autoplay]');
             videos.forEach(video => {
               video.pause();
               video.currentTime = 0;
