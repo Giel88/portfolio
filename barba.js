@@ -51,7 +51,7 @@ barba.init({
             });
           }
         });
-      }
+      },
 
       afterEnter(data) {
         initHoverAnimations(data.next.container);
