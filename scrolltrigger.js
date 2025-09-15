@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       opacity: 0,
       stagger: { 
         each: 1, 
+        total: 5,
         ease: "power1.in"
       },
       delay: 0.5,
