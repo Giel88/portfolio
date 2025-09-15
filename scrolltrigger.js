@@ -1,6 +1,7 @@
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-function textAndParagraphReveal() {
+// Headings op pageload
+document.addEventListener("DOMContentLoaded", () => {
   const headings = document.querySelectorAll('[data-reveal-content="heading"]');
   headings.forEach(heading => {
     const split = new SplitText(heading, { type: "chars" });
@@ -14,7 +15,10 @@ function textAndParagraphReveal() {
       ease: "back.out(1.7)"
     });
   });
+});
 
+// Paragraphs, lists en images via scroll
+function scrollReveal() {
   const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
   paragraphs.forEach(paragraph => {
     const split = new SplitText(paragraph, { type: "lines" });
@@ -66,6 +70,4 @@ function textAndParagraphReveal() {
   });
 }
 
-window.addEventListener('load', () => {
-  textAndParagraphReveal();
-});
+scrollReveal();
