@@ -1,7 +1,8 @@
+function initHoverAnimations(container = document) {
 if (window.matchMedia("(min-width: 992px)").matches) {
 
   // CASE LIST
-  document.querySelectorAll('.case-link').forEach(link => {
+  container.querySelectorAll('.case-link').forEach(link => {
     const title = link.querySelector('.linktitle');
     if (!title) return;
   
@@ -29,7 +30,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
   });
   
   // BUTTON
-  document.querySelectorAll('.button').forEach(btn => {
+  container.querySelectorAll('.button').forEach(btn => {
     const title = btn.querySelector('.linktitle');
     if (!title) return;
   
