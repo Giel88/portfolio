@@ -35,18 +35,24 @@ barba.init({
           if (window.resetToDot) window.resetToDot();
           
           if (window.Webflow) {
-            window.Webflow.destroy();   // verwijder oude bindings
-            window.Webflow.ready();     // heractiveer IX2 op de nieuwe content
-            window.Webflow.require("ix2")?.init();
+            // Destroy oude bindings
+            window.Webflow.destroy();
+          
+            // Re-init IX2 alleen op nieuwe container
+            const ix2 = window.Webflow.require("ix2");
+            if (ix2) {
+              ix2.init(next.container);  // <- belangrijk, geef container mee
+            }
           }
-
+          
+          // Autoplay video’s
           const videos = next.container.querySelectorAll('video[autoplay]');
           videos.forEach(video => {
             video.pause();
             video.currentTime = 0;
-            video.muted = true; // autoplay vereist vaak muted
+            video.muted = true;
             video.play().catch(e => console.log('Video autoplay blocked', e));
-          });          
+          });         
           
         }, 50); // 50ms is meestal voldoende
       },
