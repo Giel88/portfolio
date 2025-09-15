@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Overlay staat standaard op 100% opacity in Webflow
   // Page load fade-out overlay
-  const delay = window.innerWidth < 768 ? 0.1 : 0.5;
+  const delay = window.innerWidth < 768 ? 0.25 : 0.5;
   gsap.fromTo(
     overlay,
     { opacity: 1 },
