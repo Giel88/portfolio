@@ -36,7 +36,7 @@ window.addEventListener('load', () => {
         end: "bottom bottom",
         toggleActions: "play play none none",
         once: true
-        markers: true  // <-- dit toont de markers        
+        markers: true  // <-- dit toont de markers          
       }
     });
   });
