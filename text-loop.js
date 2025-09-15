@@ -1,10 +1,5 @@
 function initScrollText(container) {
   if (!container) return; // check of container bestaat
-
-  if (scrollTextTL) {
-    scrollTextTL.kill();
-    ScrollTrigger.getAll().forEach(st => st.kill());
-  }
   
   const items = gsap.utils.toArray(container.querySelectorAll(".name-container"));
   if (!items.length) return;
