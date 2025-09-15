@@ -19,27 +19,19 @@ barba.init({
       },
       
       async leave(data) {
-        // Sla de data op zodat we die in afterEnter kunnen gebruiken
-        transitionData = data;
-
-        // fade out current container
         if (window.resetToDot) window.resetToDot();
         await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
       },
 
       enter(data) {
-        // Alleen console log en scroll
-        window.scrollTo(0, 0);
-      },
-
-      afterEnter(data) {
-        // fade in next container
+        // fade in next container  
+        let transitionData = data;
         gsap.set(data.next.container, { autoAlpha: 0 });
         gsap.to(data.next.container, { 
           autoAlpha: 1, 
           duration: 1, 
           onComplete: () => {
-            // Reset Webflow met opgeslagen data
+            window.scrollTo(0, 0);
             resetWebflow(transitionData);
 
             // Reset custom dot if available
