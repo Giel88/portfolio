@@ -23,7 +23,7 @@ barba.init({
       once({ current }) {
         const overlay = document.querySelector('.page-overlay');
         gsap.to(overlay, { opacity: 0 });
-      }
+      },
       
       async leave({ current, next }) {
         // Sla de data op zodat we die in afterEnter kunnen gebruiken
