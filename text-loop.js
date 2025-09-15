@@ -142,7 +142,7 @@ ScrollTrigger.create({
     let scrollDir = self.direction; // richting scroll
     let velocity = Math.abs(self.getVelocity());
     let speedFactor = 1 + velocity / 200;
-    let maxSpeed = 2;
+    let maxSpeed = 4;
 
     speedFactor = Math.min(speedFactor, maxSpeed);
 
@@ -165,7 +165,7 @@ ScrollTrigger.create({
       // Basis snelheid ±1 afhankelijk van richting
       gsap.to(tl, {
         timeScale: scrollDir, // ±1
-        duration: 0.5,
+        duration: 1,
         ease: "power1.out",
         overwrite: true
       });
