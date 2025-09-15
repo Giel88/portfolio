@@ -19,38 +19,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
 window.addEventListener('load', () => {
 
+  // Paragraphs
+  const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
   paragraphs.forEach(paragraph => {
     const split = new SplitText(paragraph, { type: "lines" });
-  
-    const paragraphBottom = paragraph.offsetTop + paragraph.offsetHeight;
-    const pageBottom = document.documentElement.scrollHeight;
-  
-    if (paragraphBottom >= pageBottom - 1) {
-      // Laatste paragraph: speel meteen af
-      gsap.from(split.lines, {
-        y: "25%",
-        opacity: 0,
-        stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
-        duration: 1,
-        ease: "power1.out"
-      });
-    } else {
-      // Normale ScrollTrigger
-      gsap.from(split.lines, {
-        y: "25%",
-        opacity: 0,
-        stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
-        duration: 1,
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: paragraph,
-          start: "top bottom",
-          end: "top 70%",
-          toggleActions: "none play none none",
-          once: true
-        }
-      });
-    }
+
+    gsap.from(split.lines, {
+      y: "25%",
+      opacity: 0,
+      stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
+      duration: 1,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: paragraph,
+        start: "top bottom",
+        end: "top 70%",
+        toggleActions: "none play none none",
+        once: true
+      }
+    });
   });
 
   // Lists
