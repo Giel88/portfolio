@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
   gsap.fromTo(
     overlay,
     { opacity: 1 },
-    { opacity: 0, duration: 0.5, delay: 0.5 }
+    { opacity: 0, duration: 0.5, delay: 0.05 }
   );
 
   // Flag om dubbele navigaties te voorkomen
