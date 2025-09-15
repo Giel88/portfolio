@@ -115,7 +115,7 @@ const items = gsap.utils.toArray(".scroll-container .name-container");
 
 const tl = horizontalLoop(items, {
   repeat: -1,
-  speed: 2 // pas snelheid aan hier
+  speed: 1 // pas snelheid aan hier
 });
 
 // Optioneel: omkeren bij scroll
