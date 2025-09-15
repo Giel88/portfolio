@@ -8,11 +8,16 @@ document.addEventListener('DOMContentLoaded', () => {
   overlay.style.transform = 'translateZ(0)';
 
   // Smooth page load fade
-  window.requestAnimationFrame(() => {
-    const tl = gsap.timeline();
-    const delay = window.innerWidth < 768 ? 0 : 0;
-    tl.to(overlay, { opacity: 0, duration: 0.5, delay: delay, ease: 'power2.out' });
-  });
+  const tl = gsap.timeline();
+  
+  // zet overlay eerst op opacity 1 (zeker weten dat start goed is)
+  tl.set(overlay, { opacity: 1 });
+  
+  // bepaal delay afhankelijk van schermbreedte
+  const delay = window.innerWidth < 768 ? 0.3 : 0.5;
+  
+  // fade overlay uit
+  tl.to(overlay, { opacity: 0, duration: 0.5, delay: delay, ease: 'power2.out' });
 
   // Flag om dubbele navigaties te voorkomen
   let isNavigating = false;
