@@ -55,7 +55,7 @@ barba.init({
 
       afterEnter(data) {
         initHoverAnimations(data.next.container);
-        //initScrollText(data.next.container);  
+        initScrollText(data.next.container);   
       }
     }
   ]
