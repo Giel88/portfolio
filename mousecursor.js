@@ -1,16 +1,18 @@
-// Only run the custom-cursor code if viewport ≥ 992px
+/ Only run the custom-cursor code if viewport ≥ 992px
 if (window.matchMedia("(min-width: 992px)").matches) {
   (function () {
     const defaultSize = 12;
-    let firstMove = true;
 
     // — Build cursor DOM —
     const cursorbg = document.createElement("div");
     cursorbg.className = "custom-cursor-bg";
 
+    document.body.appendChild(cursorbg);    
+    
+    // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
-
+    
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
     cursor.appendChild(icon);
@@ -19,14 +21,13 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     text.className = "custom-cursor-text";
     cursor.appendChild(text);
 
-    document.body.appendChild(cursorbg);
     document.body.appendChild(cursor);
 
-    // — Startwaarden forceren (0px size) —
+    // — Startwaarden forceren —
     gsap.set([cursor, cursorbg], { 
-      width: 0, 
-      height: 0, 
-      opacity: 0,
+      width: defaultSize, 
+      height: defaultSize, 
+      opacity: 1,
       borderRadius: "50%",      
     });
     gsap.set([icon, text], { 
@@ -37,25 +38,12 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     // — Track the real mouse —
     const setCursorX = gsap.quickSetter(cursor, "x", "px");
     const setCursorY = gsap.quickSetter(cursor, "y", "px");
-
-    document.addEventListener("mousemove", function initCursor(e) {
-      // bij eerste beweging, animatie van 0px → defaultSize
-      if (firstMove) {
-        gsap.to([cursor, cursorbg], { 
-          width: defaultSize, 
-          height: defaultSize, 
-          opacity: 1, 
-          duration: 0.3, 
-          ease: "back.out(2)"
-        });
-        firstMove = false;
-        document.removeEventListener("mousemove", initCursor);
-      }
-
+    
+    document.addEventListener("mousemove", (e) => {
       // cursor volgt direct
       setCursorX(e.clientX);
       setCursorY(e.clientY);
-
+    
       // cursor-bg volgt soepel
       gsap.to(cursorbg, {
         x: e.clientX,
@@ -94,7 +82,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     function handleEnter(el) {
       gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
-      const iconHex = el.dataset.hoverIcon; 
+      const iconHex = el.dataset.hoverIcon; // bv. "f061"
       const hoverText = el.dataset.hoverText;
 
       if (iconHex) {
@@ -108,18 +96,44 @@ if (window.matchMedia("(min-width: 992px)").matches) {
           borderRadius: "50%", 
           opacity: 1 
         });
-        gsap.to(icon, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1 });
+        
+        gsap.to(icon, { 
+          duration: 0.3, 
+          ease: "back.out(2)", 
+          opacity: 1, 
+          scale: 1,
+        });
         
       } else if (hoverText) {
         icon.textContent = "";
         text.textContent = hoverText;
-        gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 120, height: 120, borderRadius: "50%", opacity: 1 });
-        gsap.to(text, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1 });
+        gsap.to([cursor, cursorbg], { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 120, 
+          height: 120, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
+        
+        gsap.to(text, { 
+          duration: 0.3, 
+          ease: "back.out(2)", 
+          opacity: 1, 
+          scale: 1,
+        });
         
       } else {
         icon.textContent = "";
         text.textContent = "";
-        gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 40, height: 40, borderRadius: "50%", opacity: 1 });
+        gsap.to([cursor, cursorbg], { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 40, 
+          height: 40, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
       }
     }
 
