@@ -1,4 +1,4 @@
-function reinitialiseWebflow(nextContainer) {
+window.reinitialiseWebflow = function(nextContainer) {
   const pageId = nextContainer.dataset.wfPage;
   if (pageId) document.documentElement.setAttribute('data-wf-page', pageId);
 
@@ -7,4 +7,4 @@ function reinitialiseWebflow(nextContainer) {
     window.Webflow.ready();
     if (window.Webflow.require) window.Webflow.require('ix2').init(nextContainer);
   }
-}
+};
