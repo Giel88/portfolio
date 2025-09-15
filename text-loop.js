@@ -113,6 +113,11 @@ function horizontalLoop(items, config) {
 // === JOUW SETUP ===
 const items = gsap.utils.toArray(".scroll-container .name-container");
 
+// Container breedte ophalen
+const container = document.querySelector(".scroll-container");
+const containerWidth = container.offsetWidth;
+
+// Snelheid berekenen op basis van breedte
 const speed = containerWidth / 500;
 
 const tl = horizontalLoop(items, {
