@@ -136,16 +136,14 @@ ScrollTrigger.create({
   start: "top bottom",
   end: "bottom top",
   onUpdate: (self) => {
-    // Scrollrichting (-1 = omhoog → naar rechts, 1 = omlaag → naar links)
     let scrollDir = self.direction; 
-
-    // Dynamische versnelling afhankelijk van scroll snelheid
     let velocity = Math.abs(self.getVelocity());
-    let speedFactor = 1 + velocity / 200; // pas 200 aan voor gevoeligheid
+    let speedFactor = 1 + velocity / 200;
 
-    // Combineer richting + snelheid
-    let newTimeScale = gsap.utils.clamp(-5, 5, scrollDir * speedFactor); 
-    // Clamp om max te voorkomen
+    // Als velocity bijna nul is, zet de snelheid terug naar basis 1 of -1
+    if (velocity < 0.1) speedFactor = 1;
+
+    let newTimeScale = scrollDir * speedFactor;
 
     gsap.to(tl, { 
       timeScale: newTimeScale, 
