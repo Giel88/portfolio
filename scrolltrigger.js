@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
       stagger: { 
         total: 0.5, 
         ease: "power1.in"
-      }, // GSAP berekent automatisch de juiste each
-      delay: 0.5,              // iets kortere delay voor sneller gevoel
+      },
+      delay: 0.5,
       duration: 1,
       ease: "back.out(1.7)"
     });
