@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
       rotation: 5,
       opacity: 0,
       stagger: { 
-        total: 0.5 
+        total: 0.5, 
         ease: "power1.in"
       }, // GSAP berekent automatisch de juiste each
       delay: 0.5,              // iets kortere delay voor sneller gevoel
