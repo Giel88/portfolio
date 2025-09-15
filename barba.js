@@ -16,6 +16,8 @@ barba.init({
       once(data) {
         const overlay = document.querySelector('.page-overlay');
         gsap.to(overlay, { opacity: 0 });
+        initHoverAnimations(data.next.container);
+        initScrollText(data.next.container);          
       },
       
       async leave(data) {
