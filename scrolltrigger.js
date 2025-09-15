@@ -58,7 +58,7 @@ function scrollReveal() {
   images.forEach(image => {
     // Basis fade-in van het blok
     gsap.from(image, {
-      y: "10%",
+      y: "-10%",
       opacity: 0,
       duration: 1,
       ease: "power1.out",
