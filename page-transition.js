@@ -1,24 +1,30 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // pak alle interne links
-  const internalLinks = Array.from(document.querySelectorAll('a')).filter(link => link.hostname === window.location.hostname);
-  
-  const overlay = document.querySelector('.page-overlay'); // je overlay div in Webflow
-  const mainContainerSelector = '.main-container'; // pas aan als nodig
-
-  // default kleur uit CSS variabele --bg
+  const overlay = document.querySelector('.page-overlay'); // overlay in Webflow
+  const mainContainerSelector = '.main-container';
   const defaultColor = getComputedStyle(document.documentElement).getPropertyValue('--bg') || '#000000';
+
+  // Overlay staat standaard op 100% opacity in Webflow
+  // Page load fade-out overlay
+  gsap.to(overlay, { opacity: 0, duration: 0.8, ease: 'power2.out' });
+
+  // Flag om dubbele navigaties te voorkomen
+  let isNavigating = false;
+
+  // Pak alle interne links
+  const internalLinks = Array.from(document.querySelectorAll('a')).filter(link => link.hostname === window.location.hostname);
 
   internalLinks.forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
+      if (isNavigating) return; // voorkom meerdere klikken
+      isNavigating = true;
 
-      // kies kleur: eerst data-case-color, dan overlay fallback, dan CSS variabele
+      // Kleur: data-case-color → overlay data-default-color → CSS variabele → fallback
       const color = link.dataset.caseColor || overlay.dataset.defaultColor || defaultColor;
       const href = link.href;
 
       overlay.style.backgroundColor = color;
 
-      // GSAP animatie
       const tl = gsap.timeline({
         onComplete: () => {
           window.location.href = href;
