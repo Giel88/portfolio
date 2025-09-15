@@ -1,27 +1,9 @@
-gsap.registerPlugin(SplitText, ScrollTrigger);
-
-// Headings op pageload
-document.addEventListener("DOMContentLoaded", () => {
-  const headings = document.querySelectorAll('[data-reveal-content="header"]');
-  headings.forEach(heading => {
-    const split = new SplitText(heading, { type: "words, chars" });
-    gsap.from(split.chars, {
-      y: "25%",
-      rotation: 5,
-      opacity: 0,
-      stagger: { each: 0.01, total: 0.50, ease: "power1.in" },
-      delay: 0.5,
-      duration: 1,
-      ease: "back.out(2)"
-    });
-  });
-});
-
-// ScrollReveal voor paragraphs, lists en images
 function scrollReveal() {
   const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
   paragraphs.forEach(paragraph => {
     const split = new SplitText(paragraph, { type: "lines" });
+
+    // Normale ScrollTrigger
     gsap.from(split.lines, {
       y: "25%",
       opacity: 0,
@@ -32,10 +14,20 @@ function scrollReveal() {
         trigger: paragraph,
         start: "top bottom",
         end: "top 70%",
-        toggleActions: "none play none none",
-        once: true        
+        toggleActions: "none play none none"
       }
     });
+
+    // Fallback voor paragrafen onderaan de pagina
+    if (paragraph.getBoundingClientRect().top + paragraph.offsetHeight > document.documentElement.scrollHeight - window.innerHeight) {
+      gsap.from(split.lines, {
+        y: "25%",
+        opacity: 0,
+        stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
+        duration: 1,
+        ease: "power1.out"
+      });
+    }
   });
 
   const lists = document.querySelectorAll('[data-reveal-content="list"]');
@@ -48,15 +40,15 @@ function scrollReveal() {
       scrollTrigger: {
         trigger: list,
         start: "top bottom",
-        end: "top 90%",
-        toggleActions: "none play none none",
+        end: "bottom bottom",
+        toggleActions: "play none none none",
+        once: true
       }
     });
   });
 
   const images = document.querySelectorAll('[data-reveal-content="image"]');
   images.forEach(image => {
-    // Basis fade-in van het blok
     gsap.from(image, {
       y: "10%",
       opacity: 0,
@@ -70,11 +62,10 @@ function scrollReveal() {
       }
     });
 
-    // Portrait scroll effect
     const portraitImg = image.querySelector(".portrait-pic");
     if (portraitImg) {
       gsap.from(portraitImg, {
-        y: "-10%",
+        y: "10%",
         ease: "none",
         scrollTrigger: {
           trigger: portraitImg,
@@ -86,5 +77,3 @@ function scrollReveal() {
     }
   });
 }
-
-scrollReveal();
