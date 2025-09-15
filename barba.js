@@ -13,8 +13,7 @@ barba.init({
     {
       name: 'default',
       once(data) {
-        const overlay = document.querySelector('.page-overlay');
-        initHoverAnimations(data.next.container);        
+        const overlay = document.querySelector('.page-overlay');   
         gsap.to(overlay, { opacity: 0 });    
       },
       
