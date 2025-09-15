@@ -25,6 +25,8 @@ barba.init({
 
       beforeEnter(data) {
         window.scrollTo(0, 0);
+        initHoverAnimations(data.next.container);
+        initScrollText(next.container);        
       },
 
       enter(data) {
@@ -54,7 +56,6 @@ barba.init({
       },
 
       afterEnter(data) {
-        initHoverAnimations(data.next.container);
       }
     }
   ]
