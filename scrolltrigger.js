@@ -1,7 +1,7 @@
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
 function textAndParagraphReveal() {
-  const headings = document.querySelectorAll('[data-content-reveal="heading"]');
+  const headings = document.querySelectorAll('[data-reveal-content="heading"]');
   headings.forEach(heading => {
     const split = new SplitText(heading, { type: "chars" });
     gsap.from(split.chars, {
@@ -15,7 +15,7 @@ function textAndParagraphReveal() {
     });
   });
 
-  const paragraphs = document.querySelectorAll('[data-content-reveal="paragraph"]');
+  const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
   paragraphs.forEach(paragraph => {
     const split = new SplitText(paragraph, { type: "lines" });
     gsap.from(split.lines, {
@@ -33,7 +33,7 @@ function textAndParagraphReveal() {
     });
   });
 
-  const lists = document.querySelectorAll('[data-content-reveal="list"]');
+  const lists = document.querySelectorAll('[data-reveal-content="list"]');
   lists.forEach(list => {
     gsap.from(list, {
       y: "25%",
@@ -49,7 +49,7 @@ function textAndParagraphReveal() {
     });
   });
 
-  const images = document.querySelectorAll('[data-content-reveal="image"]');
+  const images = document.querySelectorAll('[data-reveal-content="image"]');
   images.forEach(image => {
     gsap.from(image, {
       y: "10%",
