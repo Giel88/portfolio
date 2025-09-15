@@ -2,6 +2,10 @@
   width:0px; height:0px; 
 }
 
+.fixed {
+  position: fixed;
+}
+
 .page-overlay {
   display: block;
   opacity: 100;
