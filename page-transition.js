@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', function() {
       e.preventDefault();
       if (isNavigating) return; // voorkom meerdere klikken
       isNavigating = true;
+      
+      if (window.resetToDot) window.resetToDot();
 
       // Kleur: data-case-color → overlay data-default-color → CSS variabele → fallback
       const color = link.dataset.caseColor || overlay.dataset.defaultColor || defaultColor;
