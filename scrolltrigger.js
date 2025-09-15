@@ -50,9 +50,9 @@ window.addEventListener('load', () => {
       ease: "power1.out",
       scrollTrigger: {
         trigger: list,
-        start: "top bottom",
-        end: "top 90%",
-        toggleActions: "none play none none",
+        start: "top 90%",
+        end: "bottom bottom",
+        toggleActions: "play play none none",
         once: true
       }
     });
