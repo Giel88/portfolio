@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Paragraphs, lists en images via scroll
+// ScrollReveal voor paragraphs, lists en images
 function scrollReveal() {
   const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
   paragraphs.forEach(paragraph => {
@@ -56,6 +56,7 @@ function scrollReveal() {
 
   const images = document.querySelectorAll('[data-reveal-content="image"]');
   images.forEach(image => {
+    // Basis fade-in van het blok
     gsap.from(image, {
       y: "10%",
       opacity: 0,
@@ -68,6 +69,21 @@ function scrollReveal() {
         toggleActions: "none play none none"
       }
     });
+
+    // Portrait scroll effect
+    const portraitImg = image.querySelector(".portrait-pic");
+    if (portraitImg) {
+      gsap.from(portraitImg, {
+        y: "10%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: portraitImg,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    }
   });
 }
 
