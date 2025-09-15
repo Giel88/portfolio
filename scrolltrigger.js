@@ -48,7 +48,7 @@ function scrollReveal() {
       scrollTrigger: {
         trigger: list,
         start: "top bottom",
-        end: "top 70%",
+        end: "top 90%",
         toggleActions: "none play none none",
       }
     });
