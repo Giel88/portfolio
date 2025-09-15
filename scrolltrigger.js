@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
       opacity: 0,
       stagger: { each: 0.01, total: 0.50, ease: "power1.in" },
       delay: 0.5,
-      duration: 0.5,
+      duration: 1,
       ease: "back.out(3)"
     });
   });
