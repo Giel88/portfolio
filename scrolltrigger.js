@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
       y: "25%",
       rotation: 5,
       opacity: 0,
-      stagger: { each: 0.01, total: 0.50, ease: "power1.in" },
+      stagger: { each: 0.05, total: 0.50, ease: "power1.in" },
       delay: 0.5,
       duration: 1,
       ease: "back.out(2)"
@@ -25,9 +25,9 @@ function scrollReveal() {
     gsap.from(split.lines, {
       y: "25%",
       opacity: 0,
-      stagger: { each: 0.05, total: 0.5 },
+      stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
       duration: 1,
-      ease: "back.out(1.7)",
+      ease: "power1.out",
       scrollTrigger: {
         trigger: paragraph,
         start: "top bottom",
@@ -43,7 +43,7 @@ function scrollReveal() {
       y: "25%",
       opacity: 0,
       duration: 1,
-      ease: "back.out(1.7)",
+      ease: "power1.out",
       scrollTrigger: {
         trigger: list,
         start: "top bottom",
@@ -60,7 +60,7 @@ function scrollReveal() {
       y: "10%",
       opacity: 0,
       duration: 1,
-      ease: "back.out(1.7)",
+      ease: "power1.out",
       scrollTrigger: {
         trigger: image,
         start: "top bottom",
