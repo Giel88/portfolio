@@ -116,44 +116,42 @@ function horizontalLoop(items, config) {
 // JOUW SETUP
 // ================================
 const items = gsap.utils.toArray(".scroll-container .name-container");
-
-// Container breedte ophalen
 const container = document.querySelector(".scroll-container");
 const containerWidth = container.offsetWidth;
 
-// Responsive basis-snelheid
+// Basis snelheid (responsive)
 const speed = containerWidth / 6000;
 
-// Maak de infinite loop
+// Infinite loop
 const tl = horizontalLoop(items, {
   repeat: -1,
   speed: speed
 });
 
-// Scroll-trigger: richting aanpassen + dynamische versnelling
-let direction = 1;
-let t;
-
+// ================================
+// ScrollTrigger: richting + dynamische snelheid
+// ================================
 ScrollTrigger.create({
   trigger: ".scroll-container",
   start: "top bottom",
   end: "bottom top",
   onUpdate: (self) => {
-    // Richting aanpassen bij scroll
-    if (self.direction !== direction) {
-      direction = self.direction;
-      t && t.kill();
-      t = gsap.to(tl, {
-        duration: 0.3,
-        timeScale: self.direction
-      });
-    }
+    // Scrollrichting (-1 = omhoog → naar rechts, 1 = omlaag → naar links)
+    let scrollDir = self.direction; 
 
-    // Versnellen afhankelijk van scroll-snelheid
+    // Dynamische versnelling afhankelijk van scroll snelheid
     let velocity = Math.abs(self.getVelocity());
-    let newTimeScale = gsap.utils.clamp(1, 5, 1 + velocity / 200); 
-    // 1 = normale snelheid, 5 = max snelheid, pas 200 aan om gevoeliger/langzamer te maken
+    let speedFactor = 1 + velocity / 200; // pas 200 aan voor gevoeligheid
 
-    gsap.to(tl, { timeScale: newTimeScale, duration: 0.2, ease: "power1.out", overwrite: true });
+    // Combineer richting + snelheid
+    let newTimeScale = gsap.utils.clamp(-5, 5, scrollDir * speedFactor); 
+    // Clamp om max te voorkomen
+
+    gsap.to(tl, { 
+      timeScale: newTimeScale, 
+      duration: 0.2, 
+      ease: "power1.out", 
+      overwrite: true 
+    });
   }
 });
