@@ -1,5 +1,4 @@
-function initScrollText(containerSelector = ".scroll-container") {
-  const container = document.querySelector(containerSelector);
+function initScrollText(container) {
   if (!container) return; // check of container bestaat
   const items = gsap.utils.toArray(container.querySelectorAll(".name-container"));
   if (!items.length) return;
@@ -12,8 +11,6 @@ function initScrollText(containerSelector = ".scroll-container") {
     speed: speed
   });
 
-  // ScrollTrigger
-  let lastScrollTime;
   let scrollTimeout;
 
   ScrollTrigger.create({
@@ -33,8 +30,6 @@ function initScrollText(containerSelector = ".scroll-container") {
         ease: "power1.out",
         overwrite: true
       });
-
-      lastScrollTime = performance.now();
 
       if (scrollTimeout) clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(() => {
