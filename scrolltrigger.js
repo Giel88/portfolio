@@ -21,8 +21,11 @@ window.addEventListener('load', () => {
 
   // Paragraphs
   const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
-  paragraphs.forEach(paragraph => {
+  paragraphs.forEach((paragraph, i) => {
     const split = new SplitText(paragraph, { type: "lines" });
+
+    // Detect of dit de allerlaatste paragraph is
+    const isLast = i === paragraphs.length - 1;
 
     gsap.from(split.lines, {
       y: "25%",
@@ -33,10 +36,9 @@ window.addEventListener('load', () => {
       scrollTrigger: {
         trigger: paragraph,
         start: "top bottom",
-        end: "top 70%",
+        end: isLast ? "bottom bottom" : "top 70%", // laatste paragraph altijd triggeren
         toggleActions: "none play none none",
-        once: true,
-        markers: true  // <-- dit toont de markers          
+        once: true
       }
     });
   });
@@ -62,7 +64,6 @@ window.addEventListener('load', () => {
   // Images
   const images = document.querySelectorAll('[data-reveal-content="image"]');
   images.forEach(image => {
-    // Fade-in blok
     gsap.from(image, {
       y: "10%",
       opacity: 0,
@@ -77,7 +78,6 @@ window.addEventListener('load', () => {
       }
     });
 
-    // Portrait scroll effect
     const portraitImg = image.querySelector(".portrait-pic");
     if (portraitImg) {
       gsap.from(portraitImg, {
