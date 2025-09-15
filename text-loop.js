@@ -118,7 +118,7 @@ const container = document.querySelector(".scroll-container");
 const containerWidth = container.offsetWidth;
 
 // Snelheid berekenen op basis van breedte
-const speed = containerWidth / 2500;
+const speed = containerWidth / 4000;
 
 const tl = horizontalLoop(items, {
   repeat: -1,
