@@ -9,7 +9,7 @@ function reinitialiseWebflow(data) {
   window.Webflow && window.Webflow.ready();
   
   // OPTIONAL - E-commerce Reinitialisation
-  window.Webflow && Webflow.require('commerce').init({ siteId: "your-site-id-here"})
+  // window.Webflow && Webflow.require('commerce').init({ siteId: "your-site-id-here"})
 
   window.Webflow && window.Webflow.require('ix2').init();
 }
