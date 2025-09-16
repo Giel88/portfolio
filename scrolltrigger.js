@@ -96,6 +96,4 @@ function scrollReveal() {
 // Call de functie
 scrollReveal();
 
-window.addEventListener("load", () => {
-  ScrollTrigger.refresh();
-});
+
