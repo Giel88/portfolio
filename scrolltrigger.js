@@ -1,99 +1,93 @@
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-// Headings op pageload of na Barba transitie
-function initHeadings(container) {
-  const headings = container.querySelectorAll('[data-reveal-content="header"]');
-  headings.forEach(heading => {
-    const split = new SplitText(heading, { type: "words, chars" });
-    gsap.from(split.chars, {
-      y: "25%",
-      rotation: 5,
-      opacity: 0,
-      stagger: { each: 0.01, total: 0.50, ease: "power1.in" },
-      delay: 0.5,
-      duration: 1,
-      ease: "back.out(2)"
-    });
-  });
-}
+function initScrollReveal() {
+  const allRevealEls = gsap.utils.toArray("[data-reveal-content]");
+  const lastRevealEl = allRevealEls[allRevealEls.length - 1];
 
-// ScrollReveal voor paragraphs, lists en images
-function initScrollReveal(container) {
-  const paragraphs = container.querySelectorAll('[data-reveal-content="paragraph"]');
-  paragraphs.forEach((paragraph, i) => {
-    const split = new SplitText(paragraph, { type: "lines" });
-    const isLast = i === paragraphs.length - 1;
+  allRevealEls.forEach(el => {
+    const type = el.getAttribute("data-reveal-content");
+    let split;
 
-    gsap.from(split.lines, {
-      y: "25%",
-      opacity: 0,
-      stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
-      duration: 1,
-      ease: "power1.out",
-      scrollTrigger: {
-        trigger: paragraph,
-        start: "top bottom",
-        end: isLast ? "bottom bottom" : "top 70%",
-        toggleActions: "none play none none"
-      }
-    });
-  });
-
-  const lists = container.querySelectorAll('[data-reveal-content="list"]');
-  lists.forEach((list, i) => {
-    const isLast = i === lists.length - 1;
-
-    gsap.from(list, {
-      y: "25%",
-      opacity: 0,
-      duration: 1,
-      ease: "power1.out",
-      scrollTrigger: {
-        trigger: list,
-        start: "top bottom",
-        end: isLast ? "bottom bottom" : "top 90%",
-        toggleActions: "play none none none",
-        once: true
-      }
-    });
-  });
-
-  const images = container.querySelectorAll('[data-reveal-content="image"]');
-  images.forEach((image, i) => {
-    const isLast = i === images.length - 1;
-
-    gsap.from(image, {
-      y: "10%",
-      opacity: 0,
-      duration: 1,
-      ease: "power1.out",
-      scrollTrigger: {
-        trigger: image,
-        start: "top bottom",
-        end: isLast ? "bottom bottom" : "top 70%",
-        toggleActions: "none play none none"
-      }
-    });
-
-    // Portrait scroll effect
-    const portraitImg = image.querySelector(".portrait-pic");
-    if (portraitImg) {
-      gsap.from(portraitImg, {
-        y: "10%",
-        ease: "none",
+    if (type === "header") {
+      split = new SplitText(el, { type: "words, chars" });
+      gsap.from(split.chars, {
         scrollTrigger: {
-          trigger: portraitImg,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true
-        }
+          trigger: el,
+          start: "top 80%",
+          toggleActions: "play none none none"
+        },
+        y: "25%",
+        rotation: 3,
+        opacity: 0,
+        duration: 0.5,
+        ease: "power1.out",
+        stagger: { each: 0.02 }
       });
+    }
+
+    if (type === "paragraph") {
+      split = new SplitText(el, { type: "lines" });
+      gsap.from(split.lines, {
+        scrollTrigger: {
+          trigger: el,
+          start: el === lastRevealEl ? "top 90%" : "top 70%",
+          toggleActions: "play none none none"
+        },
+        y: "25%",
+        opacity: 0,
+        duration: 1,
+        ease: "power1.out",
+        stagger: { each: 0.05 }
+      });
+    }
+
+    if (type === "list") {
+      const items = el.querySelectorAll("li");
+      gsap.from(items, {
+        scrollTrigger: {
+          trigger: el,
+          start: el === lastRevealEl ? "top 90%" : "top 80%",
+          toggleActions: "play none none none"
+        },
+        y: "25%",
+        opacity: 0,
+        duration: 0.5,
+        ease: "power1.out",
+        stagger: { each: 0.1 }
+      });
+    }
+
+    if (type === "image") {
+      gsap.from(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: el === lastRevealEl ? "top 90%" : "top 70%",
+          toggleActions: "play none none none"
+        },
+        y: "10%",
+        opacity: 0,
+        duration: 1,
+        ease: "power1.out"
+      });
+
+      const portraitImg = el.querySelector(".portrait-pic");
+      if (portraitImg) {
+        gsap.from(portraitImg, {
+          y: "-10%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: portraitImg,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true
+          }
+        });
+      }
     }
   });
 }
 
-// Init op eerste pageload
-document.addEventListener("DOMContentLoaded", () => {
-  initHeadings(document);
-  initScrollReveal(document);
+// Initialisatie bij pageload
+window.addEventListener("load", () => {
+  initScrollReveal();
 });
