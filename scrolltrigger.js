@@ -1,8 +1,8 @@
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-// Headings op pageload
-document.addEventListener("DOMContentLoaded", () => {
-  const headings = document.querySelectorAll('[data-reveal-content="header"]');
+// Headings op pageload of na Barba transitie
+function initHeadings(container) {
+  const headings = container.querySelectorAll('[data-reveal-content="header"]');
   headings.forEach(heading => {
     const split = new SplitText(heading, { type: "words, chars" });
     gsap.from(split.chars, {
@@ -15,11 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "back.out(2)"
     });
   });
-});
+}
 
 // ScrollReveal voor paragraphs, lists en images
-function scrollReveal() {
-  const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
+function initScrollReveal(container) {
+  const paragraphs = container.querySelectorAll('[data-reveal-content="paragraph"]');
   paragraphs.forEach((paragraph, i) => {
     const split = new SplitText(paragraph, { type: "lines" });
     const isLast = i === paragraphs.length - 1;
@@ -39,7 +39,7 @@ function scrollReveal() {
     });
   });
 
-  const lists = document.querySelectorAll('[data-reveal-content="list"]');
+  const lists = container.querySelectorAll('[data-reveal-content="list"]');
   lists.forEach((list, i) => {
     const isLast = i === lists.length - 1;
 
@@ -58,7 +58,7 @@ function scrollReveal() {
     });
   });
 
-  const images = document.querySelectorAll('[data-reveal-content="image"]');
+  const images = container.querySelectorAll('[data-reveal-content="image"]');
   images.forEach((image, i) => {
     const isLast = i === images.length - 1;
 
@@ -92,4 +92,8 @@ function scrollReveal() {
   });
 }
 
-scrollReveal();
+// Init op eerste pageload
+document.addEventListener("DOMContentLoaded", () => {
+  initHeadings(document);
+  initScrollReveal(document);
+});
