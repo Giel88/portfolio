@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
       y: "25%",
       rotation: 5,
       opacity: 0,
-      stagger: { each: 0.01, total: 0.5, ease: "power1.in" },
+      stagger: { each: 0.01, total: 0.50, ease: "power1.in" },
       delay: 0.5,
       duration: 1,
       ease: "back.out(2)"
@@ -17,14 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-window.addEventListener('load', () => {
-
-  // Paragraphs
+// ScrollReveal voor paragraphs, lists en images
+function scrollReveal() {
   const paragraphs = document.querySelectorAll('[data-reveal-content="paragraph"]');
   paragraphs.forEach((paragraph, i) => {
     const split = new SplitText(paragraph, { type: "lines" });
-
-    // Detect of dit de allerlaatste paragraph is
     const isLast = i === paragraphs.length - 1;
 
     gsap.from(split.lines, {
@@ -36,16 +33,16 @@ window.addEventListener('load', () => {
       scrollTrigger: {
         trigger: paragraph,
         start: "top bottom",
-        end: isLast ? "bottom bottom" : "top 70%", // laatste paragraph altijd triggeren
-        toggleActions: "none play none none",
-        once: true
+        end: isLast ? "bottom bottom" : "top 70%",
+        toggleActions: "none play none none"
       }
     });
   });
 
-  // Lists
   const lists = document.querySelectorAll('[data-reveal-content="list"]');
-  lists.forEach(list => {
+  lists.forEach((list, i) => {
+    const isLast = i === lists.length - 1;
+
     gsap.from(list, {
       y: "25%",
       opacity: 0,
@@ -54,16 +51,17 @@ window.addEventListener('load', () => {
       scrollTrigger: {
         trigger: list,
         start: "top bottom",
-        end: "top 90%",
-        toggleActions: "none play none none",
+        end: isLast ? "bottom bottom" : "top 90%",
+        toggleActions: "play none none none",
         once: true
       }
     });
   });
 
-  // Images
   const images = document.querySelectorAll('[data-reveal-content="image"]');
-  images.forEach(image => {
+  images.forEach((image, i) => {
+    const isLast = i === images.length - 1;
+
     gsap.from(image, {
       y: "10%",
       opacity: 0,
@@ -72,16 +70,16 @@ window.addEventListener('load', () => {
       scrollTrigger: {
         trigger: image,
         start: "top bottom",
-        end: "top 70%",
-        toggleActions: "none play none none",
-        once: true
+        end: isLast ? "bottom bottom" : "top 70%",
+        toggleActions: "none play none none"
       }
     });
 
+    // Portrait scroll effect
     const portraitImg = image.querySelector(".portrait-pic");
     if (portraitImg) {
       gsap.from(portraitImg, {
-        y: "-10%",
+        y: "10%",
         ease: "none",
         scrollTrigger: {
           trigger: portraitImg,
@@ -92,4 +90,6 @@ window.addEventListener('load', () => {
       });
     }
   });
-});
+}
+
+scrollReveal();
