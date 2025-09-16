@@ -55,7 +55,16 @@ barba.init({
 
       afterEnter(data) {
         initHoverAnimations(data.next.container);
-        //initScrollText(data.next.container);   
+      
+        // Kill oude triggers
+        ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      
+        // Init nieuwe triggers voor de nieuwe pagina
+        initHeadings(data.next.container);
+        initScrollReveal(data.next.container);
+      
+        // Refresh voor veiligheid
+        ScrollTrigger.refresh();
       }
     }
   ]
