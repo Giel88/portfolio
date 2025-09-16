@@ -1,9 +1,9 @@
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-// Headings op pageload
-document.addEventListener("DOMContentLoaded", () => {
-  gsap.utils.toArray('[data-reveal-content="header"]').forEach(heading => {
-    if (!heading || !heading.textContent.trim()) return; // skip lege headings
+function scrollReveal(container = document) {
+  // Headers (pageload animatie)
+  gsap.utils.toArray('[data-reveal-content="header"]', container).forEach(heading => {
+    if (!heading || !heading.textContent.trim()) return;
     const split = new SplitText(heading, { type: "words, chars" });
 
     gsap.from(split.chars, {
@@ -16,13 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
       ease: "back.out(2)"
     });
   });
-});
 
-// ScrollReveal voor paragraphs, lists en images
-function scrollReveal() {
   // Paragraphs
-  gsap.utils.toArray('[data-reveal-content="paragraph"]').forEach(paragraph => {
-    if (!paragraph || !paragraph.textContent.trim()) return; // skip lege blokken
+  gsap.utils.toArray('[data-reveal-content="paragraph"]', container).forEach(paragraph => {
+    if (!paragraph || !paragraph.textContent.trim()) return;
     const split = new SplitText(paragraph, { type: "lines" });
 
     gsap.from(split.lines, {
@@ -41,7 +38,7 @@ function scrollReveal() {
   });
 
   // Lists
-  gsap.utils.toArray('[data-reveal-content="list"]').forEach(list => {
+  gsap.utils.toArray('[data-reveal-content="list"]', container).forEach(list => {
     if (!list) return;
     gsap.from(list, {
       y: "25%",
@@ -59,7 +56,7 @@ function scrollReveal() {
   });
 
   // Images
-  gsap.utils.toArray('[data-reveal-content="image"]').forEach(image => {
+  gsap.utils.toArray('[data-reveal-content="image"]', container).forEach(image => {
     if (!image) return;
 
     // Basis fade-in
@@ -93,7 +90,5 @@ function scrollReveal() {
   });
 }
 
-// Call de functie
+// Initial call
 scrollReveal();
-
-
