@@ -2,7 +2,6 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 
 function initScrollReveal() {
   const allRevealEls = gsap.utils.toArray("[data-reveal-content]");
-  const lastRevealEl = allRevealEls[allRevealEls.length - 1];
 
   allRevealEls.forEach(el => {
     const type = el.getAttribute("data-reveal-content");
@@ -30,7 +29,7 @@ function initScrollReveal() {
       gsap.from(split.lines, {
         scrollTrigger: {
           trigger: el,
-          start: el === lastRevealEl ? "top 90%" : "top 70%",
+          start: "top 70%",
           toggleActions: "play none none none"
         },
         y: "25%",
@@ -46,7 +45,7 @@ function initScrollReveal() {
       gsap.from(items, {
         scrollTrigger: {
           trigger: el,
-          start: el === lastRevealEl ? "top 90%" : "top 80%",
+          start: "top 80%",
           toggleActions: "play none none none"
         },
         y: "25%",
@@ -61,7 +60,7 @@ function initScrollReveal() {
       gsap.from(el, {
         scrollTrigger: {
           trigger: el,
-          start: el === lastRevealEl ? "top 90%" : "top 70%",
+          start: "top 70%",
           toggleActions: "play none none none"
         },
         y: "10%",
