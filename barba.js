@@ -54,8 +54,6 @@ barba.init({
       },
 
       afterEnter(data) {
-        ScrollTrigger.getAll().forEach(st => st.kill());
-        
         initHoverAnimations(data.next.container);
         //initScrollText(data.next.container);   
       }
