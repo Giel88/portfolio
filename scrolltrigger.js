@@ -1,5 +1,7 @@
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
+ScrollTrigger.defaults({ markers: true });
+
 function scrollReveal(container = document) {
   // Headers (pageload animatie)
   gsap.utils.toArray('[data-reveal-content="header"]', container).forEach(heading => {
