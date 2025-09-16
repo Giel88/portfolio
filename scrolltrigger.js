@@ -1,92 +1,97 @@
 gsap.registerPlugin(SplitText, ScrollTrigger);
 
-function initScrollReveal() {
-  const allRevealEls = gsap.utils.toArray("[data-reveal-content]");
+// Headings op pageload
+document.addEventListener("DOMContentLoaded", () => {
+  gsap.utils.toArray('[data-reveal-content="header"]').forEach(heading => {
+    if (!heading || !heading.textContent.trim()) return; // skip lege headings
+    const split = new SplitText(heading, { type: "words, chars" });
 
-  allRevealEls.forEach(el => {
-    const type = el.getAttribute("data-reveal-content");
-    let split;
+    gsap.from(split.chars, {
+      y: "25%",
+      rotation: 5,
+      opacity: 0,
+      stagger: { each: 0.01, total: 0.50, ease: "power1.in" },
+      delay: 0.5,
+      duration: 1,
+      ease: "back.out(2)"
+    });
+  });
+});
 
-    if (type === "header") {
-      split = new SplitText(el, { type: "words, chars" });
-      gsap.from(split.chars, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        },
-        y: "25%",
-        rotation: 3,
-        opacity: 0,
-        duration: 0.5,
-        ease: "power1.out",
-        stagger: { each: 0.02 }
-      });
-    }
+// ScrollReveal voor paragraphs, lists en images
+function scrollReveal() {
+  // Paragraphs
+  gsap.utils.toArray('[data-reveal-content="paragraph"]').forEach(paragraph => {
+    if (!paragraph || !paragraph.textContent.trim()) return; // skip lege blokken
+    const split = new SplitText(paragraph, { type: "lines" });
 
-    if (type === "paragraph") {
-      split = new SplitText(el, { type: "lines" });
-      gsap.from(split.lines, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 70%",
-          toggleActions: "play none none none"
-        },
-        y: "25%",
-        opacity: 0,
-        duration: 1,
-        ease: "power1.out",
-        stagger: { each: 0.05 }
-      });
-    }
-
-    if (type === "list") {
-      const items = el.querySelectorAll("li");
-      gsap.from(items, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 80%",
-          toggleActions: "play none none none"
-        },
-        y: "25%",
-        opacity: 0,
-        duration: 0.5,
-        ease: "power1.out",
-        stagger: { each: 0.1 }
-      });
-    }
-
-    if (type === "image") {
-      gsap.from(el, {
-        scrollTrigger: {
-          trigger: el,
-          start: "top 70%",
-          toggleActions: "play none none none"
-        },
-        y: "10%",
-        opacity: 0,
-        duration: 1,
-        ease: "power1.out"
-      });
-
-      const portraitImg = el.querySelector(".portrait-pic");
-      if (portraitImg) {
-        gsap.from(portraitImg, {
-          y: "-10%",
-          ease: "none",
-          scrollTrigger: {
-            trigger: portraitImg,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          }
-        });
+    gsap.from(split.lines, {
+      y: "25%",
+      opacity: 0,
+      stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
+      duration: 1,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: paragraph,
+        start: "top bottom",
+        end: "top 70%",
+        toggleActions: "none play none none"
       }
+    });
+  });
+
+  // Lists
+  gsap.utils.toArray('[data-reveal-content="list"]').forEach(list => {
+    if (!list) return;
+    gsap.from(list, {
+      y: "25%",
+      opacity: 0,
+      duration: 1,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: list,
+        start: "top bottom",
+        end: "bottom bottom",
+        toggleActions: "play none none none",
+        once: true
+      }
+    });
+  });
+
+  // Images
+  gsap.utils.toArray('[data-reveal-content="image"]').forEach(image => {
+    if (!image) return;
+
+    // Basis fade-in
+    gsap.from(image, {
+      y: "10%",
+      opacity: 0,
+      duration: 1,
+      ease: "power1.out",
+      scrollTrigger: {
+        trigger: image,
+        start: "top bottom",
+        end: "top 70%",
+        toggleActions: "none play none none"
+      }
+    });
+
+    // Portrait scroll effect (indien aanwezig)
+    const portraitImg = image.querySelector(".portrait-pic");
+    if (portraitImg) {
+      gsap.from(portraitImg, {
+        y: "10%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: portraitImg,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
     }
   });
 }
 
-// Initialisatie bij pageload
-window.addEventListener("load", () => {
-  initScrollReveal();
-});
+// Call de functie
+scrollReveal();
