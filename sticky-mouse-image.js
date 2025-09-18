@@ -36,7 +36,7 @@ function initCaseHover(container = document) {
     // Init hover container op huidige muispositie + centering via GSAP
     gsap.set(hoverContainer, { 
       opacity: 0, 
-      scale: 0, 
+      scale: 0.9, 
       display: 'none', 
       x: pos.x, 
       y: pos.y, 
