@@ -10,7 +10,7 @@ const smoothing = 0.2;
 
 // Mousemove listener (blijft actief over paginaovergangen)
 document.addEventListener('mousemove', (e) => {
-  mouse.x = e.clientX; // offset van de muis
+  mouse.x = e.clientX; 
   mouse.y = e.clientY;
 });
 
@@ -42,32 +42,49 @@ function initCaseHover(container = document) {
       y: pos.y, 
       xPercent: -50, 
       yPercent: -50,
-      transformOrigin: "50% 50%"      
+      transformOrigin: "50% 50%" 
     });
 
     // Verwijder oude listeners (handig bij Barba page transitions)
     item.onmouseenter = null;
     item.onmouseleave = null;
 
-    // Hover enter
+    // Hover enter (verschijnen animatie)
     item.addEventListener('mouseenter', () => {
       currentHover = hoverContainer;
       pos.x = mouse.x;
       pos.y = mouse.y;
 
       gsap.set(hoverContainer, { display: 'flex' });
-      gsap.to(hoverContainer, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" });
+
+      gsap.to(hoverContainer, {
+        scale: 1,
+        duration: 0.2,
+        ease: "back.out(1.7)"
+      });
+
+      gsap.to(hoverContainer, {
+        opacity: 1,
+        duration: 0.2,
+        ease: "power1.out"
+      });
     });
 
-    // Hover leave
+    // Hover leave (verdwijnen animatie)
     item.addEventListener('mouseleave', () => {
       gsap.to(hoverContainer, {
+        scale: 0.9,
+        duration: 0.1,
+        ease: "power1.in"
+      });
+
+      gsap.to(hoverContainer, {
         opacity: 0,
-        scale: 0,
-        duration: 0.3,
-        ease: "power3.in",
+        duration: 0.1,
+        ease: "power1.in",
         onComplete: () => gsap.set(hoverContainer, { display: 'none' })
       });
+
       currentHover = null;
     });
   });
@@ -77,10 +94,8 @@ function initCaseHover(container = document) {
 // Init hover bij eerste page load (harde refresh)
 // ------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-  // Stel pos gelijk aan huidige muispositie
   pos.x = mouse.x;
   pos.y = mouse.y;
 
-  // Init hover voor de eerste pagina
   initCaseHover(document);
 });
