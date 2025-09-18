@@ -22,6 +22,11 @@ document.addEventListener('mousemove', (e) => {
 // Smooth follow + 2D rotation
 gsap.ticker.add(() => {
   if (currentHover) {
+    if (window.isTransitioning) {
+      gsap.set(currentHover, { display: 'none', opacity: 0, scale: 0, rotation: 0 });
+      currentHover = null;
+      return;
+    }    
     // Smooth volgen
     pos.x += (mouse.x - pos.x) * smoothing;
     pos.y += (mouse.y - pos.y) * smoothing;
@@ -73,6 +78,7 @@ function initCaseHover(container = document) {
 
     // Hover enter
     item.addEventListener('mouseenter', () => {
+      if (window.isTransitioning) return; // ✨ blokkeer nieuwe hovers      
       // Kill oude animaties van dit hoverContainer
       gsap.killTweensOf(hoverContainer);
 
