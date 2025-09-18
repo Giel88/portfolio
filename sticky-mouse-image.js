@@ -41,7 +41,8 @@ function initCaseHover(container = document) {
       x: pos.x, 
       y: pos.y, 
       xPercent: -50, 
-      yPercent: -50 
+      yPercent: -50,
+      transformOrigin: "50% 50%"      
     });
 
     // Verwijder oude listeners (handig bij Barba page transitions)
