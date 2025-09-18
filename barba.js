@@ -6,7 +6,6 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.destroy();
   window.Webflow && window.Webflow.ready();
   window.Webflow && window.Webflow.require("ix2").init();
-  window.Webflow && window.Webflow.require("ix3").init();  
 }
 
 function autoplayVideos(container) {
@@ -31,6 +30,7 @@ barba.init({
       async leave(data) {
         if (window.resetToDot) window.resetToDot();
         await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
+        window.isTransitioning = true; // ✨ zet flag        
       },
 
       beforeEnter(data) {
@@ -59,6 +59,7 @@ barba.init({
       afterEnter(data) {
         initHoverAnimations(data.next.container);
         initCaseHover(data.next.container);
+        window.isTransitioning = false; // ✨ flag weer uit        
       
         // Kill oude triggers
         ScrollTrigger.getAll()
