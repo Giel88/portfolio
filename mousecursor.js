@@ -139,6 +139,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Event delegation voor links —
     document.addEventListener("mouseover", (e) => {
+      if (window.isTransitioning) return; // ✨ blokkeer tijdens transitie      
       const el = e.target.closest("a");
       if (el) handleEnter(el);
     });
