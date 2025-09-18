@@ -57,9 +57,9 @@ barba.init({
         initHoverAnimations(data.next.container); 
       
         // Kill triggers van vorige container
-        ScrollTrigger.getAll()
-          .filter(trigger => trigger.trigger && data.current.container.contains(trigger.trigger))
-          .forEach(trigger => trigger.kill());
+        //ScrollTrigger.getAll()
+        //  .filter(trigger => trigger.trigger && data.current.container.contains(trigger.trigger))
+          //.forEach(trigger => trigger.kill());
       
         // Init alle animaties voor de nieuwe container
         scrollReveal(data.next.container);
@@ -69,7 +69,7 @@ barba.init({
         if (scrollContainer) initScrollText(scrollContainer);
       
         // Refresh ScrollTrigger
-        ScrollTrigger.refresh();
+        //ScrollTrigger.refresh();
       }
     }
   ]
