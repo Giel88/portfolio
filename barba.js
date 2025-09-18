@@ -58,6 +58,7 @@ barba.init({
 
       afterEnter(data) {
         initHoverAnimations(data.next.container);
+        initCaseHover(data.next.container);
       
         // Kill oude triggers
         ScrollTrigger.getAll()
