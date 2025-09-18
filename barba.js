@@ -28,9 +28,9 @@ barba.init({
       },
       
       async leave(data) {
+        window.isTransitioning = true; // ✨ zet flag            
         if (window.resetToDot) window.resetToDot();
-        await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
-        window.isTransitioning = true; // ✨ zet flag        
+        await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });    
       },
 
       beforeEnter(data) {
