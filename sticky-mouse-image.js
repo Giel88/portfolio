@@ -10,8 +10,8 @@ const smoothing = 0.2;
 
 // Mousemove listener (blijft actief over paginaovergangen)
 document.addEventListener('mousemove', (e) => {
-  mouse.x = e.clientX + 20; // offset van de muis
-  mouse.y = e.clientY + 20;
+  mouse.x = e.clientX; // offset van de muis
+  mouse.y = e.clientY;
 });
 
 // Smooth update loop
