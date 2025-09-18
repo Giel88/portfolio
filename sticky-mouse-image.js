@@ -33,8 +33,16 @@ function initCaseHover(container = document) {
     const hoverContainer = item.querySelector('.case-hover-image-container');
     if (!hoverContainer) return;
 
-    // Init hover container op huidige muispositie
-    gsap.set(hoverContainer, { opacity: 0, scale: 0, display: 'none', x: pos.x, y: pos.y });
+    // Init hover container op huidige muispositie + centering via GSAP
+    gsap.set(hoverContainer, { 
+      opacity: 0, 
+      scale: 0, 
+      display: 'none', 
+      x: pos.x, 
+      y: pos.y, 
+      xPercent: -50, 
+      yPercent: -50 
+    });
 
     // Verwijder oude listeners (handig bij Barba page transitions)
     item.onmouseenter = null;
