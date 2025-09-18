@@ -1,6 +1,8 @@
 gsap.registerPlugin();
 
-// --- Persistent mouse tracking & smooth movement ---
+// ------------------------------
+// Persistent mouse tracking & smooth movement
+// ------------------------------
 let mouse = { x: 0, y: 0 };
 let pos = { x: 0, y: 0 };
 let currentHover = null;
@@ -21,21 +23,24 @@ gsap.ticker.add(() => {
   }
 });
 
-// --- Hover functie per container ---
+// ------------------------------
+// Hover function per container
+// ------------------------------
 function initCaseHover(container = document) {
   const caseItems = container.querySelectorAll('.case-item');
 
   caseItems.forEach(item => {
     const hoverContainer = item.querySelector('.case-hover-image-container');
-    if (!hoverContainer) return; // skip als er geen hover container is
+    if (!hoverContainer) return;
 
-    // Init hover container
-    gsap.set(hoverContainer, { opacity: 0, scale: 0, display: 'none', x: 0, y: 0 });
+    // Init hover container op huidige muispositie
+    gsap.set(hoverContainer, { opacity: 0, scale: 0, display: 'none', x: pos.x, y: pos.y });
 
     // Verwijder oude listeners (handig bij Barba page transitions)
     item.onmouseenter = null;
     item.onmouseleave = null;
 
+    // Hover enter
     item.addEventListener('mouseenter', () => {
       currentHover = hoverContainer;
       pos.x = mouse.x;
@@ -45,6 +50,7 @@ function initCaseHover(container = document) {
       gsap.to(hoverContainer, { opacity: 1, scale: 1, duration: 0.4, ease: "power3.out" });
     });
 
+    // Hover leave
     item.addEventListener('mouseleave', () => {
       gsap.to(hoverContainer, {
         opacity: 0,
@@ -57,3 +63,15 @@ function initCaseHover(container = document) {
     });
   });
 }
+
+// ------------------------------
+// Init hover bij eerste page load (harde refresh)
+// ------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+  // Stel pos gelijk aan huidige muispositie
+  pos.x = mouse.x;
+  pos.y = mouse.y;
+
+  // Init hover voor de eerste pagina
+  initCaseHover(document);
+});
