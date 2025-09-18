@@ -9,6 +9,16 @@ function resetWebflow(data) {
   window.Webflow && window.Webflow.require("ix3").init();  
 }
 
+function autoplayVideos(container) {
+  const videos = container.querySelectorAll('video[autoplay]');
+  videos.forEach(video => {
+    video.pause();
+    video.currentTime = 0;
+    video.muted = true; // nodig voor autoplay op de meeste browsers
+    video.play().catch(e => console.log('Video autoplay blocked', e));
+  });
+}
+
 barba.init({
   transitions: [
     {
@@ -41,15 +51,7 @@ barba.init({
       
             // Reset custom dot if available
             if (window.resetToDot) window.resetToDot();
-      
-            // Autoplay video's
-            const videos = data.next.container.querySelectorAll('video[autoplay]');
-            videos.forEach(video => {
-              video.pause();
-              video.currentTime = 0;
-              video.muted = true;
-              video.play().catch(e => console.log('Video autoplay blocked', e));
-            });
+
           }
         });
       },
@@ -66,6 +68,9 @@ barba.init({
         requestAnimationFrame(() => {
           // Init ScrollTrigger animaties
           scrollReveal(data.next.container);
+
+          // Init autoplayVideos
+          autoplayVideos(data.next.container);
       
           // Init horizontal loop
           const scrollContainer = data.next.container.querySelector(".scroll-container");
