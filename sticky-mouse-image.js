@@ -7,19 +7,34 @@ let mouse = { x: 0, y: 0 };
 let pos = { x: 0, y: 0 };
 let currentHover = null;
 const smoothing = 0.2;
+const maxRotation = 5; // maximaal aantal graden rotatie
 
-// Mousemove listener (blijft actief over paginaovergangen)
 document.addEventListener('mousemove', (e) => {
   mouse.x = e.clientX; 
   mouse.y = e.clientY;
 });
 
-// Smooth update loop
 gsap.ticker.add(() => {
   if (currentHover) {
+    // Smooth follow
     pos.x += (mouse.x - pos.x) * smoothing;
     pos.y += (mouse.y - pos.y) * smoothing;
     gsap.set(currentHover, { x: pos.x, y: pos.y });
+
+    // Bereken delta voor rotatie
+    let dx = mouse.x - pos.x;
+    let dy = mouse.y - pos.y;
+
+    // Rotatie in graden gebaseerd op horizontale beweging
+    let rotateY = gsap.utils.clamp(-maxRotation, maxRotation, dx / 10);
+    let rotateX = gsap.utils.clamp(-maxRotation, maxRotation, -dy / 15); // optioneel ook verticale lean
+
+    gsap.to(currentHover, {
+      rotationY: rotateY,
+      rotationX: rotateX,
+      duration: 0.2,
+      ease: "power1.out"
+    });
   }
 });
 
@@ -33,23 +48,22 @@ function initCaseHover(container = document) {
     const hoverContainer = item.querySelector('.case-hover-image-container');
     if (!hoverContainer) return;
 
-    // Init hover container op huidige muispositie + centering via GSAP
     gsap.set(hoverContainer, { 
       opacity: 0, 
-      scale: 0.9, 
+      scale: 0, 
       display: 'none', 
       x: pos.x, 
       y: pos.y, 
       xPercent: -50, 
       yPercent: -50,
-      transformOrigin: "50% 50%" 
+      transformOrigin: "50% 50%",
+      rotationX: 0,
+      rotationY: 0
     });
 
-    // Verwijder oude listeners (handig bij Barba page transitions)
     item.onmouseenter = null;
     item.onmouseleave = null;
 
-    // Hover enter (verschijnen animatie)
     item.addEventListener('mouseenter', () => {
       currentHover = hoverContainer;
       pos.x = mouse.x;
@@ -70,7 +84,6 @@ function initCaseHover(container = document) {
       });
     });
 
-    // Hover leave (verdwijnen animatie)
     item.addEventListener('mouseleave', () => {
       gsap.to(hoverContainer, {
         scale: 0.9,
@@ -84,6 +97,9 @@ function initCaseHover(container = document) {
         ease: "power1.in",
         onComplete: () => gsap.set(hoverContainer, { display: 'none' })
       });
+
+      // Reset rotatie
+      gsap.to(hoverContainer, { rotationX: 0, rotationY: 0, duration: 0.2, ease: "power1.out" });
 
       currentHover = null;
     });
