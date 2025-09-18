@@ -66,7 +66,12 @@ barba.init({
       
         // === INIT SCROLL TEXT VOOR DE NIEUWE PAGINA ===
         const scrollContainer = data.next.container.querySelector(".scroll-container");
-        if (scrollContainer) initScrollText(scrollContainer);
+        if (scrollContainer) {
+          // Wacht tot layout en eventuele Barba scroll-acties klaar zijn
+          requestAnimationFrame(() => {
+            initScrollText(scrollContainer);
+          });
+        }
       
         // Refresh ScrollTrigger
         //ScrollTrigger.refresh();
