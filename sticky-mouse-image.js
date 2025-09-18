@@ -1,14 +1,14 @@
 gsap.registerPlugin();
 
 // ------------------------------
-// Persistent mouse tracking & smooth movement + dynamic rotation
+// Persistent mouse tracking & smooth movement + dynamic 3D rotation
 // ------------------------------
 let mouse = { x: 0, y: 0 };
 let pos = { x: 0, y: 0 };
 let lastPos = { x: 0, y: 0 };
 let currentHover = null;
 const smoothing = 0.2;
-const maxRotation = 10; // maximale rotatie in graden
+const maxRotation = 15; // maximale rotatie in graden
 
 document.addEventListener('mousemove', (e) => {
   mouse.x = e.clientX; 
@@ -33,8 +33,10 @@ gsap.ticker.add(() => {
     gsap.to(currentHover, {
       rotationY: rotateY,
       rotationX: rotateX,
+      rotationZ: 0,
       duration: 0.2,
-      ease: "power1.out"
+      ease: "power1.out",
+      transformStyle: "preserve-3d"
     });
 
     // Update laatste positie
@@ -64,7 +66,9 @@ function initCaseHover(container = document) {
       yPercent: -50,
       transformOrigin: "50% 50%",
       rotationX: 0,
-      rotationY: 0
+      rotationY: 0,
+      rotationZ: 0,
+      transformStyle: "preserve-3d"
     });
 
     item.onmouseenter = null;
@@ -107,7 +111,14 @@ function initCaseHover(container = document) {
       });
 
       // Reset rotatie
-      gsap.to(hoverContainer, { rotationX: 0, rotationY: 0, duration: 0.3, ease: "power1.out" });
+      gsap.to(hoverContainer, { 
+        rotationX: 0, 
+        rotationY: 0, 
+        rotationZ: 0, 
+        duration: 0.3, 
+        ease: "power1.out", 
+        transformStyle: "preserve-3d" 
+      });
 
       currentHover = null;
     });
