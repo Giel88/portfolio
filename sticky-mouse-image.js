@@ -26,7 +26,7 @@ gsap.ticker.add(() => {
     const dx = mouse.x - lastPos.x;
 
     // 2D rotatie
-    const rotation = gsap.utils.clamp(-15, 15, dx * 2); // max ±15°
+    const rotation = gsap.utils.clamp(-maxRotation, maxRotation, dx * 2);
 
     gsap.to(currentHover, {
       rotation: rotation,
