@@ -8,7 +8,7 @@ let pos = { x: 0, y: 0 };
 let lastPos = { x: 0, y: 0 };
 let currentHover = null;
 const smoothing = 0.2;
-const maxRotation = 15; // maximale rotatie in graden
+const maxRotation = 5; // maximale rotatie in graden
 
 document.addEventListener('mousemove', (e) => {
   mouse.x = e.clientX; 
