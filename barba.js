@@ -23,7 +23,7 @@ barba.init({
       },
 
       beforeEnter(data) {
-        window.scrollTo(0, 0);      
+        //window.scrollTo(0, 0);      
       },
 
       enter(data) {
