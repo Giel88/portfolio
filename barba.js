@@ -35,7 +35,10 @@ barba.init({
         const color = trigger?.dataset?.caseColor || fallbackColor;
         
         if (window.resetToDot) window.resetToDot();
-        await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });    
+        await Promise.all([
+          gsap.to(data.current.container, { autoAlpha: 0, duration: 1 }),
+          gsap.to(document.body, { backgroundColor: color, duration: 1 })
+        ]);
       },
 
       beforeEnter(data) {
