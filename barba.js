@@ -55,27 +55,28 @@ barba.init({
       },
 
       afterEnter(data) {
-        initHoverAnimations(data.next.container); 
+        initHoverAnimations(data.next.container);
       
-        // Kill triggers van vorige container
+        // Kill oude triggers
         ScrollTrigger.getAll()
           .filter(trigger => trigger.trigger && data.current.container.contains(trigger.trigger))
           .forEach(trigger => trigger.kill());
       
-        // Init alle animaties voor de nieuwe container
-        scrollReveal(data.next.container);
+        // Wacht tot de browser de nieuwe container volledig heeft gerenderd
+        requestAnimationFrame(() => {
+          // Init ScrollTrigger animaties
+          scrollReveal(data.next.container);
       
-        // === INIT SCROLL TEXT VOOR DE NIEUWE PAGINA ===
-        const scrollContainer = data.next.container.querySelector(".scroll-container");
-        if (scrollContainer) {
-          // Wacht tot layout en eventuele Barba scroll-acties klaar zijn
-          requestAnimationFrame(() => {
-            initScrollText(scrollContainer);
-          });
-        }
+          // Init horizontal loop
+          const scrollContainer = data.next.container.querySelector(".scroll-container");
+          if (scrollContainer) {
+            // Extra delay om layout shifts te vermijden
+            setTimeout(() => initScrollText(scrollContainer), 50);
+          }
       
-        // Refresh ScrollTrigger
-        ScrollTrigger.refresh();
+          // Refresh ScrollTrigger zodat alles op de juiste plek staat
+          ScrollTrigger.refresh();
+        });
       }
     }
   ]
