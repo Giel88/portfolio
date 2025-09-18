@@ -63,7 +63,7 @@ function scrollReveal(container = document) {
 
     // Basis fade-in
     gsap.from(image, {
-      y: "10%",
+      y: "-10%",
       opacity: 0,
       duration: 1,
       ease: "power1.out",
