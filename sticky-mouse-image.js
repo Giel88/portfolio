@@ -1,13 +1,14 @@
 gsap.registerPlugin();
 
 // ------------------------------
-// Persistent mouse tracking & smooth movement
+// Persistent mouse tracking & smooth movement + dynamic rotation
 // ------------------------------
 let mouse = { x: 0, y: 0 };
 let pos = { x: 0, y: 0 };
+let lastPos = { x: 0, y: 0 };
 let currentHover = null;
 const smoothing = 0.2;
-const maxRotation = 5; // maximaal aantal graden rotatie
+const maxRotation = 10; // maximale rotatie in graden
 
 document.addEventListener('mousemove', (e) => {
   mouse.x = e.clientX; 
@@ -21,13 +22,13 @@ gsap.ticker.add(() => {
     pos.y += (mouse.y - pos.y) * smoothing;
     gsap.set(currentHover, { x: pos.x, y: pos.y });
 
-    // Bereken delta voor rotatie
-    let dx = mouse.x - pos.x;
-    let dy = mouse.y - pos.y;
+    // Bereken snelheid van muisbeweging
+    const dx = mouse.x - lastPos.x;
+    const dy = mouse.y - lastPos.y;
 
-    // Rotatie in graden gebaseerd op horizontale beweging
-    let rotateY = gsap.utils.clamp(-maxRotation, maxRotation, dx / 10);
-    let rotateX = gsap.utils.clamp(-maxRotation, maxRotation, -dy / 15); // optioneel ook verticale lean
+    // Snelheidsafhankelijke rotatie
+    const rotateY = gsap.utils.clamp(-maxRotation, maxRotation, dx * 0.5);
+    const rotateX = gsap.utils.clamp(-maxRotation, maxRotation, -dy * 0.3);
 
     gsap.to(currentHover, {
       rotationY: rotateY,
@@ -35,6 +36,10 @@ gsap.ticker.add(() => {
       duration: 0.2,
       ease: "power1.out"
     });
+
+    // Update laatste positie
+    lastPos.x = mouse.x;
+    lastPos.y = mouse.y;
   }
 });
 
@@ -48,6 +53,7 @@ function initCaseHover(container = document) {
     const hoverContainer = item.querySelector('.case-hover-image-container');
     if (!hoverContainer) return;
 
+    // Init hover container
     gsap.set(hoverContainer, { 
       opacity: 0, 
       scale: 0, 
@@ -64,6 +70,7 @@ function initCaseHover(container = document) {
     item.onmouseenter = null;
     item.onmouseleave = null;
 
+    // Hover enter
     item.addEventListener('mouseenter', () => {
       currentHover = hoverContainer;
       pos.x = mouse.x;
@@ -84,6 +91,7 @@ function initCaseHover(container = document) {
       });
     });
 
+    // Hover leave
     item.addEventListener('mouseleave', () => {
       gsap.to(hoverContainer, {
         scale: 0.9,
@@ -99,7 +107,7 @@ function initCaseHover(container = document) {
       });
 
       // Reset rotatie
-      gsap.to(hoverContainer, { rotationX: 0, rotationY: 0, duration: 0.2, ease: "power1.out" });
+      gsap.to(hoverContainer, { rotationX: 0, rotationY: 0, duration: 0.3, ease: "power1.out" });
 
       currentHover = null;
     });
@@ -112,6 +120,8 @@ function initCaseHover(container = document) {
 document.addEventListener('DOMContentLoaded', () => {
   pos.x = mouse.x;
   pos.y = mouse.y;
+  lastPos.x = mouse.x;
+  lastPos.y = mouse.y;
 
   initCaseHover(document);
 });
