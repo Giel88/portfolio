@@ -4,7 +4,7 @@ gsap.registerPlugin();
 // Config
 // ------------------------------
 const smoothing = 0.2;        // snelheid van volgen
-const maxRotation = 15;       // maximale rotatie in graden
+const maxRotation = 3;       // maximale rotatie in graden
 
 // ------------------------------
 // Persistent mouse tracking & smooth movement
