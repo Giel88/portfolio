@@ -22,21 +22,16 @@ gsap.ticker.add(() => {
     pos.y += (mouse.y - pos.y) * smoothing;
     gsap.set(currentHover, { x: pos.x, y: pos.y });
 
-    // Bereken snelheid van muisbeweging
+    // Horizontale snelheid
     const dx = mouse.x - lastPos.x;
-    const dy = mouse.y - lastPos.y;
 
-    // Snelheidsafhankelijke rotatie
-    const rotateY = gsap.utils.clamp(-maxRotation, maxRotation, dx * 20);
-    const rotateX = gsap.utils.clamp(-maxRotation, maxRotation, -dy * 15);
+    // 2D rotatie
+    const rotation = gsap.utils.clamp(-15, 15, dx * 2); // max ±15°
 
     gsap.to(currentHover, {
-      rotationY: rotateY,
-      rotationX: rotateX,
-      rotationZ: 0,
+      rotation: rotation,
       duration: 0.2,
-      ease: "power1.out",
-      transformStyle: "preserve-3d"
+      ease: "power1.out"
     });
 
     // Update laatste positie
