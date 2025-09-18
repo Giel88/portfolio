@@ -63,7 +63,7 @@ function scrollReveal(container = document) {
 
     // Basis fade-in
     gsap.from(image, {
-      y: "-10%",
+      y: "10%",
       opacity: 0,
       duration: 1,
       ease: "power1.out",
@@ -79,7 +79,7 @@ function scrollReveal(container = document) {
     const portraitImg = image.querySelector(".portrait-pic");
     if (portraitImg) {
       gsap.from(portraitImg, {
-        y: "10%",
+        y: "-10%",
         ease: "none",
         scrollTrigger: {
           trigger: portraitImg,
