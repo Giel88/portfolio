@@ -8,6 +8,7 @@ function initHoverAnimations(container = document) {
     
       // hover in
       link.addEventListener('mouseenter', () => {
+        if (window.isTransitioning) return; //        
         gsap.to(title, { 
           x: 20,
           //letterSpacing: "0.1em",
@@ -36,6 +37,7 @@ function initHoverAnimations(container = document) {
     
       // hover in
       btn.addEventListener('mouseenter', () => {
+        if (window.isTransitioning) return; //        
         gsap.to(title, { 
           x: 20,
           //letterSpacing: "0.1em",         
