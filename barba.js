@@ -62,7 +62,7 @@ barba.init({
           //.forEach(trigger => trigger.kill());
       
         // Init alle animaties voor de nieuwe container
-        scrollReveal(data.next.container);
+        //scrollReveal(data.next.container);
       
         // === INIT SCROLL TEXT VOOR DE NIEUWE PAGINA ===
         const scrollContainer = data.next.container.querySelector(".scroll-container");
