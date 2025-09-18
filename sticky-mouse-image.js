@@ -27,8 +27,8 @@ gsap.ticker.add(() => {
     const dy = mouse.y - lastPos.y;
 
     // Snelheidsafhankelijke rotatie
-    const rotateY = gsap.utils.clamp(-maxRotation, maxRotation, dx * 0.5);
-    const rotateX = gsap.utils.clamp(-maxRotation, maxRotation, -dy * 0.3);
+    const rotateY = gsap.utils.clamp(-maxRotation, maxRotation, dx * 2);
+    const rotateX = gsap.utils.clamp(-maxRotation, maxRotation, -dy * 1.5);
 
     gsap.to(currentHover, {
       rotationY: rotateY,
