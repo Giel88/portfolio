@@ -60,7 +60,7 @@ export function initBarba() {
           requestAnimationFrame(() => {
             autoplayVideos(data.next.container);
 
-            //const scrollContainer = data.next.container.querySelector(".scroll-container");
+            const scrollContainer = data.next.container.querySelector(".scroll-container");
             //if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
 
             scrollReveal(data.next.container);
