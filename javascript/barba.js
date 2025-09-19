@@ -25,48 +25,57 @@ export function initBarba() {
   }
 
   barba.init({
-    transitions: [{
-      name: 'default',
-      once(data) {
-        const overlay = document.querySelector('.page-overlay');
-        gsap.to(overlay, { opacity: 0 });
-      },
-      async leave(data) {
-        appState.isTransitioning = true;
-        if (window.resetToDot) window.resetToDot();
-        await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
-      },
-      enter(data) {
-        const next = data.next.container;
-        next.classList.add("fixed");
-        gsap.set(next, { autoAlpha: 0 });
-        gsap.to(next, {
-          autoAlpha: 1,
-          duration: 1,
-          onComplete: () => {
-            window.scrollTo(0, 0);
-            next.classList.remove("fixed");
-            resetWebflow(data);
-            if (window.resetToDot) window.resetToDot();
-          }
-        });
-      },
-      afterEnter(data) {
-        initHoverAnimations(data.next.container);
-        initCaseHover(data.next.container);
-        appState.isTransitioning = false;
+    transitions: [
+      {
+        name: 'default',
+        once(data) {
+          const overlay = document.querySelector('.page-overlay');
+          gsap.to(overlay, { opacity: 0 });
+        },
+        async leave(data) {
+          appState.isTransitioning = true;
+          if (window.resetToDot) window.resetToDot();
+          await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
+        },
+        enter(data) {
+          const next = data.next.container;
+          next.classList.add("fixed");
+          gsap.set(next, { autoAlpha: 0 });
+          gsap.to(next, {
+            autoAlpha: 1,
+            duration: 1,
+            onComplete: () => {
+              window.scrollTo(0, 0);
+              next.classList.remove("fixed");
+              resetWebflow(data);
+              if (window.resetToDot) window.resetToDot();
+            }
+          });
+        },
+        afterEnter(data) {
+          initHoverAnimations(data.next.container);
+          initCaseHover(data.next.container);
+          appState.isTransitioning = false;
 
-        ScrollTrigger.getAll()
-          .filter(trigger => trigger.trigger && data.current.container.contains(trigger.trigger))
-          .forEach(trigger => trigger.kill());
+          // Kill oude ScrollTriggers van vorige container
+          ScrollTrigger.getAll()
+            .filter(trigger => trigger.trigger && data.current.container.contains(trigger.trigger))
+            .forEach(trigger => trigger.kill());
 
-        requestAnimationFrame(() => {
-          autoplayVideos(data.next.container);
-          const scrollContainer = data.next.container.querySelector(".scroll-container");
-          if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
-          ScrollTrigger.refresh();
-          scrollReveal(data.next.container);          
-        });
-    }]
+          requestAnimationFrame(() => {
+            autoplayVideos(data.next.container);
+
+            // Init scroll text
+            const scrollContainer = data.next.container.querySelector(".scroll-container");
+            if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
+
+            ScrollTrigger.refresh();
+
+            // Init scrollReveal (text reveal)
+            scrollReveal(data.next.container);
+          });
+        }
+      }
+    ]
   });
 }
