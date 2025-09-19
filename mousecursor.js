@@ -1,142 +1,157 @@
-// mousecursor.js
+// Only run the custom-cursor code if viewport ≥ 992px
 if (window.matchMedia("(min-width: 992px)").matches) {
   (function () {
-    const DEFAULT_SIZE = 12;
-    const HOVER_SIZE = 120;
+    const defaultSize = 12;
 
-    // -----------------------------
-    // Cursor DOM opbouwen
-    // -----------------------------
-    const cursorBg = document.createElement("div");
-    cursorBg.className = "custom-cursor-bg";
-    document.body.appendChild(cursorBg);
+    // — Build cursor DOM —
+    const cursorbg = document.createElement("div");
+    cursorbg.className = "custom-cursor-bg";
 
+    document.body.appendChild(cursorbg);    
+    
+    // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
+    
     const icon = document.createElement("span");
     icon.className = "icon custom-cursor-icon";
     cursor.appendChild(icon);
+
     const text = document.createElement("span");
     text.className = "custom-cursor-text";
     cursor.appendChild(text);
+
     document.body.appendChild(cursor);
 
-    gsap.set([cursor, cursorBg], {
-      width: DEFAULT_SIZE,
-      height: DEFAULT_SIZE,
+    // — Startwaarden forceren —
+    gsap.set([cursor, cursorbg], { 
+      width: defaultSize, 
+      height: defaultSize, 
       opacity: 1,
-      borderRadius: "50%",
-      transformOrigin: "center center"
+      borderRadius: "50%",      
     });
-    gsap.set([icon, text], { opacity: 0, scale: 0.6 });
+    gsap.set([icon, text], { 
+      opacity: 0, 
+      scale: 0.6 
+    });
 
-    // -----------------------------
-    // Mouse tracking
-    // -----------------------------
-    let mouse = { x: 0, y: 0 };
-    let pos = { x: 0, y: 0 };
-    document.addEventListener("mousemove", e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-
-      // cursorBg volgt soepel
-      gsap.to(cursorBg, {
-        x: mouse.x,
-        y: mouse.y,
-        duration: 0.1,
-        ease: "power2.out",
-        overwrite: "auto"
-      });
-
+    // — Track the real mouse —
+    const setCursorX = gsap.quickSetter(cursor, "x", "px");
+    const setCursorY = gsap.quickSetter(cursor, "y", "px");
+    
+    document.addEventListener("mousemove", (e) => {
       // cursor volgt direct
-      gsap.set(cursor, { x: mouse.x, y: mouse.y });
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+    
+      // cursor-bg volgt soepel
+      gsap.to(cursorbg, {
+        x: e.clientX,
+        y: e.clientY,
+        duration: 0.1,
+        ease: "power2.out"
+      });
     });
 
-    // -----------------------------
-    // Reset cursor naar dot
-    // -----------------------------
+    // — Reset back to dot —
     function resetToDot() {
-      gsap.killTweensOf([cursor, cursorBg, icon, text]);
+      gsap.killTweensOf([cursor, cursorbg, icon, text]);
+
       gsap.to([icon, text], {
         duration: 0.2,
         opacity: 0,
         scale: 0.6,
         ease: "power1.in",
-        overwrite: "auto"
       });
-      gsap.to([cursor, cursorBg], {
+
+      gsap.to([cursor, cursorbg], {
         duration: 0.15,
-        width: DEFAULT_SIZE,
-        height: DEFAULT_SIZE,
+        ease: "power1.in",
+        width: defaultSize,
+        height: defaultSize,
         scale: 1,
         borderRadius: "50%",
         opacity: 1,
-        ease: "power1.in",
-        overwrite: "auto"
+        transformOrigin: "center center",
       });
     }
+
     window.resetToDot = resetToDot;
 
-    // -----------------------------
-    // Hover logic
-    // -----------------------------
+    // — Hover enter logic —
     function handleEnter(el) {
-      if (window.isTransitioning) return;
-      gsap.killTweensOf([cursor, cursorBg, icon, text]);
+      gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
-      const iconHex = el.dataset.hoverIcon;
+      const iconHex = el.dataset.hoverIcon; // bv. "f061"
       const hoverText = el.dataset.hoverText;
 
-      // Content
       if (iconHex) {
         icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
         text.textContent = "";
+        gsap.to([cursor, cursorbg], { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 120, 
+          height: 120, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
+        
+        gsap.to(icon, { 
+          duration: 0.3, 
+          ease: "back.out(2)", 
+          opacity: 1, 
+          scale: 1,
+        });
+        
       } else if (hoverText) {
         icon.textContent = "";
         text.textContent = hoverText;
+        gsap.to([cursor, cursorbg], { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 120, 
+          height: 120, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
+        
+        gsap.to(text, { 
+          duration: 0.3, 
+          ease: "back.out(2)", 
+          opacity: 1, 
+          scale: 1,
+        });
+        
       } else {
         icon.textContent = "";
         text.textContent = "";
+        gsap.to([cursor, cursorbg], { 
+          duration: 0.3, 
+          ease: "back.out(3)", 
+          width: 40, 
+          height: 40, 
+          borderRadius: "50%", 
+          opacity: 1 
+        });
       }
-
-      // Cursor grootte
-      gsap.to([cursor, cursorBg], {
-        width: HOVER_SIZE,
-        height: HOVER_SIZE,
-        duration: 0.3,
-        ease: "back.out(3)",
-        overwrite: "auto"
-      });
-
-      // Icon/text fade in
-      gsap.to([icon, text], {
-        opacity: (iconHex || hoverText) ? 1 : 0,
-        scale: (iconHex || hoverText) ? 1 : 0.6,
-        duration: 0.3,
-        ease: "back.out(2)",
-        overwrite: "auto"
-      });
     }
 
-    // -----------------------------
-    // Event delegation
-    // -----------------------------
-    document.addEventListener("mouseover", e => {
-      if (window.isTransitioning) return;
-      const el = e.target.closest("a, .button, .case-link");
+    // — Event delegation voor links —
+    document.addEventListener("mouseover", (e) => {
+      if (window.isTransitioning) return; // ✨ blokkeer tijdens transitie      
+      const el = e.target.closest("a");
       if (el) handleEnter(el);
     });
 
-    document.addEventListener("mouseout", e => {
-      const el = e.target.closest("a, .button, .case-link");
+    document.addEventListener("mouseout", (e) => {
+      const el = e.target.closest("a");
       if (!el) return;
-      if (e.relatedTarget && e.relatedTarget.closest("a, .button, .case-link")) return;
+      if (e.relatedTarget && e.relatedTarget.closest("a")) return;
       resetToDot();
     });
 
-    // -----------------------------
-    // Init
-    // -----------------------------
+    // — Initialize —
     resetToDot();
   })();
 }
