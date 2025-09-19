@@ -1,6 +1,3 @@
-// ================================
-// MAIN STATE MODULE
-// ================================
 export const appState = {
   mouse: { x: 0, y: 0 },
   pos: { x: 0, y: 0 },
@@ -9,9 +6,6 @@ export const appState = {
   isTransitioning: false
 };
 
-// ------------------------------
-// MOUSE POSITION LISTENER
-// ------------------------------
 export function initMouseTracking() {
   document.addEventListener("mousemove", (e) => {
     appState.mouse.x = e.clientX;
@@ -19,9 +13,6 @@ export function initMouseTracking() {
   });
 }
 
-// ------------------------------
-// CENTRAL TICKER FOR SMOOTH FOLLOW
-// ------------------------------
 export function initTicker(smoothing = 0.2, maxRotation = 3) {
   gsap.ticker.add(() => {
     if (!appState.currentHover) return;
