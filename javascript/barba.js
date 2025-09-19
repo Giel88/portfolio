@@ -52,27 +52,28 @@ export function initBarba() {
             }
           });
         },
+        
         afterEnter(data) {
           initHoverAnimations(data.next.container);
           initCaseHover(data.next.container);
           appState.isTransitioning = false;
-
-          // Kill oude ScrollTriggers van vorige container
+        
+          // Kill oude ScrollTriggers
           ScrollTrigger.getAll()
             .filter(trigger => trigger.trigger && data.current.container.contains(trigger.trigger))
             .forEach(trigger => trigger.kill());
-
+        
           requestAnimationFrame(() => {
             autoplayVideos(data.next.container);
-
-            // Init scroll text
+        
             const scrollContainer = data.next.container.querySelector(".scroll-container");
             if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
-
-            ScrollTrigger.refresh();
-
+        
             // Init scrollReveal (text reveal)
             scrollReveal(data.next.container);
+        
+            // Refresh AFTER alles is toegevoegd
+            setTimeout(() => ScrollTrigger.refresh(), 100);
           });
         }
       }
