@@ -1,7 +1,7 @@
 import { appState } from './main-state.js';
 gsap.registerPlugin(ScrollTrigger);
 
-let tl; // Houd de timeline bij
+let tl; 
 let scrollTriggerInstance;
 let scrollTimeout;
 
@@ -18,24 +18,23 @@ export function horizontalLoop(items, config = {}) {
   const widths = [];
   const xPercents = [];
   const times = [];
-  const snap = config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1);
+  const snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1);
   const pixelsPerSecond = (config.speed || 1) * 100;
 
   gsap.set(items, {
     xPercent: (i, el) => {
-      let w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
+      const w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
       xPercents[i] = snap((parseFloat(gsap.getProperty(el, "x", "px")) / w) * 100 + gsap.getProperty(el, "xPercent"));
       return xPercents[i];
     }
   });
   gsap.set(items, { x: 0 });
 
-  const totalWidth =
-    items[length - 1].offsetLeft +
-    (xPercents[length - 1] / 100) * widths[length - 1] -
-    items[0].offsetLeft +
-    items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], "scaleX") +
-    (parseFloat(config.paddingRight) || 0);
+  const totalWidth = items[length - 1].offsetLeft +
+                     (xPercents[length - 1] / 100) * widths[length - 1] -
+                     items[0].offsetLeft +
+                     items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], "scaleX") +
+                     (parseFloat(config.paddingRight) || 0);
 
   let curIndex = 0;
 
@@ -90,14 +89,17 @@ export function horizontalLoop(items, config = {}) {
 }
 
 export function initScrollText(container) {
-  if (!container) return;
+  if (!container || window.innerWidth < 992) return; // skip mobiel
   const items = gsap.utils.toArray(container.querySelectorAll(".name-container"));
   if (!items.length) return;
 
+  // kill oude triggers
+  if (tl) tl.kill();
+  if (scrollTriggerInstance) scrollTriggerInstance.kill();
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+
   const speed = container.offsetWidth / 6000;
   tl = horizontalLoop(items, { repeat: -1, speed });
-
-  if (scrollTriggerInstance) scrollTriggerInstance.kill();
 
   scrollTriggerInstance = ScrollTrigger.create({
     trigger: container,
@@ -120,13 +122,7 @@ export function initScrollText(container) {
 }
 
 export function killScrollText() {
-  if (tl) {
-    tl.kill();
-    tl = null;
-  }
-  if (scrollTriggerInstance) {
-    scrollTriggerInstance.kill();
-    scrollTriggerInstance = null;
-  }
+  if (tl) { tl.kill(); tl = null; }
+  if (scrollTriggerInstance) { scrollTriggerInstance.kill(); scrollTriggerInstance = null; }
   if (scrollTimeout) clearTimeout(scrollTimeout);
 }
