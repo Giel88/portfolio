@@ -28,17 +28,9 @@ barba.init({
       },
       
       async leave(data) {
-        window.isTransitioning = true; // ✨ zet flag   
-  
-        const trigger = data.trigger; 
-        const fallbackColor = getComputedStyle(document.documentElement).getPropertyValue('--bg') || "#303030";
-        const color = trigger?.dataset?.caseColor || fallbackColor;
-        
+        window.isTransitioning = true; // ✨ zet flag            
         if (window.resetToDot) window.resetToDot();
-        await Promise.all([
-          gsap.to(data.current.container, { autoAlpha: 0, duration: 1 }),
-          gsap.to(document.body, { backgroundColor: color, duration: 1 })
-        ]);
+        await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });    
       },
 
       beforeEnter(data) {
