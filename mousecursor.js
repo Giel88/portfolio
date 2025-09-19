@@ -6,8 +6,10 @@ if (window.matchMedia("(min-width: 992px)").matches) {
     // — Build cursor DOM —
     const cursorbg = document.createElement("div");
     cursorbg.className = "custom-cursor-bg";
+
     document.body.appendChild(cursorbg);    
     
+    // — Build cursor DOM —
     const cursor = document.createElement("div");
     cursor.className = "custom-cursor";
     
@@ -33,19 +35,19 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       scale: 0.6 
     });
 
-    // — Track the real mouse (no GSAP tween per move) —
-    const mouse = { x: 0, y: 0 };
-    document.addEventListener("mousemove", e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    });
-
-    // — Smooth follow cursor & cursor-bg in one ticker —
-    gsap.ticker.add(() => {
-      gsap.set(cursor, { x: mouse.x, y: mouse.y });
+    // — Track the real mouse —
+    const setCursorX = gsap.quickSetter(cursor, "x", "px");
+    const setCursorY = gsap.quickSetter(cursor, "y", "px");
+    
+    document.addEventListener("mousemove", (e) => {
+      // cursor volgt direct
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+    
+      // cursor-bg volgt soepel
       gsap.to(cursorbg, {
-        x: mouse.x,
-        y: mouse.y,
+        x: e.clientX,
+        y: e.clientY,
         duration: 0.1,
         ease: "power2.out"
       });
@@ -53,9 +55,7 @@ if (window.matchMedia("(min-width: 992px)").matches) {
 
     // — Reset back to dot —
     function resetToDot() {
-      // Kill tweens only on relevant elements
-      gsap.killTweensOf([cursor, cursorbg]);
-      gsap.killTweensOf([icon, text]);
+      gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
       gsap.to([icon, text], {
         duration: 0.2,
@@ -75,14 +75,14 @@ if (window.matchMedia("(min-width: 992px)").matches) {
         transformOrigin: "center center",
       });
     }
+
     window.resetToDot = resetToDot;
 
     // — Hover enter logic —
     function handleEnter(el) {
-      gsap.killTweensOf([cursor, cursorbg]);
-      gsap.killTweensOf([icon, text]);
+      gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
-      const iconHex = el.dataset.hoverIcon;
+      const iconHex = el.dataset.hoverIcon; // bv. "f061"
       const hoverText = el.dataset.hoverText;
 
       if (iconHex) {
@@ -137,14 +137,14 @@ if (window.matchMedia("(min-width: 992px)").matches) {
       }
     }
 
-    // — Event delegation voor <a> elements —
-    document.addEventListener("mouseover", e => {
-      if (window.isTransitioning) return;
+    // — Event delegation voor links —
+    document.addEventListener("mouseover", (e) => {
+      if (window.isTransitioning) return; // ✨ blokkeer tijdens transitie      
       const el = e.target.closest("a");
       if (el) handleEnter(el);
     });
 
-    document.addEventListener("mouseout", e => {
+    document.addEventListener("mouseout", (e) => {
       const el = e.target.closest("a");
       if (!el) return;
       if (e.relatedTarget && e.relatedTarget.closest("a")) return;
