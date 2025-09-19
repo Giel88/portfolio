@@ -1,19 +1,18 @@
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(SplitText, ScrollTrigger);
 
 export function scrollReveal(container = document) {
   // ===============================
   // Headers (pageload animatie)
   // ===============================
-  gsap.utils.toArray('[data-reveal-content="header"]', container).forEach(el => {
-    if (!el || !el.textContent.trim()) return;
-    const chars = el.textContent.split("").map(c => `<span>${c}</span>`).join("");
-    el.innerHTML = chars;
+  gsap.utils.toArray('[data-reveal-content="header"]', container).forEach(heading => {
+    if (!heading || !heading.textContent.trim()) return;
+    const split = new SplitText(heading, { type: "words, chars" });
 
-    gsap.from(el.querySelectorAll("span"), {
+    gsap.from(split.chars, {
       y: "25%",
       rotation: 5,
       opacity: 0,
-      stagger: 0.01,
+      stagger: { each: 0.01, total: 0.50, ease: "power1.in" },
       delay: 0.5,
       duration: 1,
       ease: "back.out(2)"
@@ -23,22 +22,21 @@ export function scrollReveal(container = document) {
   // ===============================
   // Paragraphs
   // ===============================
-  gsap.utils.toArray('[data-reveal-content="paragraph"]', container).forEach(el => {
-    if (!el || !el.textContent.trim()) return;
-    const lines = el.textContent.split("\n").map(l => `<span>${l}</span>`).join("");
-    el.innerHTML = lines;
+  gsap.utils.toArray('[data-reveal-content="paragraph"]', container).forEach(paragraph => {
+    if (!paragraph || !paragraph.textContent.trim()) return;
+    const split = new SplitText(paragraph, { type: "lines" });
 
-    gsap.from(el.querySelectorAll("span"), {
+    gsap.from(split.lines, {
       y: "25%",
       opacity: 0,
-      stagger: 0.05,
+      stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
-        trigger: el,
+        trigger: paragraph,
         start: "top bottom",
         end: "top 70%",
-        toggleActions: "play none none none"
+        toggleActions: "none play none none"
       }
     });
   });
@@ -46,15 +44,15 @@ export function scrollReveal(container = document) {
   // ===============================
   // Lists
   // ===============================
-  gsap.utils.toArray('[data-reveal-content="list"]', container).forEach(el => {
-    if (!el) return;
-    gsap.from(el, {
+  gsap.utils.toArray('[data-reveal-content="list"]', container).forEach(list => {
+    if (!list) return;
+    gsap.from(list, {
       y: "25%",
       opacity: 0,
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
-        trigger: el,
+        trigger: list,
         start: "top bottom",
         end: "bottom bottom",
         toggleActions: "play none none none",
@@ -66,22 +64,25 @@ export function scrollReveal(container = document) {
   // ===============================
   // Images
   // ===============================
-  gsap.utils.toArray('[data-reveal-content="image"]', container).forEach(el => {
-    if (!el) return;
-    gsap.from(el, {
+  gsap.utils.toArray('[data-reveal-content="image"]', container).forEach(image => {
+    if (!image) return;
+
+    // Basis fade-in
+    gsap.from(image, {
       y: "10%",
       opacity: 0,
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
-        trigger: el,
+        trigger: image,
         start: "top bottom",
         end: "top 70%",
-        toggleActions: "play none none none"
+        toggleActions: "none play none none"
       }
     });
 
-    const portraitImg = el.querySelector(".portrait-pic");
+    // Portrait scroll effect (indien aanwezig)
+    const portraitImg = image.querySelector(".portrait-pic");
     if (portraitImg) {
       gsap.from(portraitImg, {
         y: "-10%",
