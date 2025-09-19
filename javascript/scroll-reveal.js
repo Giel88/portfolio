@@ -3,11 +3,10 @@ gsap.registerPlugin(SplitText, ScrollTrigger);
 let splitInstances = [];
 
 export function scrollReveal(container = document) {
-  if (!container) return;
-
   // Headers
   gsap.utils.toArray('[data-reveal-content="header"]', container).forEach(el => {
     if (!el || !el.textContent.trim()) return;
+
     const split = new SplitText(el, { type: "words, chars" });
     splitInstances.push(split);
 
@@ -25,6 +24,7 @@ export function scrollReveal(container = document) {
   // Paragraphs
   gsap.utils.toArray('[data-reveal-content="paragraph"]', container).forEach(el => {
     if (!el || !el.textContent.trim()) return;
+
     const split = new SplitText(el, { type: "lines" });
     splitInstances.push(split);
 
@@ -64,7 +64,6 @@ export function scrollReveal(container = document) {
   // Images
   gsap.utils.toArray('[data-reveal-content="image"]', container).forEach(el => {
     if (!el) return;
-
     gsap.from(el, {
       y: "10%",
       opacity: 0,
@@ -74,4 +73,28 @@ export function scrollReveal(container = document) {
         trigger: el,
         start: "top bottom",
         end: "top 70%",
-        toggleActions: "none
+        toggleActions: "none play none none"
+      }
+    });
+
+    const portraitImg = el.querySelector(".portrait-pic");
+    if (portraitImg) {
+      gsap.from(portraitImg, {
+        y: "-10%",
+        ease: "none",
+        scrollTrigger: {
+          trigger: portraitImg,
+          start: "top bottom",
+          end: "bottom top",
+          scrub: true
+        }
+      });
+    }
+  });
+}
+
+export function killScrollReveal() {
+  splitInstances.forEach(s => s.revert());
+  splitInstances = [];
+  ScrollTrigger.getAll().forEach(st => st.kill());
+}
