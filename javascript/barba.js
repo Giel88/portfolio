@@ -33,14 +33,9 @@ export function initBarba() {
           gsap.to(overlay, { opacity: 0 });
         },
         async leave(data) {
-          // zet flag zodat hovers etc. zich afsluiten
           appState.isTransitioning = true;
-        
-          // startroutine: kill zware anims van vorige pagina
-          try { killScrollText(); } catch(e) { console.warn("killScrollText failed", e); }
-          try { killScrollReveal(); } catch(e) { console.warn("killScrollReveal failed", e); }
-        
-          if (window.resetToDot) window.resetToDot();
+          killScrollText();
+          killScrollReveal();
           await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
         },
         enter(data) {
@@ -54,31 +49,22 @@ export function initBarba() {
               window.scrollTo(0, 0);
               next.classList.remove("fixed");
               resetWebflow(data);
-              if (window.resetToDot) window.resetToDot();
             }
           });
         },
-        
         afterEnter(data) {
           initHoverAnimations(data.next.container);
           initCaseHover(data.next.container);
           appState.isTransitioning = false;
-        
-          // Kill oude ScrollTriggers
-          ScrollTrigger.getAll()
-            .filter(trigger => trigger.trigger && data.current.container.contains(trigger.trigger))
-            .forEach(trigger => trigger.kill());
-        
+
           requestAnimationFrame(() => {
             autoplayVideos(data.next.container);
-        
+
             const scrollContainer = data.next.container.querySelector(".scroll-container");
             if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
-        
-            // Init scrollReveal (text reveal)
+
             scrollReveal(data.next.container);
-        
-            // Refresh AFTER alles is toegevoegd
+
             setTimeout(() => ScrollTrigger.refresh(), 100);
           });
         }
