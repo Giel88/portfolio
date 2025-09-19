@@ -1,5 +1,4 @@
 import { initHoverAnimations, initCaseHover } from './hover.js';
-import { scrollReveal } from './scroll-reveal.js'; // optioneel, je scrollReveal code
 import { initScrollText } from './scroll.js';
 import { appState } from './main-state.js';
 
