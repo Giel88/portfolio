@@ -1,4 +1,3 @@
-import { appState } from './main-state.js';
 gsap.registerPlugin(ScrollTrigger);
 
 export function scrollReveal(container = document) {
