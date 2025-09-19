@@ -13,6 +13,8 @@ import { initBarba } from './barba.js';
 initMouseTracking();
 initTicker();
 initCursor();
+initHoverAnimations(document);
+initCaseHover(document);
 
 // ================================
 // Init scroll text op eerste page load
