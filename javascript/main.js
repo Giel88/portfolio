@@ -19,7 +19,7 @@ initCaseHover(document);
 // ================================
 document.addEventListener("DOMContentLoaded", () => {
   const initialScrollContainer = document.querySelector(".scroll-container");
-  if (initialScrollContainer) initScrollText(initialScrollContainer);
+  //if (initialScrollContainer) initScrollText(initialScrollContainer);
 
   scrollReveal(document);
   if (window.ScrollTrigger) ScrollTrigger.refresh();
