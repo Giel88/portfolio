@@ -1,7 +1,7 @@
 import { initHoverAnimations, initCaseHover } from './hover.js';
-import { initScrollText } from './scroll.js';
+import { initScrollText, killScrollText } from './scroll.js';
 import { appState } from './main-state.js';
-import { scrollReveal } from './scroll-reveal.js';
+import { scrollReveal, killScrollReveal } from './scroll-reveal.js';
 
 export function initBarba() {
   function resetWebflow(data) {
@@ -33,7 +33,13 @@ export function initBarba() {
           gsap.to(overlay, { opacity: 0 });
         },
         async leave(data) {
+          // zet flag zodat hovers etc. zich afsluiten
           appState.isTransitioning = true;
+        
+          // startroutine: kill zware anims van vorige pagina
+          try { killScrollText(); } catch(e) { console.warn("killScrollText failed", e); }
+          try { killScrollReveal(); } catch(e) { console.warn("killScrollReveal failed", e); }
+        
           if (window.resetToDot) window.resetToDot();
           await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
         },
