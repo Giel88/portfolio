@@ -1,7 +1,7 @@
 import { appState } from './main-state.js';
 gsap.registerPlugin(ScrollTrigger);
 
-let tl; 
+let tl;
 let scrollTriggerInstance;
 let scrollTimeout;
 
@@ -10,33 +10,31 @@ export function horizontalLoop(items, config = {}) {
   tl = gsap.timeline({
     repeat: config.repeat,
     paused: config.paused,
-    defaults: { ease: "none" },
-    onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)
+    defaults: { ease: "none" }
   });
 
   const length = items.length;
   const widths = [];
   const xPercents = [];
   const times = [];
-  const snap = config.snap === false ? v => v : gsap.utils.snap(config.snap || 1);
+  const snap = config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1);
   const pixelsPerSecond = (config.speed || 1) * 100;
 
   gsap.set(items, {
     xPercent: (i, el) => {
-      const w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
+      let w = (widths[i] = parseFloat(gsap.getProperty(el, "width", "px")));
       xPercents[i] = snap((parseFloat(gsap.getProperty(el, "x", "px")) / w) * 100 + gsap.getProperty(el, "xPercent"));
       return xPercents[i];
     }
   });
   gsap.set(items, { x: 0 });
 
-  const totalWidth = items[length - 1].offsetLeft +
-                     (xPercents[length - 1] / 100) * widths[length - 1] -
-                     items[0].offsetLeft +
-                     items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], "scaleX") +
-                     (parseFloat(config.paddingRight) || 0);
-
-  let curIndex = 0;
+  const totalWidth =
+    items[length - 1].offsetLeft +
+    (xPercents[length - 1] / 100) * widths[length - 1] -
+    items[0].offsetLeft +
+    items[length - 1].offsetWidth * gsap.getProperty(items[length - 1], "scaleX") +
+    (parseFloat(config.paddingRight) || 0);
 
   for (let i = 0; i < length; i++) {
     const item = items[i];
@@ -54,52 +52,23 @@ export function horizontalLoop(items, config = {}) {
       xPercent: xPercents[i],
       duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
       immediateRender: false
-    }, distanceToLoop / pixelsPerSecond)
-    .add("label" + i, distanceToStart / pixelsPerSecond);
-
+    }, distanceToLoop / pixelsPerSecond);
+    
     times[i] = distanceToStart / pixelsPerSecond;
-  }
-
-  function toIndex(index, vars = {}) {
-    if (Math.abs(index - curIndex) > length / 2) index += index > curIndex ? -length : length;
-    const newIndex = gsap.utils.wrap(0, length, index);
-    let time = times[newIndex];
-    if ((time > tl.time()) !== (index > curIndex)) {
-      vars.modifiers = { time: gsap.utils.wrap(0, tl.duration()) };
-      time += tl.duration() * (index > curIndex ? 1 : -1);
-    }
-    curIndex = newIndex;
-    vars.overwrite = true;
-    return tl.tweenTo(time, vars);
-  }
-
-  tl.next = (vars) => toIndex(curIndex + 1, vars);
-  tl.previous = (vars) => toIndex(curIndex - 1, vars);
-  tl.current = () => curIndex;
-  tl.toIndex = (index, vars) => toIndex(index, vars);
-  tl.times = times;
-  tl.progress(1, true).progress(0, true);
-
-  if (config.reversed) {
-    tl.vars.onReverseComplete();
-    tl.reverse();
   }
 
   return tl;
 }
 
 export function initScrollText(container) {
-  if (!container || window.innerWidth < 992) return; // skip mobiel
+  if (!container) return;
   const items = gsap.utils.toArray(container.querySelectorAll(".name-container"));
   if (!items.length) return;
 
-  // kill oude triggers
-  if (tl) tl.kill();
-  if (scrollTriggerInstance) scrollTriggerInstance.kill();
-  if (scrollTimeout) clearTimeout(scrollTimeout);
-
   const speed = container.offsetWidth / 6000;
   tl = horizontalLoop(items, { repeat: -1, speed });
+
+  if (scrollTriggerInstance) scrollTriggerInstance.kill();
 
   scrollTriggerInstance = ScrollTrigger.create({
     trigger: container,
