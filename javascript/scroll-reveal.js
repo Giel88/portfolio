@@ -93,8 +93,12 @@ export function scrollReveal(container = document) {
   });
 }
 
+// Cleanup functie
 export function killScrollReveal() {
   splitInstances.forEach(s => s.revert());
   splitInstances = [];
-  ScrollTrigger.getAll().forEach(st => st.kill());
+
+  ScrollTrigger.getAll().forEach(st => {
+    if (st.trigger && !document.body.contains(st.trigger)) st.kill();
+  });
 }
