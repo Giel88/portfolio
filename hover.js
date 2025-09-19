@@ -60,3 +60,7 @@ function initHoverAnimations(container = document) {
     });
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  initHoverAnimations();
+});
