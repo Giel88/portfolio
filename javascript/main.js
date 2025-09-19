@@ -30,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
 // ================================
 initBarba({
   beforeLeave() {
-    // Kill oude animaties voor overgang
     killScrollText();
     killScrollReveal();
   }
