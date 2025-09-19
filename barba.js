@@ -28,8 +28,7 @@ barba.init({
       },
       
       async leave(data) {
-        window.isTransitioning = true; // ✨ zet flag  
-        if (window.destroyCustomCursor) window.destroyCustomCursor();
+        window.isTransitioning = true; // ✨ zet flag   
   
         const trigger = data.trigger; 
         const fallbackColor = getComputedStyle(document.documentElement).getPropertyValue('--bg') || "#303030";
@@ -69,7 +68,6 @@ barba.init({
         initHoverAnimations(data.next.container);
         initCaseHover(data.next.container);
         window.isTransitioning = false; // ✨ flag weer uit        
-        if (window.initCustomCursor) window.initCustomCursor();        
       
         // Kill oude triggers
         ScrollTrigger.getAll()
