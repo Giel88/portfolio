@@ -1,9 +1,13 @@
 import { appState } from './main-state.js';
 gsap.registerPlugin(ScrollTrigger);
 
+let tl; // Houd de timeline bij
+let scrollTriggerInstance;
+let scrollTimeout;
+
 export function horizontalLoop(items, config = {}) {
   items = gsap.utils.toArray(items);
-  let tl = gsap.timeline({
+  tl = gsap.timeline({
     repeat: config.repeat,
     paused: config.paused,
     defaults: { ease: "none" },
@@ -14,7 +18,6 @@ export function horizontalLoop(items, config = {}) {
   const widths = [];
   const xPercents = [];
   const times = [];
-
   const snap = config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1);
   const pixelsPerSecond = (config.speed || 1) * 100;
 
@@ -92,10 +95,11 @@ export function initScrollText(container) {
   if (!items.length) return;
 
   const speed = container.offsetWidth / 6000;
-  const tl = horizontalLoop(items, { repeat: -1, speed });
+  tl = horizontalLoop(items, { repeat: -1, speed });
 
-  let scrollTimeout;
-  ScrollTrigger.create({
+  if (scrollTriggerInstance) scrollTriggerInstance.kill();
+
+  scrollTriggerInstance = ScrollTrigger.create({
     trigger: container,
     start: "top bottom",
     end: "bottom top",
@@ -113,4 +117,16 @@ export function initScrollText(container) {
       }, 100);
     }
   });
+}
+
+export function killScrollText() {
+  if (tl) {
+    tl.kill();
+    tl = null;
+  }
+  if (scrollTriggerInstance) {
+    scrollTriggerInstance.kill();
+    scrollTriggerInstance = null;
+  }
+  if (scrollTimeout) clearTimeout(scrollTimeout);
 }
