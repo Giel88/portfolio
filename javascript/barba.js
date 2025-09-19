@@ -1,6 +1,7 @@
 import { initHoverAnimations, initCaseHover } from './hover.js';
 import { initScrollText } from './scroll.js';
 import { appState } from './main-state.js';
+import { scrollReveal } from './scroll-reveal.js';
 
 export function initBarba() {
   function resetWebflow(data) {
