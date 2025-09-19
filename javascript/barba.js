@@ -66,6 +66,10 @@ export function initBarba() {
           if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
           ScrollTrigger.refresh();
         });
+
+        requestAnimationFrame(() => {
+          scrollReveal(data.next.container);
+        });
       }
     }]
   });
