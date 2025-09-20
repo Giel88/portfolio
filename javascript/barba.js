@@ -32,10 +32,14 @@ export function initBarba() {
           const overlay = document.querySelector('.page-overlay');
           gsap.to(overlay, { opacity: 0 });
         },
-        async leave(data) {
+        beforeLeave(data) {
           appState.isTransitioning = true;
           killScrollText();
           killScrollReveal();
+          ScrollTrigger.getAll().forEach(st => st.kill()); // extra zekerheid
+          gsap.globalTimeline.clear(); // alles stopzetten
+        },
+        async leave(data) {
           await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
         },
         enter(data) {
