@@ -42,8 +42,9 @@ export function initBarba() {
         async leave(data) {
           const triggerLink = data.trigger;
           const bgColor = triggerLink?.dataset?.caseColor || getComputedStyle(document.body).getPropertyValue('--bg');
-          gsap.to(document.body, { backgroundColor: bgColor, duration: 1, ease: "power1.inOut" });
           if (window.resetToDot) window.resetToDot();
+          
+          gsap.to(document.body, { backgroundColor: bgColor, duration: 1, ease: "power1.inOut" });
           await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
         },
         enter(data) {
