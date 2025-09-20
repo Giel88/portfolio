@@ -39,9 +39,9 @@ export function initBarba() {
           ScrollTrigger.getAll().forEach(st => st.kill()); // extra zekerheid
           gsap.globalTimeline.clear(); // alles stopzetten
         },
-        leave(data) {
-          gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
+        async leave(data) {
           if (window.resetToDot) window.resetToDot();
+          await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
         },
         enter(data) {
           const next = data.next.container;
