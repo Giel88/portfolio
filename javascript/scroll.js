@@ -1,8 +1,3 @@
-if (window.innerWidth < 992) {
-  console.log("SCROLL-TEXT: skipped on mobile");
-  return;
-}
-
 //  scroll.js (veilig, mobile-aware)
 import { appState } from './main-state.js';
 gsap.registerPlugin(ScrollTrigger);
