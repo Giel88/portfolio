@@ -34,6 +34,7 @@ export function initBarba() {
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
+          resetToDot();
           killScrollText();
           killScrollReveal();
           ScrollTrigger.getAll().forEach(st => st.kill()); // extra zekerheid
