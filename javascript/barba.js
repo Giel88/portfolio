@@ -34,7 +34,6 @@ export function initBarba() {
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
-          resetToDot();
           killScrollText();
           killScrollReveal();
           ScrollTrigger.getAll().forEach(st => st.kill()); // extra zekerheid
@@ -42,6 +41,7 @@ export function initBarba() {
         },
         async leave(data) {
           await gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
+          resetToDot();
         },
         enter(data) {
           const next = data.next.container;
