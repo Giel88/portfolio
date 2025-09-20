@@ -1,4 +1,4 @@
-// scroll.js (veilig, mobile-aware)
+//  scroll.js (veilig, mobile-aware)
 import { appState } from './main-state.js';
 gsap.registerPlugin(ScrollTrigger);
 
