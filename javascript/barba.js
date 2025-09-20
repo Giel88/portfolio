@@ -70,9 +70,9 @@ export function initBarba() {
             autoplayVideos(data.next.container);
 
             const scrollContainer = data.next.container.querySelector(".scroll-container");
-            //if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
+            if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
 
-            //scrollReveal(data.next.container);
+            scrollReveal(data.next.container);
 
             setTimeout(() => ScrollTrigger.refresh(), 100);
           });
