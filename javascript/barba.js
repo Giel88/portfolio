@@ -41,7 +41,7 @@ export function initBarba() {
         },
         leave(data) {
           gsap.to(data.current.container, { autoAlpha: 0, duration: 1 });
-          resetToDot();
+          if (window.resetToDot) window.resetToDot();
         },
         enter(data) {
           const next = data.next.container;
