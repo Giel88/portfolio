@@ -74,7 +74,7 @@ export function initScrollText(container) {
   //if (window.innerWidth < 992) {
   //  console.log("SCROLL-TEXT: skip on mobile");
   //  return;
-  }
+  //}
 
   const items = gsap.utils.toArray(container.querySelectorAll(".name-container"));
   if (!items.length) return;
