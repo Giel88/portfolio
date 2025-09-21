@@ -24,6 +24,16 @@ export function initBarba() {
     });
   }
 
+  function killVideos(container) {
+  const videos = container.querySelectorAll('video');
+  videos.forEach(video => {
+    video.pause();      // stop playback
+    video.currentTime = 0; // reset
+    video.src = "";     // clear source
+    video.load();       // force reload state
+  });
+}
+
   barba.init({
     transitions: [
       {
@@ -36,6 +46,7 @@ export function initBarba() {
           appState.isTransitioning = true;
           killScrollText();
           killScrollReveal();
+          killVideos(data.current.container);
           ScrollTrigger.getAll().forEach(st => st.kill()); // extra zekerheid
           gsap.globalTimeline.clear(); // alles stopzetten
         },
