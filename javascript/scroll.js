@@ -71,9 +71,9 @@ export function horizontalLoop(items, config = {}) {
 export function initScrollText(container) {
   // safety: skip on narrow viewports (mobile)
   if (!container) return;
-  if (window.innerWidth < 992) {
-    console.log("SCROLL-TEXT: skip on mobile");
-    return;
+  //if (window.innerWidth < 992) {
+  //  console.log("SCROLL-TEXT: skip on mobile");
+  //  return;
   }
 
   const items = gsap.utils.toArray(container.querySelectorAll(".name-container"));
