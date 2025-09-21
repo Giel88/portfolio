@@ -14,6 +14,18 @@ export function initBarba() {
     window.Webflow && window.Webflow.require("ix2").init();
   }
 
+  function hardResetVideos(container) {
+    const videos = container.querySelectorAll('video[autoplay]');
+    videos.forEach(video => {
+      const clone = video.cloneNode(true); // volledig nieuwe instantie
+      clone.muted = true;
+      clone.autoplay = true;
+      clone.playsInline = true;
+      video.parentNode.replaceChild(clone, video);
+      clone.play().catch(() => {});
+    });
+  }
+  
   function autoplayVideos(container) {
     const videos = container.querySelectorAll('video[autoplay]');
     videos.forEach(video => {
@@ -79,7 +91,7 @@ export function initBarba() {
           appState.isTransitioning = false;
 
           requestAnimationFrame(() => {
-            autoplayVideos(data.next.container);
+            hardResetVideos(data.next.container);
 
             const scrollContainer = data.next.container.querySelector(".scroll-container");
             if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
