@@ -20,19 +20,20 @@ export function initBarba() {
       video.pause();
       video.currentTime = 0;
       video.muted = true;
+      video.load(); // ✨ forceer een verse decode/buffer
       video.play().catch(() => {});
     });
   }
 
   function killVideos(container) {
-  const videos = container.querySelectorAll('video');
-  videos.forEach(video => {
-    video.pause();      // stop playback
-    video.currentTime = 0; // reset
-    video.src = "";     // clear source
-    video.load();       // force reload state
-  });
-}
+    const videos = container.querySelectorAll('video');
+    videos.forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+      video.removeAttribute('src'); // optioneel, maar niet per se nodig
+      video.load(); // reset buffer naar begin
+    });
+  }
 
   barba.init({
     transitions: [
