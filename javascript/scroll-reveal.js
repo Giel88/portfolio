@@ -4,10 +4,10 @@ let splitInstances = [];
 
 export function scrollReveal(container = document) {
   // Safety: skip op mobiel
-  if (window.innerWidth < 992) {
-    console.log("SCROLL-REVEAL: skipped on mobile");
-    return;
-  }
+  //if (window.innerWidth < 992) {
+  //  console.log("SCROLL-REVEAL: skipped on mobile");
+  //  return;
+  //}
 
   console.log("SCROLL-REVEAL: init", container);
 
