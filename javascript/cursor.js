@@ -84,5 +84,4 @@ export function initCursor() {
   });
 
   window.resetToDot = resetToDot;
-  resetToDot();
 }
