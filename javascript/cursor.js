@@ -24,13 +24,22 @@ export function initCursor() {
   gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, opacity: 0, borderRadius: "50%" });
   gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
+  let hasMoved = false;
+
   const setCursorX = gsap.quickSetter(cursor, "x", "px");
   const setCursorY = gsap.quickSetter(cursor, "y", "px");
 
   document.addEventListener("mousemove", (e) => {
-    setCursorX(e.clientX);
-    setCursorY(e.clientY);
-    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.1, ease: "power2.out" });
+    if (!hasMoved) {    
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+      gsap.set(cursorbg, { x: e.clientX, y: e.clientY });
+      gsap.to(cursorbg, { opacity: 1, duration: 0.1, ease: "power2.out" });
+      hasMoved = true;
+    }
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+      gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.1, ease: "power2.out" });
   });
 
   function resetToDot() {
