@@ -4,6 +4,8 @@ export function initCursor() {
   if (!window.matchMedia("(min-width: 992px)").matches) return;
 
   const defaultSize = 12;
+  let hasMoved = false; // ✨ voor de eerste muisbeweging
+
   const cursorbg = document.createElement("div");
   cursorbg.className = "custom-cursor-bg";
   document.body.appendChild(cursorbg);
@@ -21,7 +23,8 @@ export function initCursor() {
 
   document.body.appendChild(cursor);
 
-  gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, opacity: 0, borderRadius: "50%" });
+  // ✨ Start scale 0 zodat hij niet zichtbaar is
+  gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, scale: 0, borderRadius: "50%" });
   gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
   const setCursorX = gsap.quickSetter(cursor, "x", "px");
@@ -30,7 +33,15 @@ export function initCursor() {
   document.addEventListener("mousemove", (e) => {
     setCursorX(e.clientX);
     setCursorY(e.clientY);
-    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.1, ease: "power2.out" });
+
+    // cursor-bg volgt soepel
+    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
+
+    // ✨ Eerste beweging: cursor ingroeien
+    if (!hasMoved) {
+      gsap.to([cursor, cursorbg], { duration: 0.3, scale: 1, ease: "power2.out" });
+      hasMoved = true;
+    }
   });
 
   function resetToDot() {
@@ -43,7 +54,6 @@ export function initCursor() {
       height: defaultSize,
       scale: 1,
       borderRadius: "50%",
-      opacity: 1,
       transformOrigin: "center center",
     });
   }
@@ -56,17 +66,17 @@ export function initCursor() {
     if (iconHex) {
       icon.textContent = String.fromCharCode(parseInt(iconHex, 16));
       text.textContent = "";
-      gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 120, height: 120, borderRadius: "50%", opacity: 1 });
+      gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 120, height: 120, borderRadius: "50%", scale: 1 });
       gsap.to(icon, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1 });
     } else if (hoverText) {
       icon.textContent = "";
       text.textContent = hoverText;
-      gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 120, height: 120, borderRadius: "50%", opacity: 1 });
+      gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 120, height: 120, borderRadius: "50%", scale: 1 });
       gsap.to(text, { duration: 0.3, ease: "back.out(2)", opacity: 1, scale: 1 });
     } else {
       icon.textContent = "";
       text.textContent = "";
-      gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 40, height: 40, borderRadius: "50%", opacity: 1 });
+      gsap.to([cursor, cursorbg], { duration: 0.3, ease: "back.out(3)", width: 40, height: 40, borderRadius: "50%", scale: 1 });
     }
   }
 
@@ -84,5 +94,4 @@ export function initCursor() {
   });
 
   window.resetToDot = resetToDot;
-  resetToDot();
 }
