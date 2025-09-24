@@ -13,6 +13,8 @@ export function initMouseTracking() {
   });
 }
 
+let hasMoved = false;
+
 export function initTicker(smoothing = 0.2, maxRotation = 3) {
   gsap.ticker.add(() => {
     if (!appState.currentHover) return;
@@ -23,9 +25,18 @@ export function initTicker(smoothing = 0.2, maxRotation = 3) {
       return;
     }
 
-    appState.pos.x += (appState.mouse.x - appState.pos.x) * smoothing;
-    appState.pos.y += (appState.mouse.y - appState.pos.y) * smoothing;
-    gsap.set(appState.currentHover, { x: appState.pos.x, y: appState.pos.y });
+    if (!hasMoved) {
+      // Eerste muisbeweging: direct positioneren
+      gsap.set(appState.currentHover, { x: appState.mouse.x, y: appState.mouse.y });
+      appState.pos.x = appState.mouse.x;
+      appState.pos.y = appState.mouse.y;
+      hasMoved = true;
+    } else {
+      // Daarna smooth volgen
+      appState.pos.x += (appState.mouse.x - appState.pos.x) * smoothing;
+      appState.pos.y += (appState.mouse.y - appState.pos.y) * smoothing;
+      gsap.set(appState.currentHover, { x: appState.pos.x, y: appState.pos.y });
+    }
 
     const dx = appState.mouse.x - appState.lastPos.x;
     const rotation = gsap.utils.clamp(-maxRotation, maxRotation, dx * 0.5);
