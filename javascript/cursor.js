@@ -33,7 +33,7 @@ export function initCursor() {
   document.addEventListener("mousemove", (e) => {
     if (firstMove) {
       // Plaats cursor direct op muis en groepeer naar defaultSize
-      gsap.set([cursor, cursorbg], { x: e.clientX, y: e.clientY });
+      gsap.set([cursor, cursorbg], { x: e.clientX, y: e.clientY, transformOrigin: "center center" });
       gsap.to([cursor, cursorbg], { scale: 1, duration: 0.3, ease: "power2.out" });
       firstMove = false;
     } else {
