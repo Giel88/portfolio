@@ -21,7 +21,7 @@ export function initCursor() {
 
   document.body.appendChild(cursor);
 
-  gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, opacity: 0, borderRadius: "50%" });
+  gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, scale: 0, borderRadius: "50%" });
   gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
   const setCursorX = gsap.quickSetter(cursor, "x", "px");
@@ -30,7 +30,7 @@ export function initCursor() {
   document.addEventListener("mousemove", (e) => {
     setCursorX(e.clientX);
     setCursorY(e.clientY);
-    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.1, ease: "power2.out" });
+    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.1, scale: defaultSize, ease: "power2.out" });
   });
 
   function resetToDot() {
