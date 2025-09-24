@@ -4,8 +4,6 @@ export function initCursor() {
   if (!window.matchMedia("(min-width: 992px)").matches) return;
 
   const defaultSize = 12;
-  let hasMoved = false; // ✨ voor de eerste muisbeweging
-
   const cursorbg = document.createElement("div");
   cursorbg.className = "custom-cursor-bg";
   document.body.appendChild(cursorbg);
@@ -23,24 +21,25 @@ export function initCursor() {
 
   document.body.appendChild(cursor);
 
-  // ✨ Start scale 0 zodat hij niet zichtbaar is
+  // — Startwaarden: cursor onzichtbaar
   gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, scale: 0, borderRadius: "50%" });
   gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
   const setCursorX = gsap.quickSetter(cursor, "x", "px");
   const setCursorY = gsap.quickSetter(cursor, "y", "px");
 
+  let firstMove = true; // ✨ voor eerste muisbeweging
+
   document.addEventListener("mousemove", (e) => {
-    setCursorX(e.clientX);
-    setCursorY(e.clientY);
-
-    // cursor-bg volgt soepel
-    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
-
-    // ✨ Eerste beweging: cursor ingroeien
-    if (!hasMoved) {
-      gsap.to([cursor, cursorbg], { duration: 0.3, scale: 1, ease: "power2.out" });
-      hasMoved = true;
+    if (firstMove) {
+      // Plaats cursor direct op muis en groepeer naar defaultSize
+      gsap.set([cursor, cursorbg], { x: e.clientX, y: e.clientY });
+      gsap.to([cursor, cursorbg], { scale: 1, duration: 0.3, ease: "power2.out" });
+      firstMove = false;
+    } else {
+      setCursorX(e.clientX);
+      setCursorY(e.clientY);
+      gsap.to(cursorbg, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
     }
   });
 
@@ -94,4 +93,5 @@ export function initCursor() {
   });
 
   window.resetToDot = resetToDot;
+  // cursor start onzichtbaar, dus resetToDot hoeft scale niet te zetten
 }
