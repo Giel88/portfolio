@@ -34,7 +34,7 @@ export function initCursor() {
       setCursorX(e.clientX);
       setCursorY(e.clientY);
       gsap.set(cursorbg, { x: e.clientX, y: e.clientY });
-      gsap.to(cursorbg, { opacity: 1, duration: 0.1, ease: "power2.out" });
+      gsap.to(cursorbg, { opacity: 1, duration: 0.5, ease: "power2.out" });
       hasMoved = true;
     }
       setCursorX(e.clientX);
