@@ -11,8 +11,6 @@ export function initMouseTracking() {
   document.addEventListener("mousemove", (e) => {
     appState.mouse.x = e.clientX;
     appState.mouse.y = e.clientY;
-    appState.hasMoved = true; // <-- nu globaal beschikbaar
-    console.log("hasMoved:", appState.hasMoved);    
   });
 }
 
