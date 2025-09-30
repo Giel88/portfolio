@@ -35,6 +35,7 @@ export function initCursor() {
     appState.mouse.y = e.clientY;
 
     if (!appState.hasMoved) {
+      console.log("hasMovedviaCursor:", appState.hasMoved);          
       // Eerste beweging: cursor direct, bg vloeiend
       gsap.set(cursor, { x: e.clientX, y: e.clientY, });
       gsap.set(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1 });
