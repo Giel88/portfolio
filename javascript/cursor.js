@@ -35,7 +35,7 @@ export function initCursor() {
 
     if (!appState.hasMoved) {
       // Eerste beweging: cursor direct, bg vloeiend
-      gsap.set(cursor, { x: e.clientX, y: e.clientY });
+      gsap.set(cursor, { x: e.clientX, y: e.clientY, opacity: 1 });
       gsap.set(cursorbg, { x: e.clientX, y: e.clientY });
       gsap.to(cursorbg, { opacity: 1, duration: 0.3, ease: "power2.out" });
       appState.hasMoved = true;
