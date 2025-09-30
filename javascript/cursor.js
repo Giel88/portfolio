@@ -4,47 +4,50 @@ export function initCursor() {
   if (!window.matchMedia("(min-width: 992px)").matches) return;
 
   const defaultSize = 12;
+
+  // Cursor elementen maken
   const cursorbg = document.createElement("div");
   cursorbg.className = "custom-cursor-bg";
-  document.body.appendChild(cursorbg);
-
   const cursor = document.createElement("div");
   cursor.className = "custom-cursor";
-
   const icon = document.createElement("span");
   icon.className = "icon custom-cursor-icon";
-  cursor.appendChild(icon);
-
   const text = document.createElement("span");
   text.className = "custom-cursor-text";
-  cursor.appendChild(text);
 
+  cursor.appendChild(icon);
+  cursor.appendChild(text);
+  document.body.appendChild(cursorbg);
   document.body.appendChild(cursor);
 
+  // Initiële GSAP waarden
   gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, opacity: 0, borderRadius: "50%" });
   gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
+  // Snelle setter voor cursor
   const setCursorX = gsap.quickSetter(cursor, "x", "px");
   const setCursorY = gsap.quickSetter(cursor, "y", "px");
 
+  // Muismove handler
   document.addEventListener("mousemove", (e) => {
-    // Update globale muispositie en hasMoved
     appState.mouse.x = e.clientX;
     appState.mouse.y = e.clientY;
-  
+
     if (!appState.hasMoved) {
-      // Eerste muisbeweging: cursor direct positioneren
+      // Eerste beweging: cursor direct, bg vloeiend
       gsap.set(cursor, { x: e.clientX, y: e.clientY });
-      gsap.set(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1 }); // <-- positie ook direct zetten
+      gsap.set(cursorbg, { x: e.clientX, y: e.clientY });
+      gsap.to(cursorbg, { opacity: 1, duration: 0.3, ease: "power2.out" });
       appState.hasMoved = true;
-      return;
+      return; // skip verdere animatie
     }
-  
-    // Daarna: vloeiende beweging
+
+    // Daarna: cursor direct, bg vloeiend
     gsap.set(cursor, { x: e.clientX, y: e.clientY });
-    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.1, ease: "power2.out" });
+    gsap.to(cursorbg, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
   });
 
+  // Reset cursor naar standaard stip
   function resetToDot() {
     gsap.killTweensOf([cursor, cursorbg, icon, text]);
     gsap.to([icon, text], { duration: 0.2, opacity: 0, scale: 0.6, ease: "power1.in" });
@@ -60,8 +63,9 @@ export function initCursor() {
     });
   }
 
+  // Hover enter
   function handleEnter(el) {
-    if (!appState.hasMoved) return; // <-- check hier nu
+    if (!appState.hasMoved) return; // voorkomt dat hover triggerd zonder muisbeweging
     gsap.killTweensOf([cursor, cursorbg, icon, text]);
 
     const iconHex = el.dataset.hoverIcon;
@@ -84,6 +88,7 @@ export function initCursor() {
     }
   }
 
+  // Event listeners
   document.addEventListener("mouseover", (e) => {
     if (appState.isTransitioning) return;
     const el = e.target.closest("a");
