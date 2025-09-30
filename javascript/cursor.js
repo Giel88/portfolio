@@ -22,6 +22,7 @@ export function initCursor() {
 
   // Initiële GSAP waarden
   gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, borderRadius: "50%" });
+  gsap.set([cursorbg], { opacity: 0 });
   gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
   // Snelle setter voor cursor
