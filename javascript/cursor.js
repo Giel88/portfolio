@@ -39,7 +39,6 @@ export function initCursor() {
       gsap.set(cursor, { x: e.clientX, y: e.clientY, });
       gsap.set(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1 });
       gsap.to(cursorbg, { duration: 0.3, ease: "power2.out" });
-      appState.hasMoved = true;
       return; // skip verdere animatie
     }
 
