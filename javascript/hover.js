@@ -1,15 +1,5 @@
 import { appState } from './main-state.js';
 
-let hasMoved = false;
-
-export function initMouseTracking() {
-  document.addEventListener("mousemove", (e) => {
-    appState.mouse.x = e.clientX;
-    appState.mouse.y = e.clientY;
-    hasMoved = true; // <-- nu is hover pas toegestaan
-  });
-}
-
 export function initHoverAnimations(container = document) {
   if (!window.matchMedia("(min-width: 992px)").matches) return;
 
@@ -18,10 +8,13 @@ export function initHoverAnimations(container = document) {
     if (!title) return;
 
     el.addEventListener("mouseenter", () => {
+      if (!appState.hasMoved) return;
       if (appState.isTransitioning) return;
       gsap.to(title, { x: 20, duration: 0.5, ease: "back.out(2)", overwrite: "auto" });
     });
+
     el.addEventListener("mouseleave", () => {
+      if (!appState.hasMoved) return;
       gsap.to(title, { x: 0, duration: 0.3, ease: "bounce.out", overwrite: "auto" });
     });
   });
@@ -34,6 +27,7 @@ export function initCaseHover(container = document) {
     const hoverContainer = item.querySelector(".case-hover-image-container");
     if (!hoverContainer) return;
 
+    // initial state
     gsap.set(hoverContainer, { 
       opacity: 0, 
       scale: 0, 
@@ -47,7 +41,7 @@ export function initCaseHover(container = document) {
     });
 
     item.addEventListener("mouseenter", () => {
-      if (!hasMoved) return; // <-- voorkomt dat hij verschijnt zonder muis
+      if (!appState.hasMoved) return;
       if (appState.isTransitioning) return;
 
       gsap.killTweensOf(hoverContainer);
@@ -62,7 +56,8 @@ export function initCaseHover(container = document) {
     });
 
     item.addEventListener("mouseleave", () => {
-      if (!hasMoved) return; // safety check
+      if (!appState.hasMoved) return;
+
       gsap.killTweensOf(hoverContainer);
       gsap.to(hoverContainer, { 
         scale: 0.9, 
