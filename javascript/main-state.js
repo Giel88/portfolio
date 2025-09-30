@@ -3,17 +3,17 @@ export const appState = {
   pos: { x: 0, y: 0 },
   lastPos: { x: 0, y: 0 },
   currentHover: null,
-  isTransitioning: false
+  isTransitioning: false,
+  hasMoved: false // <-- toegevoegd
 };
 
 export function initMouseTracking() {
   document.addEventListener("mousemove", (e) => {
     appState.mouse.x = e.clientX;
     appState.mouse.y = e.clientY;
+    appState.hasMoved = true; // <-- nu globaal beschikbaar
   });
 }
-
-let hasMoved = false;
 
 export function initTicker(smoothing = 0.2, maxRotation = 3) {
   gsap.ticker.add(() => {
