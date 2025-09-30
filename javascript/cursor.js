@@ -38,8 +38,8 @@ export function initCursor() {
       console.log("hasMovedviaCursor:", appState.hasMoved);          
       // Eerste beweging: cursor direct, bg vloeiend
       gsap.set(cursor, { x: e.clientX, y: e.clientY, });
-      gsap.set(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1 });
-      gsap.to(cursorbg, { duration: 0.3, ease: "power2.out" });
+      gsap.set(cursorbg, { x: e.clientX, y: e.clientY });
+      gsap.to(cursorbg, { duration: 1,  opacity: 1, ease: "power2.out" });
       appState.hasMoved = true; // <-- nu globaal beschikbaar      
       return; // skip verdere animatie
     }
