@@ -31,11 +31,17 @@ export function initCursor() {
     // Update globale muispositie en hasMoved
     appState.mouse.x = e.clientX;
     appState.mouse.y = e.clientY;
-    if (!appState.hasMoved) appState.hasMoved = true;
-
-    // Cursor bewegen
-    setCursorX(e.clientX);
-    setCursorY(e.clientY);
+  
+    if (!appState.hasMoved) {
+      // Eerste muisbeweging: cursor direct positioneren, achtergrond vloeiend
+      gsap.set(cursor, { x: e.clientX, y: e.clientY });
+      gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.3, ease: "power2.out" });
+      appState.hasMoved = true;
+      return; // geen animatie bij cursor zelf
+    }
+  
+    // Daarna: vloeiende beweging
+    gsap.set(cursor, { x: e.clientX, y: e.clientY });
     gsap.to(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1, duration: 0.1, ease: "power2.out" });
   });
 
