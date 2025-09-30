@@ -33,11 +33,11 @@ export function initCursor() {
     appState.mouse.y = e.clientY;
   
     if (!appState.hasMoved) {
-      // Eerste muisbeweging: cursor direct positioneren, achtergrond vloeiend
+      // Eerste muisbeweging: cursor direct positioneren
       gsap.set(cursor, { x: e.clientX, y: e.clientY });
-      gsap.set(cursorbg, { opacity: 1, duration: 0.3, ease: "power2.out" });
+      gsap.set(cursorbg, { x: e.clientX, y: e.clientY, opacity: 1 }); // <-- positie ook direct zetten
       appState.hasMoved = true;
-      return; // geen animatie bij cursor zelf
+      return;
     }
   
     // Daarna: vloeiende beweging
