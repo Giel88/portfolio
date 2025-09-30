@@ -21,7 +21,7 @@ export function initCursor() {
   document.body.appendChild(cursor);
 
   // Initiële GSAP waarden
-  gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, borderRadius: "50%", scale: 0 });
+  gsap.set([cursor, cursorbg], { width: defaultSize, height: defaultSize, borderRadius: "50%" });
   gsap.set([cursorbg], { opacity: 0 });
   gsap.set([icon, text], { opacity: 0, scale: 0.6 });
 
@@ -39,8 +39,7 @@ export function initCursor() {
       // Eerste beweging: cursor direct, bg vloeiend
       gsap.set(cursor, { x: e.clientX, y: e.clientY, });
       gsap.set(cursorbg, { x: e.clientX, y: e.clientY });
-      gsap.to(cursorbg, { duration: 1,  opacity: 1, ease: "power2.out" });
-      gsap.to([cursorbg, cursor], { scale: 1 });
+      gsap.to(cursorbg, { duration: 0.5,  opacity: 1, ease: "power2.out" });
       appState.hasMoved = true; // <-- nu globaal beschikbaar      
       return; // skip verdere animatie
     }
