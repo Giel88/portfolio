@@ -1,5 +1,15 @@
 import { appState } from './main-state.js';
 
+let hasMoved = false;
+
+export function initMouseTracking() {
+  document.addEventListener("mousemove", (e) => {
+    appState.mouse.x = e.clientX;
+    appState.mouse.y = e.clientY;
+    hasMoved = true; // <-- nu is hover pas toegestaan
+  });
+}
+
 export function initHoverAnimations(container = document) {
   if (!window.matchMedia("(min-width: 992px)").matches) return;
 
@@ -24,22 +34,43 @@ export function initCaseHover(container = document) {
     const hoverContainer = item.querySelector(".case-hover-image-container");
     if (!hoverContainer) return;
 
-    gsap.set(hoverContainer, { opacity: 0, scale: 0, display: "none", x: 0, y: 0, xPercent: -50, yPercent: -50, transformOrigin: "50% 50%", rotation: 0 });
-
-    item.onmouseenter = null;
-    item.onmouseleave = null;
+    gsap.set(hoverContainer, { 
+      opacity: 0, 
+      scale: 0, 
+      display: "none", 
+      x: 0, 
+      y: 0, 
+      xPercent: -50, 
+      yPercent: -50, 
+      transformOrigin: "50% 50%", 
+      rotation: 0 
+    });
 
     item.addEventListener("mouseenter", () => {
+      if (!hasMoved) return; // <-- voorkomt dat hij verschijnt zonder muis
       if (appState.isTransitioning) return;
+
       gsap.killTweensOf(hoverContainer);
       appState.currentHover = hoverContainer;
       gsap.set(hoverContainer, { display: "flex" });
-      gsap.to(hoverContainer, { scale: 1, opacity: 1, duration: 0.2, ease: "back.out(1.7)" });
+      gsap.to(hoverContainer, { 
+        scale: 1, 
+        opacity: 1, 
+        duration: 0.2, 
+        ease: "back.out(1.7)" 
+      });
     });
 
     item.addEventListener("mouseleave", () => {
+      if (!hasMoved) return; // safety check
       gsap.killTweensOf(hoverContainer);
-      gsap.to(hoverContainer, { scale: 0.9, opacity: 0, duration: 0.1, ease: "power1.in", onComplete: () => gsap.set(hoverContainer, { display: "none" }) });
+      gsap.to(hoverContainer, { 
+        scale: 0.9, 
+        opacity: 0, 
+        duration: 0.1, 
+        ease: "power1.in", 
+        onComplete: () => gsap.set(hoverContainer, { display: "none" }) 
+      });
       gsap.to(hoverContainer, { rotation: 0, duration: 0.3, ease: "power1.out" });
       appState.currentHover = null;
     });
