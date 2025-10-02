@@ -163,3 +163,5 @@ tl.to(".page-overlay", {
 });
 
 }
+
+startPreloader();
