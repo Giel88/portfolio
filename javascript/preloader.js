@@ -2,6 +2,10 @@ export function startPreloader() {
 
 const tl = gsap.timeline();
 
+const split01 = new SplitText(".text._01", { type: "chars" });
+const split02 = new SplitText(".text._02", { type: "chars" });
+const split03 = new SplitText(".text._03", { type: "chars" });
+
 tl.to(".preloader-shape-1", {
   x: "-=20px",
   duration: 0.5,
@@ -62,7 +66,7 @@ tl.to(
 );
 
 tl.fromTo(
-  ".text._01",
+  split01.chars,
   { y: "1rem", opacity: 0 },
   { y: "0rem", opacity: 1, duration: 0.5, ease: "power2.out" },
 );
@@ -74,7 +78,7 @@ tl.to(".text._01", {
 });
 
 tl.fromTo(
-  ".text._02",
+  split02.chars,
   { y: "1rem", opacity: 0 },
   { y: "0rem", opacity: 1, duration: 0.5, ease: "power2.out" },
   "<",
@@ -87,7 +91,7 @@ tl.to(".text._02", {
 });
 
 tl.fromTo(
-  ".text._03",
+  split03.chars,
   { y: "1rem", opacity: 0 },
   { y: "0rem", opacity: 1, duration: 0.5, ease: "power2.out" },
   "<",
