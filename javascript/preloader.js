@@ -111,7 +111,7 @@ tl.to(
 tl.to(".preloader-shape-1", {
   x: "+=40vw",
   duration: 0.5,
-  ease: "back.out(1)",
+  ease: "back.out(0.5)",
 });
 
 tl.to(
@@ -119,7 +119,7 @@ tl.to(
   {
     x: "-=40vw",
     duration: 0.5,
-    ease: "back.out(1)",
+    ease: "back.out(0.5)",
   },
   "<",
 );
