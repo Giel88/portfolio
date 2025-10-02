@@ -36,7 +36,7 @@ tl.to(
 );
 
 tl.to(".preloader-shape-1", {
-  x: "-=100px",
+  x: "-=40vw",
   duration: 0.5,
   ease: "back.out(1.7)",
 });
@@ -44,7 +44,7 @@ tl.to(".preloader-shape-1", {
 tl.to(
   ".preloader-shape-2",
   {
-    x: "+=100px",
+    x: "+=40vw",
     duration: 0.5,
     ease: "back.out(1.7)",
   },
@@ -54,7 +54,7 @@ tl.to(
 tl.to(
   ".text-container",
   {
-    width: "200px",
+    width: "100vw",
     duration: 0.5,
     ease: "back.out(1.7)",
   },
@@ -109,7 +109,7 @@ tl.to(
 );
 
 tl.to(".preloader-shape-1", {
-  x: "+=100px",
+  x: "+=40vw",
   duration: 0.5,
   ease: "back.out(1)",
 });
@@ -117,7 +117,7 @@ tl.to(".preloader-shape-1", {
 tl.to(
   ".preloader-shape-2",
   {
-    x: "-=100px",
+    x: "-=40vw",
     duration: 0.5,
     ease: "back.out(1)",
   },
