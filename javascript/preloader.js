@@ -156,7 +156,7 @@ tl.to(
   "<",
 );
 
-tl.to(".page-overlay", {
+tl.to(".page-overlay-preloader", {
   opacity: 0,
   duration: 0.5,
   delay: 0.5,
