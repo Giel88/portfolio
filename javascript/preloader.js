@@ -6,7 +6,7 @@ tl.to(".preloader-shape-1", {
   x: "-=20px",
   duration: 0.5,
   delay: 0.5,
-  ease: "power2.out",
+  ease: "back.out(1)",
 });
 
 tl.to(
@@ -14,7 +14,7 @@ tl.to(
   {
     x: "+=20px",
     duration: 0.5,
-    ease: "power2.out",
+    ease: "back.out(1)",
   },
   "<",
 );
@@ -22,7 +22,7 @@ tl.to(
 tl.to(".preloader-shape-1", {
   y: "+=20px",
   duration: 0.5,
-  ease: "power2.out",
+  ease: "back.out(1)",
 });
 
 tl.to(
@@ -30,7 +30,7 @@ tl.to(
   {
     y: "-=20px",
     duration: 0.5,
-    ease: "power2.out",
+    ease: "back.out(1)",
   },
   "<",
 );
@@ -38,7 +38,7 @@ tl.to(
 tl.to(".preloader-shape-1", {
   x: "-=40vw",
   duration: 0.5,
-  ease: "back.out(1.7)",
+  ease: "back.out(1)",
 });
 
 tl.to(
@@ -46,7 +46,7 @@ tl.to(
   {
     x: "+=40vw",
     duration: 0.5,
-    ease: "back.out(1.7)",
+    ease: "back.out(1)",
   },
   "<",
 );
@@ -56,7 +56,7 @@ tl.to(
   {
     width: "100vw",
     duration: 0.5,
-    ease: "back.out(1.7)",
+    ease: "back.out(1)",
   },
   "<",
 );
@@ -88,7 +88,7 @@ tl.to(".text._02", {
 
 tl.fromTo(
   ".text._03",
-  { y: "1rem", opacity: 0 }, // beginpositie
+  { y: "1rem", opacity: 0 },
   { y: "0rem", opacity: 1, duration: 0.5, ease: "power2.out" },
   "<",
 );
@@ -111,7 +111,7 @@ tl.to(
 tl.to(".preloader-shape-1", {
   x: "+=40vw",
   duration: 0.5,
-  ease: "back.out(0.5)",
+  ease: "back.out(0.25)",
 });
 
 tl.to(
@@ -119,7 +119,7 @@ tl.to(
   {
     x: "-=40vw",
     duration: 0.5,
-    ease: "back.out(0.5)",
+    ease: "back.out(0.25)",
   },
   "<",
 );
