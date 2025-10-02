@@ -1,3 +1,5 @@
+export function startPreloader() {
+
 const tl = gsap.timeline();
 
 tl.to(".preloader-shape-1", {
@@ -159,3 +161,5 @@ tl.to(".page-overlay", {
   duration: 0.5,
   delay: 0.5,
 });
+
+}
