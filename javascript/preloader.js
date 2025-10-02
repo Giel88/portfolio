@@ -6,6 +6,11 @@ const split01 = new SplitText(".text._01", { type: "chars" });
 const split02 = new SplitText(".text._02", { type: "chars" });
 const split03 = new SplitText(".text._03", { type: "chars" });
 
+tl.to(".preloader-container", {
+  opacity: 1,
+  duration: 0.5,
+});
+  
 tl.to(".preloader-shape-1", {
   x: "-=20px",
   duration: 0.5,
