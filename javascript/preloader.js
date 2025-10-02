@@ -60,38 +60,38 @@ tl.to(
 );
 
 tl.fromTo(
-  ".text-01",
+  ".text._01",
   { y: "1rem", opacity: 0 },
   { y: "0rem", opacity: 1, duration: 0.5, ease: "power2.out" },
 );
 
-tl.to(".text-01", {
+tl.to(".text._01", {
   delay: 0.5,
   y: "-1rem",
   opacity: 0,
 });
 
 tl.fromTo(
-  ".text-02",
+  ".text._02",
   { y: "1rem", opacity: 0 },
   { y: "0rem", opacity: 1, duration: 0.5, ease: "power2.out" },
   "<",
 );
 
-tl.to(".text-02", {
+tl.to(".text._02", {
   delay: 0.5,
   y: "-1rem",
   opacity: 0,
 });
 
 tl.fromTo(
-  ".text-03",
+  ".text._03",
   { y: "1rem", opacity: 0 }, // beginpositie
   { y: "0rem", opacity: 1, duration: 0.5, ease: "power2.out" },
   "<",
 );
 
-tl.to(".text-03", {
+tl.to(".text._03", {
   delay: 0.5,
   y: "-1rem",
   opacity: 0,
