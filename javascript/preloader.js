@@ -72,7 +72,7 @@ tl.fromTo(
 );
 
 tl.to(".text._01", {
-  delay: 0.5,
+  delay: 0.25,
   y: "-1rem",
   opacity: 0,
 });
@@ -84,7 +84,7 @@ tl.fromTo(
 );
 
 tl.to(".text._02", {
-  delay: 0.5,
+  delay: 0.25,
   y: "-1rem",
   opacity: 0,
 });
@@ -96,7 +96,7 @@ tl.fromTo(
 );
 
 tl.to(".text._03", {
-  delay: 0.5,
+  delay: 0.25,
   y: "-1rem",
   opacity: 0,
 });
