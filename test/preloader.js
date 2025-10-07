@@ -14,7 +14,7 @@ tl.to(".preloader-container", {
 });
   
 tl.to(".preloader-shape-1", {
-  x: "-=20px",
+  x: "-=1.25rem",
   duration: 0.5,
   delay: 0,
   ease: "back.out(1)",
@@ -23,7 +23,7 @@ tl.to(".preloader-shape-1", {
 tl.to(
   ".preloader-shape-2",
   {
-    x: "+=20px",
+    x: "+=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
   },
@@ -31,7 +31,7 @@ tl.to(
 );
 
 tl.to(".preloader-shape-1", {
-  y: "+=20px",
+  y: "+=1.25rem",
   duration: 0.5,
   ease: "back.out(1)",
 });
@@ -39,7 +39,7 @@ tl.to(".preloader-shape-1", {
 tl.to(
   ".preloader-shape-2",
   {
-    y: "-=20px",
+    y: "-=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
   },
@@ -134,7 +134,7 @@ tl.to(
 );
 
 tl.to(".preloader-shape-1", {
-  y: "+=20px",
+  y: "+=1.25rem",
   duration: 0.5,
   ease: "back.out(1)",
 });
@@ -142,7 +142,7 @@ tl.to(".preloader-shape-1", {
 tl.to(
   ".preloader-shape-2",
   {
-    y: "-=20px",
+    y: "-=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
   },
@@ -150,7 +150,7 @@ tl.to(
 );
 
 tl.to(".preloader-shape-1", {
-  x: "+=20px",
+  x: "+=1.25rem",
   duration: 0.5,
   ease: "back.out(1)",
 });
@@ -158,7 +158,7 @@ tl.to(".preloader-shape-1", {
 tl.to(
   ".preloader-shape-2",
   {
-    x: "-=20px",
+    x: "-=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
   },
