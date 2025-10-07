@@ -1,3 +1,5 @@
+import { scrollReveal, killScrollReveal } from './scroll-reveal.js';
+
 export function startPreloader() {
 
 const tl = gsap.timeline();
