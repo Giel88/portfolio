@@ -1,4 +1,5 @@
 import { initHoverAnimations, initCaseHover } from './hover.js';
+import { startPreloader } from "./preloader.js";
 import { initScrollText, killScrollText } from './scroll.js';
 import { appState } from './main-state.js';
 import { scrollReveal, killScrollReveal } from './scroll-reveal.js';
@@ -52,8 +53,7 @@ export function initBarba() {
       {
         name: 'default',
         once(data) {
-          const overlay = document.querySelector('.page-overlay');
-          gsap.to(overlay, { opacity: 0 });
+          startPreloader(); // wacht tot preloader klaar is
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
