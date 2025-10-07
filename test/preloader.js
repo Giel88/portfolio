@@ -169,4 +169,6 @@ tl.to(".page-overlay-preloader", {
   delay: 0.5,
 });
 
+return tl;  
+
 }
