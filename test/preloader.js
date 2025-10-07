@@ -16,7 +16,7 @@ tl.to(".preloader-container", {
 tl.to(".preloader-shape-1", {
   x: "-=20px",
   duration: 0.5,
-  delay: 0.5,
+  delay: 0,
   ease: "back.out(1)",
 });
 
@@ -168,7 +168,7 @@ tl.to(
 tl.to(".page-overlay-preloader", {
   opacity: 0,
   duration: 0.5,
-  delay: 0.5,
+  delay: 0,
   onStart: () => {
     // start scrollReveal terwijl de preloader wegfade
     scrollReveal(document.querySelector(".scroll-container"));
