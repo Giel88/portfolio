@@ -52,11 +52,8 @@ export function initBarba() {
     transitions: [
       {
         name: 'default',
-        async once(data) {
-          await startPreloader(); // wacht tot preloader klaar is
-          console.log("Preloader:", "Done");
-          scrollReveal(data.next.container);     // start scrollReveal na preloader
-          ScrollTrigger.refresh();  
+        once(data) {
+          startPreloader(); // wacht tot preloader klaar is
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
