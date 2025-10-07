@@ -51,9 +51,9 @@ export function initBarba() {
     transitions: [
       {
         name: 'default',
-        once(data) {
-          const overlay = document.querySelector('.page-overlay');
-          gsap.to(overlay, { opacity: 0 });
+        async once(data) {
+          await startPreloader(); // wacht tot preloader klaar is
+          initScrollReveal();     // start scrollReveal na preloader
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
