@@ -54,7 +54,7 @@ export function initBarba() {
         name: 'default',
         async once(data) {
           await startPreloader(); // wacht tot preloader klaar is
-          initScrollReveal(data.next.container);     // start scrollReveal na preloader
+          initScrollReveal();     // start scrollReveal na preloader
           ScrollTrigger.refresh();  
         },
         beforeLeave(data) {
