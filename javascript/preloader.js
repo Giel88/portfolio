@@ -16,7 +16,7 @@ tl.to(".preloader-container", {
 tl.to(".preloader-shape-1", {
   x: "-=20px",
   duration: 0.5,
-  delay: 0.5,
+  delay: 0,
   ease: "back.out(1)",
 });
 
@@ -24,7 +24,7 @@ tl.to(
   ".preloader-shape-2",
   {
     x: "+=20px",
-    duration: 0.5,
+    duration: 0,
     ease: "back.out(1)",
   },
   "<",
