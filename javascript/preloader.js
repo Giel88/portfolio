@@ -170,5 +170,3 @@ tl.to(".page-overlay-preloader", {
 });
 
 }
-
-startPreloader();
