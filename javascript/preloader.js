@@ -24,7 +24,7 @@ tl.to(
   ".preloader-shape-2",
   {
     x: "+=20px",
-    duration: 0,
+    duration: 0.5,
     ease: "back.out(1)",
   },
   "<",
