@@ -190,9 +190,7 @@ tl.to(
   {
     y: "-=0.1167rem",
     duration: 0.5,
-  },
-  "<",
-);      
+  }"<",);      
 
 tl.to(".page-overlay-preloader", {
   opacity: 0,
