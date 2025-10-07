@@ -165,14 +165,14 @@ tl.to(".preloader-shape-2", {
 tl.to(
   ".preloader-shape-1",
   {
-    y: "-=0.5rem",
+    y: "-=1rem",
     duration: 0.5,
-});       
+},"<");       
 
 tl.to(
   ".preloader-shape-2",
   {
-    y: "+=0.5rem",
+    y: "+=1rem",
     duration: 0.5,
   },"<");      
 
