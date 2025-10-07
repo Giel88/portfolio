@@ -167,8 +167,16 @@ tl.to(
 
 tl.to(".preloader-shape-1", {
   width: "1rem",
+  height: "1rem",
   duration: 0.5,
 });  
+
+
+tl.to(".preloader-shape-2", {
+  width: "1rem",
+  height: "1rem",
+  duration: 0.5,
+});    
 
 tl.to(".page-overlay-preloader", {
   opacity: 0,
