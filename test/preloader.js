@@ -26,9 +26,7 @@ tl.to(
     x: "+=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
-  },
-  "<",
-);
+  },"<",);
 
 tl.to(".preloader-shape-1", {
   y: "+=1.25rem",
@@ -42,9 +40,7 @@ tl.to(
     y: "-=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
-  },
-  "<",
-);
+  },"<",);
 
 tl.to(".preloader-shape-1", {
   x: "-=40vw",
@@ -58,9 +54,7 @@ tl.to(
     x: "+=40vw",
     duration: 0.5,
     ease: "back.out(1)",
-  },
-  "<",
-);
+  },"<",);
 
 tl.to(
   ".text-container",
@@ -68,9 +62,7 @@ tl.to(
     width: "100vw",
     duration: 0.5,
     ease: "back.out(1)",
-  },
-  "<",
-);
+  },"<",);
 
 tl.fromTo(
   split01.chars,
@@ -113,9 +105,7 @@ tl.to(
   {
     width: "0px",
     duration: 0.5,
-  },
-  "<",
-);
+  },"<",);
 
 tl.to(".preloader-shape-1", {
   x: "+=40vw",
@@ -129,9 +119,7 @@ tl.to(
     x: "-=40vw",
     duration: 0.5,
     ease: "back.out(0.25)",
-  },
-  "<",
-);
+  },"<");
 
 tl.to(".preloader-shape-1", {
   y: "+=1.25rem",
@@ -145,9 +133,7 @@ tl.to(
     y: "-=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
-  },
-  "<",
-);
+  },"<");
 
 tl.to(".preloader-shape-1", {
   x: "+=1.25rem",
@@ -161,9 +147,7 @@ tl.to(
     x: "-=1.25rem",
     duration: 0.5,
     ease: "back.out(1)",
-  },
-  "<",
-);
+  },"<");
 
 tl.to(".preloader-shape-1", {
   width: "1rem",
@@ -176,7 +160,7 @@ tl.to(".preloader-shape-2", {
   width: "1rem",
   height: "1rem",
   duration: 0.5,
-}"<",); 
+},"<"); 
 
 tl.to(
   ".preloader-shape-1",
@@ -190,7 +174,7 @@ tl.to(
   {
     y: "-=0.1167rem",
     duration: 0.5,
-  }"<",);      
+  },"<");      
 
 tl.to(".page-overlay-preloader", {
   opacity: 0,
