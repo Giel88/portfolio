@@ -1,4 +1,5 @@
 import { initHoverAnimations, initCaseHover } from './hover.js';
+import { startPreloader } from "./preloader.js";
 import { initScrollText, killScrollText } from './scroll.js';
 import { appState } from './main-state.js';
 import { scrollReveal, killScrollReveal } from './scroll-reveal.js';
@@ -53,7 +54,8 @@ export function initBarba() {
         name: 'default',
         async once(data) {
           await startPreloader(); // wacht tot preloader klaar is
-          initScrollReveal();     // start scrollReveal na preloader
+          initScrollReveal(data.next.container);     // start scrollReveal na preloader
+          ScrollTrigger.refresh();  
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
