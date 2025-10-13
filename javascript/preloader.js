@@ -10,12 +10,12 @@ const split03 = new SplitText(".text._03", { type: "chars" });
 
 tl.to(".preloader-container", {
   opacity: 1,
-  duration: 0.5,
+  duration: 0.3,
 });
   
 tl.to(".preloader-shape-1", {
   x: "-=20px",
-  duration: 0.5,
+  duration: 0.3,
   delay: 0,
   ease: "back.out(1)",
 });
@@ -24,7 +24,7 @@ tl.to(
   ".preloader-shape-2",
   {
     x: "+=20px",
-    duration: 0.5,
+    duration: 0.3,
     ease: "back.out(1)",
   },
   "<",
@@ -32,7 +32,7 @@ tl.to(
 
 tl.to(".preloader-shape-1", {
   y: "+=20px",
-  duration: 0.5,
+  duration: 0.3,
   ease: "back.out(1)",
 });
 
@@ -40,7 +40,7 @@ tl.to(
   ".preloader-shape-2",
   {
     y: "-=20px",
-    duration: 0.5,
+    duration: 0.3,
     ease: "back.out(1)",
   },
   "<",
@@ -48,7 +48,7 @@ tl.to(
 
 tl.to(".preloader-shape-1", {
   x: "-=40vw",
-  duration: 0.5,
+  duration: 0.3,
   ease: "back.out(1)",
 });
 
@@ -56,7 +56,7 @@ tl.to(
   ".preloader-shape-2",
   {
     x: "+=40vw",
-    duration: 0.5,
+    duration: 0.3,
     ease: "back.out(1)",
   },
   "<",
@@ -66,7 +66,7 @@ tl.to(
   ".text-container",
   {
     width: "100vw",
-    duration: 0.5,
+    duration: 0.3,
     ease: "back.out(1)",
   },
   "<",
@@ -75,7 +75,7 @@ tl.to(
 tl.fromTo(
   split01.chars,
   { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "0rem", opacity: 1, duration: 0.3, ease: "back.out(2)", stagger: 0.05 }
 );
 
 tl.to(".text._01", {
@@ -87,7 +87,7 @@ tl.to(".text._01", {
 tl.fromTo(
   split02.chars,
   { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "0rem", opacity: 1, duration: 0.3, ease: "back.out(2)", stagger: 0.05 }
 );
 
 tl.to(".text._02", {
@@ -99,7 +99,7 @@ tl.to(".text._02", {
 tl.fromTo(
   split03.chars,
   { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "0rem", opacity: 1, duration: 0.3, ease: "back.out(2)", stagger: 0.05 }
 );
 
 tl.to(".text._03", {
@@ -112,14 +112,14 @@ tl.to(
   ".text-container",
   {
     width: "0px",
-    duration: 0.5,
+    duration: 0.3,
   },
   "<",
 );
 
 tl.to(".preloader-shape-1", {
   x: "+=40vw",
-  duration: 0.5,
+  duration: 0.3,
   ease: "back.out(0.25)",
 });
 
@@ -127,7 +127,7 @@ tl.to(
   ".preloader-shape-2",
   {
     x: "-=40vw",
-    duration: 0.5,
+    duration: 0.3,
     ease: "back.out(0.25)",
   },
   "<",
@@ -135,7 +135,7 @@ tl.to(
 
 tl.to(".preloader-shape-1", {
   y: "+=20px",
-  duration: 0.5,
+  duration: 0.3,
   ease: "back.out(1)",
 });
 
@@ -143,7 +143,7 @@ tl.to(
   ".preloader-shape-2",
   {
     y: "-=20px",
-    duration: 0.5,
+    duration: 0.3,
     ease: "back.out(1)",
   },
   "<",
@@ -151,7 +151,7 @@ tl.to(
 
 tl.to(".preloader-shape-1", {
   x: "+=20px",
-  duration: 0.5,
+  duration: 0.3,
   ease: "back.out(1)",
 });
 
@@ -159,7 +159,7 @@ tl.to(
   ".preloader-shape-2",
   {
     x: "-=20px",
-    duration: 0.5,
+    duration: 0.3,
     ease: "back.out(1)",
   },
   "<",
@@ -167,7 +167,7 @@ tl.to(
 
 tl.to(".page-overlay-preloader", {
   opacity: 0,
-  duration: 0.5,
+  duration: 0.3,
   delay: 0,
   onStart: () => {
     // start scrollReveal terwijl de preloader wegfade
