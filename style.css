@@ -7,6 +7,11 @@ video {
   will-change: transform;
 }
 
+[data-reveal-content] {
+  filter: blur(0);
+  will-change: transform, opacity, filter;
+}
+
 .fixed {
   position: fixed;
   top: 0;
