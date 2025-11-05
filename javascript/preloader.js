@@ -12,55 +12,6 @@ tl.to(".preloader-container", {
   opacity: 1,
   duration: 0.3,
 });
-  
-tl.to(".preloader-shape-1", {
-  x: "-=20px",
-  duration: 0.3,
-  delay: 0,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "+=20px",
-    duration: 0.3,
-    ease: "back.out(1)",
-  },
-  "<",
-);
-
-tl.to(".preloader-shape-1", {
-  y: "+=20px",
-  duration: 0.3,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    y: "-=20px",
-    duration: 0.3,
-    ease: "back.out(1)",
-  },
-  "<",
-);
-
-tl.to(".preloader-shape-1", {
-  x: "-=40vw",
-  duration: 0.3,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "+=40vw",
-    duration: 0.3,
-    ease: "back.out(1)",
-  },
-  "<",
-);
 
 tl.to(
   ".text-container",
@@ -116,54 +67,6 @@ tl.to(
   {
     width: "0px",
     duration: 0.3,
-  },
-  "<",
-);
-
-tl.to(".preloader-shape-1", {
-  x: "+=40vw",
-  duration: 0.3,
-  ease: "back.out(0.25)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "-=40vw",
-    duration: 0.3,
-    ease: "back.out(0.25)",
-  },
-  "<",
-);
-
-tl.to(".preloader-shape-1", {
-  y: "+=20px",
-  duration: 0.3,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    y: "-=20px",
-    duration: 0.3,
-    ease: "back.out(1)",
-  },
-  "<",
-);
-
-tl.to(".preloader-shape-1", {
-  x: "+=20px",
-  duration: 0.3,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "-=20px",
-    duration: 0.3,
-    ease: "back.out(1)",
   },
   "<",
 );
