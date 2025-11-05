@@ -19,9 +19,7 @@ tl.to(
     width: "100vw",
     duration: 0.3,
     ease: "back.out(1)",
-  },
-  "<",
-);
+  });
 
 tl.fromTo(
   split01.chars,
