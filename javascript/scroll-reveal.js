@@ -77,8 +77,7 @@ export function scrollReveal(container = document) {
     if (!el) return;
     gsap.from(el, {
       y: "10%",
-      opacity: 0,
-      filter: "blur(4px)",      
+      opacity: 0,   
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
