@@ -91,8 +91,7 @@ export function scrollReveal(container = document) {
     const portraitImg = el.querySelector(".portrait-pic");
     if (portraitImg) {
       gsap.from(portraitImg, {
-        y: "-10%",
-        filter: "blur(4px)",        
+        y: "-10%",      
         ease: "none",
         scrollTrigger: {
           trigger: portraitImg,
