@@ -12,6 +12,11 @@ video {
   will-change: transform, opacity, filter;
 }
 
+.text-container {
+  filter: blur(0);
+  will-change: transform, opacity, filter;
+}
+
 .fixed {
   position: fixed;
   top: 0;
