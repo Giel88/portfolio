@@ -4,6 +4,7 @@ import { initHoverAnimations, initCaseHover } from './hover.js';
 import { initScrollText, killScrollText } from './scroll.js';
 import { scrollReveal, killScrollReveal } from './scroll-reveal.js';
 import { initBarba } from './barba.js';
+import { startPreloader } from './preloader.js';
 
 // ================================
 // Init basis state
@@ -15,23 +16,35 @@ initHoverAnimations(document);
 initCaseHover(document);
 
 // ================================
-// Init scroll animaties op eerste page load
+// Functie om alles na preloader te starten
 // ================================
-document.addEventListener("DOMContentLoaded", () => {
-  const initialScrollContainer = document.querySelector(".scroll-container");
-  if (initialScrollContainer) initScrollText(initialScrollContainer);
+export function initPageAnimations(container = document) {
+  const scrollContainer = container.querySelector(".scroll-container");
+  if (scrollContainer) initScrollText(scrollContainer);
 
-  //scrollReveal(document);
-  //if (window.ScrollTrigger) ScrollTrigger.refresh();
-});
+  scrollReveal(container);
+  if (window.ScrollTrigger) ScrollTrigger.refresh();
+}
 
 // ================================
 // Init Barba met cleanup hooks
 // ================================
 initBarba({
-  beforeLeave() {
-    console.log("MAIN: beforeLeave hook fired");
+  once: (data) => startPreloader(data.next.container),
+  afterEnter: (data) => {
+    initHoverAnimations(data.next.container);
+    initCaseHover(data.next.container);
+    appState.isTransitioning = false;
+  },
+  beforeLeave: () => {
     killScrollText();
     killScrollReveal();
   }
+});
+
+// ================================
+// Eerste load trigger
+// ================================
+document.addEventListener("DOMContentLoaded", () => {
+  startPreloader(document);
 });
