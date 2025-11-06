@@ -72,13 +72,13 @@ tl.to(
 tl.to(".page-overlay-preloader", {
   opacity: 0,
   duration: 0.5,
-  delay: 0,
   onStart: () => {
     // start scrollReveal terwijl de preloader wegfade
-    scrollReveal(container.querySelector(".scroll-container") || container);
-    ScrollTrigger.refresh();
+    const scrollContainer = document.querySelector(".scroll-container");
+    if (scrollContainer) scrollReveal(scrollContainer);
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
   }  
-});
+});  
 
 return tl;
 }
