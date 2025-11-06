@@ -22,6 +22,7 @@ export function scrollReveal(container = document) {
       y: "25%",
       rotation: 5,
       opacity: 0,
+      filter: "blur(4px)",      
       stagger: { each: 0.01, total: 0.5, ease: "power1.in" },
       delay: 0.5,
       duration: 1,
@@ -39,6 +40,7 @@ export function scrollReveal(container = document) {
     gsap.from(split.lines, {
       y: "25%",
       opacity: 0,
+      filter: "blur(4px)",
       stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
       duration: 1,
       ease: "power1.out",
@@ -57,6 +59,7 @@ export function scrollReveal(container = document) {
     gsap.from(el, {
       y: "25%",
       opacity: 0,
+      filter: "blur(4px)",      
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
@@ -74,7 +77,7 @@ export function scrollReveal(container = document) {
     if (!el) return;
     gsap.from(el, {
       y: "10%",
-      opacity: 0,
+      opacity: 0,   
       duration: 1,
       ease: "power1.out",
       scrollTrigger: {
@@ -88,7 +91,7 @@ export function scrollReveal(container = document) {
     const portraitImg = el.querySelector(".portrait-pic");
     if (portraitImg) {
       gsap.from(portraitImg, {
-        y: "-10%",
+        y: "-10%",      
         ease: "none",
         scrollTrigger: {
           trigger: portraitImg,
