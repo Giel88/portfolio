@@ -28,8 +28,8 @@ video {
   width: 100%;  
 }
 
-.page-overlay {
-  display: block;
+.page-overlay-preloader {
+  display: flex;
   opacity: 100;
 }
 
