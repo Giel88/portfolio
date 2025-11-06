@@ -96,14 +96,13 @@ export function initBarba() {
           initHoverAnimations(data.next.container);
           initCaseHover(data.next.container);
           appState.isTransitioning = false;
-
+        
           requestAnimationFrame(() => {
             hardResetVideos(data.next.container);
-
+        
             const scrollContainer = data.next.container.querySelector(".scroll-container");
             if (scrollContainer) setTimeout(() => initScrollText(scrollContainer), 50);
-
-            // scrollReveal wordt al via de preloader gestart, alleen refresh
+        
             if (window.ScrollTrigger) ScrollTrigger.refresh();
           });
         }
