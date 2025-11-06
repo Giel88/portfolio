@@ -12,49 +12,6 @@ tl.to(".preloader-container", {
   opacity: 1,
   duration: 0.5,
 });
-  
-tl.to(".preloader-shape-1", {
-  x: "-=1.25rem",
-  duration: 0.5,
-  delay: 0,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "+=1.25rem",
-    duration: 0.5,
-    ease: "back.out(1)",
-  },"<",);
-
-tl.to(".preloader-shape-1", {
-  y: "+=1.25rem",
-  duration: 0.5,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    y: "-=1.25rem",
-    duration: 0.5,
-    ease: "back.out(1)",
-  },"<",);
-
-tl.to(".preloader-shape-1", {
-  x: "-=40vw",
-  duration: 0.5,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "+=40vw",
-    duration: 0.5,
-    ease: "back.out(1)",
-  },"<",);
 
 tl.to(
   ".text-container",
@@ -62,42 +19,45 @@ tl.to(
     width: "100vw",
     duration: 0.5,
     ease: "back.out(1)",
-  },"<",);
+  });
 
 tl.fromTo(
   split01.chars,
-  { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "1rem", opacity: 0, filter: "blur(4px)" },
+  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05, filter: "blur(0px)" }
 );
 
 tl.to(".text._01", {
   delay: 0,
   y: "-1rem",
   opacity: 0,
+  duration: 0.5,  
 });
 
 tl.fromTo(
   split02.chars,
-  { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "1rem", opacity: 0, filter: "blur(4px)" },
+  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05, filter: "blur(0px)" }
 );
 
 tl.to(".text._02", {
   delay: 0,
   y: "-1rem",
   opacity: 0,
+  duration: 0.5,  
 });
 
 tl.fromTo(
   split03.chars,
-  { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "1rem", opacity: 0, filter: "blur(4px)" },
+  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05, filter: "blur(0px)" }
 );
 
 tl.to(".text._03", {
   delay: 0,
   y: "-1rem",
   opacity: 0,
+  duration: 0.5,
 });
 
 tl.to(
@@ -105,76 +65,9 @@ tl.to(
   {
     width: "0px",
     duration: 0.5,
-  },"<",);
-
-tl.to(".preloader-shape-1", {
-  x: "+=40vw",
-  duration: 0.5,
-  ease: "back.out(0.25)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "-=40vw",
-    duration: 0.5,
-    ease: "back.out(0.25)",
-  },"<");
-
-tl.to(".preloader-shape-1", {
-  y: "+=1.25rem",
-  duration: 0.5,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    y: "-=1.25rem",
-    duration: 0.5,
-    ease: "back.out(1)",
-  },"<");
-
-tl.to(".preloader-shape-1", {
-  x: "+=1.25rem",
-  duration: 0.5,
-  ease: "back.out(1)",
-});
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    x: "-=1.25rem",
-    duration: 0.5,
-    ease: "back.out(1)",
-  },"<");
-
-tl.to(".preloader-shape-1", {
-  width: "1rem",
-  height: "1rem",
-  duration: 0.5,
-});  
-
-
-tl.to(".preloader-shape-2", {
-  width: "1rem",
-  height: "1rem",
-  duration: 0.5,
-},"<"); 
-
-tl.to(
-  ".preloader-shape-1",
-  {
-    y: "-=1rem",
-    duration: 0.5,
-},"<");       
-
-tl.to(
-  ".preloader-shape-2",
-  {
-    y: "+=1rem",
-    duration: 0.5,
-  },"<");      
+  },
+  "<",
+);
 
 tl.to(".page-overlay-preloader", {
   opacity: 0,
