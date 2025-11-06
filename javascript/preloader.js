@@ -23,8 +23,8 @@ tl.to(
 
 tl.fromTo(
   split01.chars,
-  { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "1rem", opacity: 0, filter: "blur(4px)" },
+  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05, filter: "blur(0px)" }
 );
 
 tl.to(".text._01", {
@@ -36,8 +36,8 @@ tl.to(".text._01", {
 
 tl.fromTo(
   split02.chars,
-  { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "1rem", opacity: 0, filter: "blur(4px)" },
+  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05, filter: "blur(0px)" }
 );
 
 tl.to(".text._02", {
@@ -49,8 +49,8 @@ tl.to(".text._02", {
 
 tl.fromTo(
   split03.chars,
-  { y: "1rem", opacity: 0 },
-  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05 }
+  { y: "1rem", opacity: 0, filter: "blur(4px)" },
+  { y: "0rem", opacity: 1, duration: 0.5, ease: "back.out(2)", stagger: 0.05, filter: "blur(0px)" }
 );
 
 tl.to(".text._03", {
