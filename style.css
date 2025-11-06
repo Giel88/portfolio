@@ -12,6 +12,10 @@ video {
   will-change: transform, opacity, filter;
 }
 
+[data-reveal-content="paragraph"] > div[aria-hidden="true"] {
+  display: contents;
+}
+
 .text-container {
   filter: blur(0);
   will-change: transform, opacity, filter;
