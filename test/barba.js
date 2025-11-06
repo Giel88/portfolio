@@ -53,7 +53,7 @@ export function initBarba() {
       {
         name: 'default',
         once(data) {
-          startPreloader(); // wacht tot preloader klaar is
+          startPreloader(data.next.container); // wacht tot preloader klaar is
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
