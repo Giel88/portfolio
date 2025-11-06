@@ -75,11 +75,10 @@ tl.to(".page-overlay-preloader", {
   delay: 0,
   onStart: () => {
     // start scrollReveal terwijl de preloader wegfade
-    scrollReveal(document.querySelector(".scroll-container"));
+    scrollReveal(container.querySelector(".scroll-container") || container);
     ScrollTrigger.refresh();
   }  
 });
 
-return tl;  
-
+return tl;
 }
