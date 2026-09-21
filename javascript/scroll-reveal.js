@@ -41,8 +41,8 @@ export function scrollReveal(container = document) {
       y: "25%",
       opacity: 0,
       filter: "blur(4px)",
-      stagger: { each: 0.05, total: 0.5, ease: "power1.in" },
-      duration: 1,
+      stagger: { each: 0.05, total: 0.25, ease: "power1.in" },
+      duration: 0.6,
       ease: "power1.out",
       scrollTrigger: {
         trigger: el,
@@ -59,8 +59,8 @@ export function scrollReveal(container = document) {
     gsap.from(el, {
       y: "25%",
       opacity: 0,
-      filter: "blur(4px)",      
-      duration: 1,
+      filter: "blur(4px)",
+      duration: 0.6,
       ease: "power1.out",
       scrollTrigger: {
         trigger: el,
@@ -77,8 +77,8 @@ export function scrollReveal(container = document) {
     if (!el) return;
     gsap.from(el, {
       y: "10%",
-      opacity: 0,   
-      duration: 1,
+      opacity: 0,
+      duration: 0.6,
       ease: "power1.out",
       scrollTrigger: {
         trigger: el,
