@@ -22,10 +22,10 @@ export function scrollReveal(container = document) {
       y: "25%",
       rotation: 5,
       opacity: 0,
-      filter: "blur(4px)",      
-      stagger: { each: 0.01, total: 0.5, ease: "power1.in" },
-      delay: 0.5,
-      duration: 1,
+      filter: "blur(4px)",
+      stagger: { each: 0.01, total: 0.25, ease: "power1.in" },
+      delay: 0.2,
+      duration: 0.6,
       ease: "back.out(2)"
     });
   });
