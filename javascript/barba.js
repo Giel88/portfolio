@@ -53,7 +53,16 @@ export function initBarba() {
       {
         name: 'default',
         once(data) {
-          startPreloader(); // wacht tot preloader klaar is
+          // Preloader alleen tonen bij de eerste page load van deze browsersessie.
+          // sessionStorage overleeft een refresh, maar wordt geleegd bij het sluiten van het tabblad.
+          if (sessionStorage.getItem('preloaderShown')) {
+            gsap.set(".page-overlay-preloader", { opacity: 0, display: "none" });
+            scrollReveal(document.querySelector(".scroll-container"));
+            ScrollTrigger.refresh();
+          } else {
+            sessionStorage.setItem('preloaderShown', '1');
+            startPreloader(); // wacht tot preloader klaar is
+          }
         },
         beforeLeave(data) {
           appState.isTransitioning = true;
